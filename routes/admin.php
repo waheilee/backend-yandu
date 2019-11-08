@@ -1,4 +1,5 @@
 <?php
+//Route::get('logout','Auth\LoginController@');
 Route::group(['middleware' => ['auth:admin']], function () {
 
 
