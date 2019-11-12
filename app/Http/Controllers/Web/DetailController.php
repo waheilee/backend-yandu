@@ -149,7 +149,7 @@ class DetailController extends Controller
         $result = $app->weChatPay()->order->unify([
             'body' => '租赁支付',
             'out_trade_no' => $order->order_no,
-            'total_fee' =>  exchangeToYuan($order->money),
+            'total_fee' =>  $order->money,
             'notify_url' => url('api/notify/order/2'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'trade_type' => 'NATIVE', // 请对应换成你的支付方式对应的值类型
         ]);
