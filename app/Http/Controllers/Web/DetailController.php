@@ -117,18 +117,18 @@ class DetailController extends Controller
      */
     public function newOrderStore($projectId,$cashDeposit)
     {
-        $count = ProjectOrder::where('member_id', \Auth::user()->id)->where('pay_status', 1)->count();
+        $count = ProjectOrder::where('member_id', \Auth::guard('admin')->user()->id)->where('pay_status', 1)->count();
         if ($count > 0) {
             return '有未完成订单';
         }
         $model = new ProjectOrder();
-        $model->merchant_id = \Auth::user()->id;
+        $model->merchant_id = \Auth::guard('admin')->user()->id;
         $model->project_id  = $projectId;
         $model->money       = exchangeToFen($cashDeposit) ;
         $model->order_no    = date('YmdHis') . rand(1000, 9999);
         $model->channel     = 'WEB';
         $model->save();
-        OrderLog::addLog($model->id, '意向商户押金', \Auth::user()->id);
+        OrderLog::addLog($model->id, '意向商户押金', \Auth::guard('admin')->user()->id);
 
         return $model->id;
     }
