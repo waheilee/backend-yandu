@@ -4,39 +4,44 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\ProjectOrder;
+use App\Requests\ProjectRequest;
+use App\Services\ProjectService;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+
+    protected $projectService;
+
+    public function __construct(ProjectService $projectService)
+    {
+        $this->projectService = $projectService;
+    }
+
     public function index()
     {
         return view('admin.project.index');
     }
 
-    public function store(Request $request)
+    public function indexRequest(Request $request)
+    {
+        $data =$this->projectService->indexAjax($request);
+        return $data;
+    }
+
+    public function store(ProjectRequest $request)
     {
         if ($request->isMethod('get')){
             return view('admin.project.create');
         }else{
             try{
 //                dd($request->all());
-                $proModel = new ProjectOrder();
-                $proModel->num = time();
-                $proModel->merchant_id = auth()->id();
-                $proModel->project_name = $request->input('project_name');
-                $proModel->address      = $request->input('address');
-                $proModel->begin_time   = $request->input('begin_time');
-                $proModel->end_time     = $request->input('end_time');
-                $proModel->size         = $request->input('size');
-                $proModel->cash_deposit = $request->input('cash_deposit');
-                $proModel->budget       = $request->input('budget');
-                $proModel->people_num    = $request->input('people_num');
-                $proModel->phone    = $request->input('phone');
-                $proModel->project_time  = '三周';
-                $proModel->content      = $request->input('content');
-                $proModel->save();
-
+               $data = $this->projectService->createProject($request);
+               if ($data){
+                   $result['status'] = true;
+                   $result['message'] = '项目发布成功';
+                   return response()->json($result);
+               }
             }catch (\Exception $exception){
                 throw $exception;
             }

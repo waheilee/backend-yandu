@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
         Overtrue\LaravelUEditor\UEditorServiceProvider::class,//百度编辑器
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

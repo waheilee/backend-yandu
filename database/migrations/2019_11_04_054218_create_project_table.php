@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectOrderTable extends Migration
+class CreateProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProjectOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_order', function (Blueprint $table) {
+        Schema::create('project', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('num')->comment('项目编号，自动生成')->unique();
             $table->bigInteger('merchant_id')->comment('订单所属用户ID');
