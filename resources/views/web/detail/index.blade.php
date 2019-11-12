@@ -324,11 +324,12 @@
             success: function(data){
                 Swal.fire({
                     title: '微信支付!',
-                    text: 'Modal with a custom image.',
+                    text: '请使用微信扫一扫\n' + '扫描二维码支付',
                     imageUrl: data.qrcode,
-                    imageWidth: 400,
-                    imageHeight: 200,
-                    imageAlt: 'Custom image',
+                    imageWidth: 300,
+                    imageHeight: 300,
+                    focusConfirm:false,
+                    // imageAlt: 'Custom image',
                 })
             }
 
