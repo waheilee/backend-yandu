@@ -14,7 +14,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "overtrue/laravel-ueditor": "~1.0"
+        "overtrue/laravel-ueditor": "~1.0",
+        "overtrue/laravel-wechat": "~5.0",
+        "simplesoftwareio/simple-qrcode": "~2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -35,6 +37,9 @@
         }
     },
     "autoload": {
+        "files": [
+            "app/Functions/helpers.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         },

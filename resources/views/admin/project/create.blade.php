@@ -2,6 +2,8 @@
 @section('css')
     <link href="{{asset('assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/build/toastr.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
+
 
 
 @endsection
@@ -57,15 +59,21 @@
                             {{--</div>--}}
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="begin_time">项目时间结束时间</label>
-                                        <input class="form-control" type="date" value="{{date("Y-m-d",time())}}" name="begin_time" id="begin_time">
+                                    <div class="form-group date" id="begin_time">
+                                        <label class="form-control-label" for="begin_time">项目开始时间</label>
+                                        <input class="form-control" type="text" value="{{date("Y-m-d",time())}}" name="begin_time" >
+                                        <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="end_time">项目时间结束时间</label>
-                                        <input class="form-control" type="date" value="{{date("Y-m-d",time())}}" name="end_time" id="end_time">
+                                    <div class="form-group date" id="end_time">
+                                        <label class="form-control-label" for="end_time">项目结束时间</label>
+                                        <input class="form-control" type="text" value="{{date("Y-m-d",time())}}" name="end_time" >
+                                        <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +89,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="cash_deposit">保证金金额(乙方所需缴纳的保证金额,根据项目预算的1%手续)</label>
-                                <input type="text" class="form-control" id="cash_deposit" name="cash_deposit" value="" placeholder="" >
+                                <input type="text" class="form-control" id="cash_deposit" name="cash_deposit" value="" placeholder="" readonly="readonly">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="people_num">根据项目大小最低使用人数</label>
@@ -89,7 +97,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="phone">联系方式</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="4008-010-911" value="4008-010-911" >
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="4008-010-911" value="4008-010-911" readonly="readonly">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="content">项目详细介绍</label>
@@ -149,14 +157,19 @@
 @endsection
 @section('js')
     <script src="{{asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js')}}"></script>
     <script src="{{asset('assets/vendor/moment/min/moment-with-locales.min.js')}}"></script>
     <script src="{{ asset('assets/vendor/toastr/build/toastr.min.js') }}"></script>
+    <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
         var ue = UE.getEditor('container');
         ue.ready(function() {
             ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
         });
+
+
     </script>
     <script>
         $('#budget').on('blur',function(){
@@ -165,6 +178,19 @@
             $("#cash_deposit").attr("value",cash_deposit);
             // document.getElementById('cash_deposit').value=cash_deposit;
         });
+        $("#begin_time").datepicker({
+            format: 'yyyy-mm-dd',//格式
+            minView:'month',//最小显示的控件
+            language: 'zh-CN',//显示的语言
+            autoclose:true//自动关闭
+        })
+        $("#end_time").datepicker({
+            format: 'yyyy-mm-dd',//格式
+            minView:'month',//最小显示的控件
+            language: 'zh-CN',//显示的语言
+            autoclose:true//自动关闭
+        })
+
     </script>
     <script>
     function submit(){
@@ -175,7 +201,6 @@
         var size = document.getElementById('size').value;
         var budget = document.getElementById('budget').value;
         var people_num = document.getElementById('people_num').value;
-        var state = document.getElementsByName('state')[0];
         console.log(cash_deposit);//false
         if(project_name === '') {toastr.warning('请填写项目名称');return false;}
         if(address === '') {toastr.warning('请填写项目地址');return false;}
@@ -202,12 +227,17 @@
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
             },
             success : function (data) {
-                if(data.code){
-                    layer.msg(data.success);
-                    // alert(obj[0]);
-                    {{--setTimeout(function(){--}}
-                        {{--location.href = '{{url('web/project/create')}}';--}}
-                    {{--},1000);--}}
+                if(data.status){
+                    Swal.fire({
+                        title: data.message,
+                        type: 'success',
+                        focusConfirm: false, //聚焦到确定按钮
+                        showCloseButton: true,//右上角关闭
+                        timer: 2000
+                    })
+                    setTimeout(function(){
+                        location.href = '{{url('admin/project')}}';
+                    },2000);
                 }else {
                     $.each(data.errors, function(idx, obj) {
                         layer.msg(obj[0]);

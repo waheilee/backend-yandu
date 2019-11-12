@@ -140,91 +140,65 @@
         hideMethod: "fadeOut",
 
     };
-    $(document).ready(function(){
-        var ordertime= 120;   //设置再次发送验证码等待时间
-        var timeleft=ordertime;
-        var btn=$("#code");
+    {{--$(document).ready(function(){--}}
+        {{--var ordertime= 120;   //设置再次发送验证码等待时间--}}
+        {{--var timeleft=ordertime;--}}
+        {{--var btn=$("#code");--}}
 
 
-        //计时函数
-        function timeCount(){
-            timeleft-=1
-            if (timeleft>0){
-                btn.val(timeleft+" 秒后重发");
-                setTimeout(timeCount,1000)
-            }
-            else {
-                btn.val("重新发送");
-                timeleft=ordertime   //重置等待时间
-                btn.removeAttr("disabled");
-            }
-        }
+        {{--//计时函数--}}
+        {{--function timeCount(){--}}
+            {{--timeleft-=1--}}
+            {{--if (timeleft>0){--}}
+                {{--btn.val(timeleft+" 秒后重发");--}}
+                {{--setTimeout(timeCount,1000)--}}
+            {{--}--}}
+            {{--else {--}}
+                {{--btn.val("重新发送");--}}
+                {{--timeleft=ordertime   //重置等待时间--}}
+                {{--btn.removeAttr("disabled");--}}
+            {{--}--}}
+        {{--}--}}
 
-        //事件处理函数
-        btn.on("click",function(){
+        {{--//事件处理函数--}}
+        {{--btn.on("click",function(){--}}
 
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            $(this).attr("disabled",true); //防止多次点击
-            //此处可添加 ajax请求 向后台发送 获取验证码请求
-            if (email != '' && password != ''){
-                $.ajax({
-                    type: 'post',
-                    url: "{{ url('admin/login/code') }}",
-                    data: {'email':email},
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data){
-                        if(data.message === 'ok'){
-                            toastr.success('验证码发送成功','');
-                            timeCount(this);
-                        }else {
-                            toastr.warning(data.message,'');
-                            btn.removeAttr("disabled");
-                            return false;
-                        }
-                    },
-                    error : function () {},
-                });
-            }else{
-                toastr.warning('用户名密码不能为空');
-                btn.removeAttr("disabled");
-            }
-        })
+            {{--var email = document.getElementById('email').value;--}}
+            {{--var password = document.getElementById('password').value;--}}
+            {{--$(this).attr("disabled",true); //防止多次点击--}}
+            {{--//此处可添加 ajax请求 向后台发送 获取验证码请求--}}
+            {{--if (email != '' && password != ''){--}}
+                {{--$.ajax({--}}
+                    {{--type: 'post',--}}
+                    {{--url: "{{ url('admin/login/code') }}",--}}
+                    {{--data: {'email':email},--}}
+                    {{--dataType: 'json',--}}
+                    {{--headers: {--}}
+                        {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+                    {{--},--}}
+                    {{--success: function(data){--}}
+                        {{--if(data.message === 'ok'){--}}
+                            {{--toastr.success('验证码发送成功','');--}}
+                            {{--timeCount(this);--}}
+                        {{--}else {--}}
+                            {{--toastr.warning(data.message,'');--}}
+                            {{--btn.removeAttr("disabled");--}}
+                            {{--return false;--}}
+                        {{--}--}}
+                    {{--},--}}
+                    {{--error : function () {},--}}
+                {{--});--}}
+            {{--}else{--}}
+                {{--toastr.warning('用户名密码不能为空');--}}
+                {{--btn.removeAttr("disabled");--}}
+            {{--}--}}
+        {{--})--}}
 
-    })
+    {{--})--}}
 
 
     $("#login_submit").click(function () {
-        {{--var phone = document.getElementById('username').value;--}}
-        {{--var password = document.getElementById('password').value;--}}
 
-        {{--if (isNaN(password)){--}}
-            {{--toastr.warning('密码不能为空','');--}}
-            {{--return false;--}}
-        {{--}--}}
-        {{--var formData = new FormData($('#login_form')[0]);--}}
-
-        {{--$.ajax({--}}
-            {{--type: 'post',--}}
-            {{--url: "{{ url('admin/login') }}",--}}
-            {{--data: formData,--}}
-            {{--cache: false,--}}
-            {{--processData: false,--}}
-            {{--contentType: false,--}}
-            {{--dataType: 'json',--}}
-            {{--success: function(data){--}}
-                {{--if(data.message === 'ok'){--}}
-                    {{--setTimeout(function(){--}}
-                        {{--location.href = '{{url('admin/home')}}';--}}
-                    {{--},1);--}}
-                {{--}else {--}}
-                    {{--toastr.warning(data.message);--}}
-                {{--}--}}
-            {{--},--}}
-        {{--});--}}
         var url = "{{ route('login') }}";
             $.post(url, {
                 'username' : $('input[name=username]').val(),

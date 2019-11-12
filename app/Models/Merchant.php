@@ -76,9 +76,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @mixin \Eloquent
  * @property string|null $remember_token
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Merchant whereRememberToken($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Worker[] $workers
+ * @property-read int|null $workers_count
  */
 class Merchant extends Authenticatable
 {
 
 //    protected $table = 'merchants';
+
+    public function workers()
+    {
+        return $this->hasMany(Worker::class, 'merchant_id', 'id');
+    }
 }
