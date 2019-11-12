@@ -117,7 +117,7 @@ class DetailController extends Controller
      */
     public function newOrderStore($projectId,$cashDeposit)
     {
-        $count = ProjectOrder::where('member_id', \Auth::guard('admin')->user()->id)->where('pay_status', 1)->count();
+        $count = ProjectOrder::where('merchant_id', \Auth::guard('admin')->user()->id)->where('pay_status', 1)->count();
         if ($count > 0) {
             return '有未完成订单';
         }
