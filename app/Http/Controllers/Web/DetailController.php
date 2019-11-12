@@ -128,6 +128,7 @@ class DetailController extends Controller
         $model->order_no    = date('YmdHis') . rand(1000, 9999);
         $model->channel     = 'WEB';
         $model->refund_trade_no = 0;
+        $model->pay_status = 0;
         $model->save();
         OrderLog::addLog($model->id, '意向商户押金', \Auth::guard('admin')->user()->id);
 
