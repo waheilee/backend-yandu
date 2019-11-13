@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DepositOrder;
 use App\Models\MemberDeposit;
 use App\Models\project_check;
+use App\Models\ProjectDeposit;
 use App\Models\ProjectOrder;
 use EasyWeChat\Factory;
 use Illuminate\Http\Request;
@@ -74,7 +75,7 @@ class WeChatPayController extends Controller
         }
         $response = $app->handlePaidNotify(function($message, $fail){
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
-            $order = ProjectOrder::where('order_no', $message['out_trade_no'])->first();
+            $order = ProjectOrder::whereOrderNo( $message['out_trade_no'])->first();
 
             if (!$order) { // 如果订单不存在 或者 订单已经支付过了
                 return true; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
@@ -95,17 +96,19 @@ class WeChatPayController extends Controller
                 return $fail('通信失败，请稍后再通知我');
             }
 
-            ProjectOrder::where('id', $order->id)->update([
+            ProjectOrder::whereId( $order->id)->update([
                 'pay_status' => $order_status
             ]);
 
 
             # 押金记录
-            $model = new MemberDeposit();
-            $model->member_id = $order->merchant_id;
+            $model = new ProjectDeposit();
+            $model->merchant_id = $order->merchant_id;
+            $model->project_id = $order->project_id;
             $model->deposit_type = 1;
             $model->deposit = $order->money;
-            $model->user_id = 0;
+            $model->relate_order_id = $order->id;
+            $model->relate_order = $order->order_no;
             $model->remark = '-';
             $model->save();
 
