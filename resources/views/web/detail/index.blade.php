@@ -72,7 +72,6 @@
     <div class="row">
         <div class="col-md-12" role="main">
             <div class="bs-docs-section">
-
                 {!! $article->content !!}
             </div>
 
@@ -82,48 +81,50 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h1 id="sass" class="page-header">
-                意向商户</h1>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        {{--<th>商户名</th>--}}
-                        {{--<th>工人信息</th>--}}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        {{--<th scope="row"><code>lib/</code></th>--}}
-                        <td>Ruby gem code (Sass configuration, Rails and Compass integrations)</td>
-                    </tr>
-                    <tr>
-                        {{--<th scope="row"><code>tasks/</code></th>--}}
-                        <td>Converter scripts (turning upstream Less to Sass)</td>
-                    </tr>
-                    <tr>
-                        {{--<th scope="row"><code>test/</code></th>--}}
-                        <td>Compilation tests</td>
-                    </tr>
-                    <tr>
-                        {{--<th scope="row"><code>templates/</code></th>--}}
-                        <td>Compass package manifest</td>
-                    </tr>
-                    <tr>
-                        {{--<th scope="row"><code>vendor/assets/</code></th>--}}
-                        <td>Sass, JavaScript, and font files</td>
-                    </tr>
-                    <tr>
-                        {{--<th scope="row"><code>Rakefile</code></th>--}}
-                        <td>Internal tasks, such as rake and convert</td>
-                    </tr>
-                    </tbody>
-                </table>
+        @if($merInfo)
+            <div class="col-md-12">
+                <h1 id="sass" class="page-header">
+                    意向商户</h1>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>商户名</th>
+                            <th>工人信息</th>
+                            <th>合作状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($merInfo as $value =>$k)
+                            <tr >
+                                {{--<th scope="row"><code>lib/</code></th>--}}
+                                <td >{{$k['merchant_name']}}</td>
+                                <td >
+                                    @foreach($k['workers'] as $item =>$i)
+                                        {{$i['worker_name']}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @endforeach
+                                </td>
+                                <td>
+                                    状态
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endif
+
     </div>
 </div>
+<footer class="bs-docs-footer">
+    <div class="container">
+        <ul class="bs-docs-footer-links">
+            <li><a href="https://yd-hb.com/" target="_blank">严度官网</a></li>
+        </ul>
+        <p>Copyright © 2019 严度测评 | 京ICP备19027114号-1</p>
+    </div>
+</footer>
 <input type="hidden" name="article_id" id="article_id" value="{{$article->id}}">
 
 <div class="row">
@@ -354,6 +355,16 @@
             }
         })
     });
+
+    function intention() {
+        Swal.fire({
+            title: '是否确认为合作商户',
+            type: 'info',
+            focusConfirm: false, //聚焦到确定按钮
+            showCloseButton: true,//右上角关闭
+            confirmButtonText: "确定",
+        });
+    }
 </script>
 </body>
 </html>
