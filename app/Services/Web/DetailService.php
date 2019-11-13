@@ -163,13 +163,13 @@ class DetailService
     /**
      * 获取意向商户
      * @param $id
-     * @return array
+     * @return array|bool
      */
     public function getIntentionMerchant($id)
     {
         $inMerModel = ProjectOrder::whereProjectId($id)->wherePayStatus(1)->get();
         if (!$inMerModel){
-            return null;
+            return false;
         }
         $data=[];
         foreach ($inMerModel as $item) {
