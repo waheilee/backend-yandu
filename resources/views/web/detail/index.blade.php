@@ -328,7 +328,7 @@
                     imageUrl: data.qrcode,
                     imageWidth: 300,
                     imageHeight: 300,
-                    focusConfirm:false,
+                    showConfirmButton:false,
                     // imageAlt: 'Custom image',
                 })
             }

@@ -10,6 +10,7 @@ use App\Models\ProjectMerchant;
 use App\Models\Project;
 use App\Models\ProjectOrder;
 use Illuminate\Http\Request;
+use Monolog\Handler\IFTTTHandler;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Controllers\Web\WeChatPayController;
 
@@ -102,10 +103,20 @@ class DetailController extends Controller
         if ($model){
             return '已经是意向商户';
         }else{
-
-            $orderId = $this->newOrderStore($projectId,$cashDeposit);
+            $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
+                                        ->whereProjectId($projectId)
+                                        ->wherePayStatus(0)
+                                        ->where('created_at','>',date('Y-m-d h:i:s',time()-60*60) )
+                                        ->first();
+            if ($checkOrder){
+                $qrCodePath = 'uploads/image/qrcode/order/' . $checkOrder->id . '.png';
+                $data['qrcode'] = url($qrCodePath);
+                return $data;
+            }
+            $orderId  = $this->newOrderStore($projectId,$cashDeposit);
             $orderCode= $this->qr($orderId);
             return $orderCode;
+
         }
     }
 
@@ -117,15 +128,12 @@ class DetailController extends Controller
      */
     public function newOrderStore($projectId,$cashDeposit)
     {
-        $count = ProjectOrder::where('merchant_id', \Auth::guard('admin')->user()->id)->where('pay_status', 1)->count();
-        if ($count > 0) {
-            return '有未完成订单';
-        }
+
         $model = new ProjectOrder();
         $model->merchant_id = \Auth::guard('admin')->user()->id;
         $model->project_id  = $projectId;
         $model->money       = exchangeToFen($cashDeposit) ;
-        $model->order_no    = date('YmdHis') . rand(1000, 9999);
+        $model->order_no    = date('YmdHis') . rand(10000, 99999);
         $model->channel     = 'WEB';
         $model->refund_trade_no = 0;
         $model->pay_status = 0;
@@ -136,6 +144,7 @@ class DetailController extends Controller
     }
 
     /**
+     * 获取微信支付二维码
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
@@ -147,7 +156,7 @@ class DetailController extends Controller
         $app = new WeChatPayController();
         $order = ProjectOrder::find($id);
         $result = $app->weChatPay()->order->unify([
-            'body' => '租赁支付',
+            'body' => '缴纳项目保证金',
             'out_trade_no' => $order->order_no,
             'total_fee' =>  $order->money,
             'notify_url' => url('api/notify/order/2'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
