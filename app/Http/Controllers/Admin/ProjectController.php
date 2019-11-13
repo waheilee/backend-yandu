@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Requests\ProjectRequest;
-use App\Services\ProjectService;
+use App\Requests\Admin\ProjectRequest;
+use App\Services\Admin\ProjectService;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller

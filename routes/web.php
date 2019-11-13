@@ -16,8 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('detail/{id}','Web\DetailController@index');
-Route::post('web/merchants/info','Web\DetailController@getMerchantInfo')->name('info');
+Route::post('web/merchants/info','Web\DetailController@merchantInfo')->name('info');
 Route::post('web/merchants/intention','Web\DetailController@intention')->name('intention');
+Route::get('web/merchants/{id}','Web\DetailController@ddd')->name('ddd');
 
 Auth::routes();
 

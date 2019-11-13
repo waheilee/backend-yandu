@@ -34,6 +34,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereRefundTradeNo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $worker_id 工人id
+ * @property int $status 状态:0未合作，1合作
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereWorkerId($value)
  */
 class ProjectOrder extends Model
 {
