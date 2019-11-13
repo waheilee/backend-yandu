@@ -106,7 +106,7 @@ class DetailController extends Controller
             $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
                                         ->whereProjectId($projectId)
                                         ->wherePayStatus(0)
-                                        ->where('created_at','>',date('Y-m-d h:i:s',time()-60*60) )
+                                        ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
                                         ->first();
             if ($checkOrder){
                 $qrCodePath = 'uploads/image/qrcode/order/' . $checkOrder->id . '.png';
