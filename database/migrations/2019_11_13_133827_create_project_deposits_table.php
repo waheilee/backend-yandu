@@ -15,8 +15,9 @@ class CreateProjectDepositsTable extends Migration
     {
         Schema::create('project_deposits', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('merchant_id');
-            $table->integer('project_id');
+            $table->integer('merchant_id')->comment('意向商户id');
+            $table->integer('project_id')->comment('项目id');
+            $table->integer('pr_mer_id')->comment('项目所属用户id');
             $table->integer('deposit_type')->comment('押金类型，1交押金，2退押金');
             $table->string('deposit')->comment('押金金额，押金余额');
             $table->string('relate_order_id')->nullable()->comment('关联订单ID');

@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit whereRemark($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $pr_mer_id 项目所属用户id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit wherePrMerId($value)
  */
 class ProjectDeposit extends Model
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\project_check;
 use App\Models\ProjectDeposit;
 use App\Models\ProjectOrder;
@@ -97,12 +98,13 @@ class WeChatPayController extends Controller
             ProjectOrder::whereId( $order->id)->update([
                 'pay_status' => $order_status
             ]);
-
+            $userModel = Project::whereId($order->project_id)->first();
 
             # 押金记录
             $model = new ProjectDeposit();
             $model->merchant_id = $order->merchant_id;
             $model->project_id = $order->project_id;
+            $model->pr_mer_id = $userModel->merchant_id;
             $model->deposit_type = 1;
             $model->deposit = $order->money;
             $model->relate_order_id = $order->id;
