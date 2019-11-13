@@ -18,7 +18,7 @@ class CreateProjectDepositsTable extends Migration
             $table->integer('merchant_id');
             $table->integer('project_id');
             $table->integer('deposit_type')->comment('押金类型，1交押金，2退押金');
-            $table->decimal('deposit')->comment('押金金额，押金余额');
+            $table->string('deposit')->comment('押金金额，押金余额');
             $table->string('relate_order_id')->nullable()->comment('关联订单ID');
             $table->string('relate_order')->nullable()->comment('关联订单');
             $table->string('remark')->nullable()->comment('操作备注');
