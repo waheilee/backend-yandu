@@ -81,7 +81,7 @@
 </div>
 <div class="container">
     <div class="row">
-        @if($merInfo)
+        @if(!empty($merInfo))
             <div class="col-md-12">
                 <h1 id="sass" class="page-header">
                     意向商户</h1>
