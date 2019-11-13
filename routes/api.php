@@ -17,4 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('notify/order/{id}', 'Web\WeChatController@deposit');
+Route::post('notify/order/{id}', 'Web\WeChatPayController@deposit');
