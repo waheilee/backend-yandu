@@ -56,6 +56,9 @@ class IntentionService
         $model = ProjectDeposit::whereProjectId($pId)->whereMerchantId($mId)->whereRelateOrder($orderNum)->first();
         $model->remark = 1;
         $model->update();
+        $projectModel = Project::whereId($pId)->first();
+        $projectModel->status = 1;
+        $projectModel->update();
         $data['code'] = 200;
         $data['merchant_name'] = $this->getMerchantName($mId);
         return response()->json($data);
