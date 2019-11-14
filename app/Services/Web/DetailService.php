@@ -174,7 +174,7 @@ class DetailService
         $data=[];
         foreach ($inMerModel as $item) {
             $i = [];
-            $i['merchant_name'] = $this->getMerchantName($item->merchant_id);
+            $i['merchant_name'] = getMerchantName($item->merchant_id);
             $i['merchant_id']   = $item->merchant_id;
             $i['workers']       = $this->getWorkers(json_decode($item->worker_id));
             $data[] = $i;
@@ -183,12 +183,7 @@ class DetailService
         return $data;
     }
 
-    //本项目中商户的公司名称
-    public function getMerchantName($id)
-    {
-        $merchantModel = Merchant::whereId($id)->first();
-        return $merchantModel->company;
-    }
+
 
     //获取意向商户在本项目中的施工人员
     public function getWorkers(array $id)
