@@ -61,41 +61,19 @@
                             <i class="ni ni-ui-04 text-info"></i>
                             <span class="nav-link-text">我要接单</span>
                         </a>
-                        <div class="collapse" id="navbar-components">
+                        <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand') !== false) show @endif"  id="navbar-components">
                             <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="../../pages/components/buttons.html" class="nav-link">Buttons</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/index') !== false) active @endif">
+                                    <a href="{{ url('admin/demand/index') }}" class="nav-link">需求市场</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../../pages/components/cards.html" class="nav-link">Cards</a>
+                                    <a href="../../pages/components/cards.html" class="nav-link">我参与的项目</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../../pages/components/grid.html" class="nav-link">Grid</a>
+                                    <a href="../../pages/components/grid.html" class="nav-link">我合作的项目</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="../../pages/components/notifications.html" class="nav-link">Notifications</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/components/icons.html" class="nav-link">Icons</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/components/typography.html" class="nav-link">Typography</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#navbar-multilevel" class="nav-link" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-multilevel">Multi level</a>
-                                    <div class="collapse show" id="navbar-multilevel" style="">
-                                        <ul class="nav nav-sm flex-column">
-                                            <li class="nav-item">
-                                                <a href="#!" class="nav-link ">Third level menu</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#!" class="nav-link ">Just another link</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#!" class="nav-link ">One last link</a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </li>
                             </ul>
                         </div>
