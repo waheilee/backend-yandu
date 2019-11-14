@@ -183,7 +183,7 @@ class DetailService
         return $data;
     }
 
-    //本项目中商户的名称
+    //本项目中商户的公司名称
     public function getMerchantName($id)
     {
         $merchantModel = Merchant::whereId($id)->first();
