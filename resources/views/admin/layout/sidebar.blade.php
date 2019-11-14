@@ -50,17 +50,8 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/create') !== false) active @endif">
                                     <a href="{{ url('admin/project/create') }}" class="nav-link">发布需求</a>
                                 </li>
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/merchants') !== false) active @endif">
-                                    <a href="{{ url('admin/merchants') }}" class="nav-link">Register</a>
-                                </li>
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/merchants') !== false) active @endif">
-                                    <a href="{{ url('admin/merchants') }}" class="nav-link">Lock</a>
-                                </li>
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/merchants') !== false) active @endif">
-                                    <a href="{{ url('admin/merchants') }}" class="nav-link">Timeline</a>
-                                </li>
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/merchants') !== false) active @endif">
-                                    <a href="{{ url('admin/merchants') }}" class="nav-link">Profile</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/intention') !== false) active @endif">
+                                    <a href="{{ url('admin/project/intention') }}" class="nav-link">意向商户列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -109,78 +100,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
-                            <i class="ni ni-single-copy-04 text-pink"></i>
-                            <span class="nav-link-text">Forms</span>
-                        </a>
-                        <div class="collapse" id="navbar-forms">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="../../pages/forms/elements.html" class="nav-link">Elements</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/forms/components.html" class="nav-link">Components</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/forms/validation.html" class="nav-link">Validation</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
-                            <i class="ni ni-align-left-2 text-default"></i>
-                            <span class="nav-link-text">Tables</span>
-                        </a>
-                        <div class="collapse" id="navbar-tables">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="../../pages/tables/tables.html" class="nav-link">Tables</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/tables/sortable.html" class="nav-link">Sortable</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/tables/datatables.html" class="nav-link">Datatables</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#navbar-maps" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-maps">
-                            <i class="ni ni-map-big text-primary"></i>
-                            <span class="nav-link-text">Maps</span>
-                        </a>
-                        <div class="collapse" id="navbar-maps">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="../../pages/maps/google.html" class="nav-link">Google</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/maps/vector.html" class="nav-link">Vector</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../pages/widgets.html">
-                            <i class="ni ni-archive-2 text-green"></i>
-                            <span class="nav-link-text">Widgets</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../pages/charts.html">
-                            <i class="ni ni-chart-pie-35 text-info"></i>
-                            <span class="nav-link-text">Charts</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../pages/calendar.html">
-                            <i class="ni ni-calendar-grid-58 text-red"></i>
-                            <span class="nav-link-text">Calendar</span>
-                        </a>
-                    </li>
+
                 </ul>
                 <!-- Divider -->
                 <!-- Heading -->
