@@ -19,6 +19,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('demand/join/index','JoinController@index')->name('demand.join.index');
     Route::get('demand/join/list','JoinController@indexRequest')->name('demand.join.indexRequest');
 
+    Route::get('demand/partner/index','PartnerController@index')->name('demand.partner.index');
+    Route::get('demand/partner/list','PartnerController@indexRequest')->name('demand.partner.indexRequest');
+    Route::post('demand/partner/check','PartnerController@check')->name('demand.partner.check');
+
 });
 
 

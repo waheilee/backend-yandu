@@ -54,6 +54,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $province 省份
+ * @property string $city 市
+ * @property string $county 县、区
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereCounty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereProvince($value)
  */
 class Project extends Model
 {

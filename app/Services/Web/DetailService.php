@@ -31,12 +31,12 @@ class DetailService
             return response()->json(['code'=>422,'message'=>'已经是意向商户']);
         }
         if ($project->merchant_id == $merchantId){
-            return response()->json(['code'=>422,'message'=>'改项目为您自己发布，不能成为该项目意向商户']);
+            return response()->json(['code'=>422,'message'=>'该项目为您自己发布，不能成为该项目意向商户']);
         }else{
             $merchantModel = Merchant::whereId($merchantId)->first();
             $worker = $merchantModel->workers()->get();
             if ($worker->count() < $project->people_num){
-                return response()->json(['code'=>422,'message'=>'施工人员小于项目要求最低施工人员数量']);
+                return response()->json(['code'=>422,'message'=>'您商户下的施工人数小于该项目的用工最低人数']);
             }
             $data = $this->getData($merchantModel);
             $data['cash_deposit'] = exchangeToYuan($project->cash_deposit);
@@ -89,24 +89,31 @@ class DetailService
         $merchantId  = $request->input('merchant_id');
         $cashDeposit = $request->input('cash_deposit');
         $worker      = $request->input('worker');
+        $project    = Project::whereId($projectId)->first();
         $model       = ProjectOrder::whereMerchantId($merchantId)->whereProjectId($projectId)->wherePayStatus(1)->first();
         if ($model){
-            return '已经是意向商户';
-        }else{
-            $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
-                ->whereProjectId($projectId)
-                ->wherePayStatus(0)
-                ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
-                ->first();
-            if ($checkOrder){
-                $qrCodePath = 'uploads/image/qrcode/order/' . $checkOrder->id . '.png';
-                $data['qrcode'] = url($qrCodePath);
-                return $data;
-            }
-            $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker);
-            $orderCode= $this->qr($orderId);
-            return $orderCode;
+            return response()->json(['message'=>'您已经是意向商户'],403);
         }
+        if (empty($worker)){
+            return response()->json(['message'=>'施工人元数量不能为空，请从新选择'],403);
+        }
+        if (count($worker) < $project->people_num){
+            return response()->json(['message'=>'您提交施工人员小于项目最低要求，请从新选择'],403);
+        }
+        $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
+            ->whereProjectId($projectId)
+            ->wherePayStatus(0)
+            ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
+            ->first();
+        if ($checkOrder){
+            $qrCodePath = 'uploads/image/qrcode/order/' . $checkOrder->id . '.png';
+            $data['qrcode'] = url($qrCodePath);
+            return $data;
+        }
+        $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker);
+        $orderCode= $this->qr($orderId);
+        return $orderCode;
+
     }
 
     /**

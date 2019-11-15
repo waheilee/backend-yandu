@@ -116,10 +116,10 @@
                     columns:[
                         {title:'项目名称', field:'project_name',},
                         {title:'项目地点', field:'address',},
-                        {title:'项目大小', field:'size',},
-                        {title:'项目标的', field:'budget',},
+                        {title:'项目大小(单位:平米)', field:'size',},
+                        {title:'项目标的(单位:元)', field:'budget',},
                         {title:'项目状态', field:'status',},
-                        {title:'项目周期', field:'project_time',},
+                        {title:'项目周期(单位：天)', field:'project_time',},
                         {title:'项目时间', field:'begin_time',},
                         {title:'发布时间', field:'created',},
                         {title:'查看详情', field:'look',},

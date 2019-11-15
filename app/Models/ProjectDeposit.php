@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $pr_mer_id 项目所属用户id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit wherePrMerId($value)
+ * @property int $check_status
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit whereCheckStatus($value)
  */
 class ProjectDeposit extends Model
 {

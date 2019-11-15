@@ -69,8 +69,8 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">
                                     <a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/components/grid.html" class="nav-link">我合作的项目</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/partner/index') !== false) active @endif">
+                                    <a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>
                                 </li>
                             </ul>
                         </div>
