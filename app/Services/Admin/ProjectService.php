@@ -17,7 +17,7 @@ class ProjectService
             $item['cash_deposit'] = exchangeToYuan($item['cash_deposit']);
             $item['budget']       = exchangeToYuan($item['budget']);
             $item['address']      = $item['province'].'.'.$item['city'].'.'.$item['county'];
-
+            $item['button']       = "<button class='btn btn-warning btn-sm' onclick='del(".$item['id'].")'>删除</button><a href='".url('detail/'.$item['id'])."' target='_blank'><button class='btn btn-primary btn-sm'>查看详情</button></a> ";
         }
         $array['page'] = $project->currentPage();
         $array['rows'] = $project->items();

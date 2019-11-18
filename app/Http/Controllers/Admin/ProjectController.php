@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Requests\Admin\ProjectRequest;
 use App\Services\Admin\ProjectService;
 use Illuminate\Http\Request;
-
+use App\Models\Project;
 class ProjectController extends Controller
 {
 
@@ -46,5 +46,13 @@ class ProjectController extends Controller
                 throw $exception;
             }
         }
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->input('id');
+        $model = Project::whereId($id)->first();
+        $model->delete();
+        return response()->json(['message'=>'删除成功']);
     }
 }

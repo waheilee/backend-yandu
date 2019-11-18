@@ -157,49 +157,9 @@
                                 </div>
                                 <!-- Card footer -->
                             </div>
-
-                                    {{--<form role="form">--}}
-                                        {{--<div class="custom-control custom-checkbox mb-3">--}}
-                                            {{--<input class="custom-control-input" id=" customCheckLogin" type="checkbox">--}}
-                                            {{--<label class="custom-control-label" for=" customCheckLogin">--}}
-                                                {{--<span class="text-muted">意向商户A</span>--}}
-                                            {{--</label>--}}
-                                            {{--<button class="btn btn-outline-primary btn-sm"><a href="" target="_blank">点击查看商户详情</a></button>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="custom-control custom-checkbox mb-3">--}}
-                                            {{--<input class="custom-control-input" id=" customCheckLogin1" type="checkbox">--}}
-                                            {{--<label class="custom-control-label" for=" customCheckLogin1">--}}
-                                                {{--<span class="text-muted">意向商户b</span>--}}
-                                            {{--</label>--}}
-                                            {{--<button class="btn btn-outline-primary btn-sm"><a href="" target="_blank">点击查看商户详情</a></button>--}}
-
-                                        {{--</div>--}}
-                                        {{--<div class="custom-control custom-checkbox mb-3">--}}
-                                            {{--<input class="custom-control-input" id=" customCheckLogin2" type="checkbox">--}}
-                                            {{--<label class="custom-control-label" for=" customCheckLogin2">--}}
-                                                {{--<span class="text-muted">意向商户c</span>--}}
-                                            {{--</label>--}}
-                                            {{--<button class="btn btn-outline-primary btn-sm"><a href="" target="_blank">点击查看商户详情</a></button>--}}
-
-                                        {{--</div>--}}
-                                        {{--<div class="custom-control custom-checkbox mb-3">--}}
-                                            {{--<input class="custom-control-input" id=" customCheckLogin3" type="checkbox">--}}
-                                            {{--<label class="custom-control-label" for=" customCheckLogin3">--}}
-                                                {{--<span class="text-muted">意向商户d</span>--}}
-                                            {{--</label>--}}
-                                            {{--<button class="btn btn-outline-primary btn-sm"><a href="" target="_blank">点击查看商户详情</a></button>--}}
-                                        {{--</div>--}}
-
-
-                                    {{--</form>--}}
-
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-icon text-blue ml-auto" data-dismiss="modal">Close</button>
                                 </div>
-
-
-
-
                         </div>
 
                     </div>
@@ -298,6 +258,7 @@
                         {title:'项目标的(单位:元)', field:'budget',},
                         {title:'项目周期(单位：天)', field:'project_time',},
                         {title:'项目时间', field:'begin_time',},
+                        {title:'操作', field:'button',},
                     ]
                 });
             };
@@ -314,5 +275,43 @@
             };
             return oTableInit;
         };
+    </script>
+    <script>
+        function del(id) {
+            Swal.fire({
+                title: '是否确定删除?',
+                text: "删除后将无法找回!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type:'post',
+                        url:'delete',
+                        data:{'id':id},
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                        },
+                        success : function (data) {
+                            Swal.fire({
+                                title: data.message,
+                                type: 'success',
+                                focusConfirm: false, //聚焦到确定按钮
+                                showCloseButton: true,//右上角关闭
+                                confirmButtonText: '确定',
+                                // timer: 2000
+                            }),
+                            $('#table_id_example').bootstrapTable('refresh', {url: '/admin/project/list'});
+                        },
+                    })
+                }
+            })
+
+        }
     </script>
     @endsection
