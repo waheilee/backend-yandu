@@ -17,8 +17,8 @@ class IntentionService
         $project = ProjectDeposit::wherePrMerId(\Auth::user()->id)->orderBy('project_id')->paginate($limit);
         foreach ($project as $item) {
             $item['deposit']      = exchangeToYuan( $item['deposit']);
-            $item['merchant_name']  = $this->getMerchantName($item['merchant_id']);
-            $item['project_name']   = $this->getProjectName($item['project_id']);
+            $item['merchant_name']  = getMerchantName($item['merchant_id']);
+            $item['project_name']   = getProjectName($item['project_id']);
             $item['button']   = $this->getButton($item['remark'],$item['project_id'],$item['merchant_id'],$item['relate_order']);
         }
         $array['page'] = $project->currentPage();
@@ -27,19 +27,7 @@ class IntentionService
         return $array;
     }
 
-    //本项目中商户的公司名称
-    public function getMerchantName($id)
-    {
-        $merchantModel = Merchant::whereId($id)->first();
-        return $merchantModel->company;
-    }
 
-    //本项目的相名称
-    public function getProjectName($id)
-    {
-        $merchantModel = Project::whereId($id)->first();
-        return $merchantModel->project_name;
-    }
 
     //选择合作商户
     public function getPartner(Request $request)
@@ -60,7 +48,7 @@ class IntentionService
         $projectModel->status = 1;
         $projectModel->update();
         $data['code'] = 200;
-        $data['merchant_name'] = $this->getMerchantName($mId);
+        $data['merchant_name'] = getMerchantName($mId);
         return response()->json($data);
     }
 

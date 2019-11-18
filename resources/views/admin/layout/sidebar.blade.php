@@ -3,7 +3,7 @@
         <!-- Brand -->
         <div class="sidenav-header d-flex align-items-center">
             <a class="navbar-brand" href="../../pages/dashboards/dashboard.html">
-                <img src="../../assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+                <img src="{{asset('assets/img/brand/logo.png')}}" class="navbar-brand-img" alt="...">
             </a>
             <div class="ml-auto">
                 <!-- Sidenav toggler -->
@@ -44,8 +44,8 @@
                         </a>
                         <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/project') !== false) show @endif" id="navbar-examples">
                             <ul class="nav nav-sm flex-column">
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project') !== false) active @endif">
-                                    <a href="{{ url('admin/project') }}" class="nav-link">需求订单列表</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/index') !== false) active @endif">
+                                    <a href="{{ url('admin/project/index') }}" class="nav-link">我发布的需求</a>
                                 </li>
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/create') !== false) active @endif">
                                     <a href="{{ url('admin/project/create') }}" class="nav-link">发布需求</a>
@@ -66,14 +66,14 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/index') !== false) active @endif">
                                     <a href="{{ url('admin/demand/index') }}" class="nav-link">需求市场</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/components/cards.html" class="nav-link">我参与的项目</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">
+                                    <a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/components/grid.html" class="nav-link">我合作的项目</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/partner/index') !== false) active @endif">
+                                    <a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="../../pages/components/notifications.html" class="nav-link">Notifications</a>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">
+                                    <a href="{{ url('admin/worker/index') }}" class="nav-link">我的工人</a>
                                 </li>
                             </ul>
                         </div>

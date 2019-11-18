@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\project_check whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\project_check whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $check_status
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\project_check whereCheckStatus($value)
  */
 class project_check extends Model
 {

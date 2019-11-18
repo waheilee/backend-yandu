@@ -19,6 +19,8 @@ class DemandService
             $item['status']      = $this->getStatus($item['status']);
             $item['look']      = "<a href='".url('detail/'.$item['id'])."' target='_blank'><button class='btn btn-warning btn-sm'>查看详情</button></a>";
             $item['created'] = date('Y-m-d',strtotime($item['created_at']));
+            $item['address']      = $item['province'].'.'.$item['city'].'.'.$item['county'];
+
         }
         $array['page'] = $project->currentPage();
         $array['rows'] = $project->items();

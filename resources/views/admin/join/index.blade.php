@@ -47,11 +47,9 @@
                         <thead class="thead-light">
                         <tr>
                             <th>项目名称</th>
-                            <th>项目地点</th>
-                            <th>项目大小</th>
-                            <th>项目标的</th>
-                            <th>项目周期</th>
-                            <th>项目时间</th>
+                            <th>缴纳保证金金额</th>
+                            <th>保证金状态</th>
+                            <th>项目状态</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,7 +87,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table_id_example').bootstrapTable({
-                    url: '/admin/demand/list',
+                    url: '/admin/demand/join/list',
                     // method: 'get',                      //请求方式（*）
                     //toolbar: '#toolbar',                //工具按钮用哪个容器
                     //striped: true,                      //是否显示行间隔色
@@ -115,14 +113,10 @@
                     //detailView: false,                   //是否显示父子表
                     columns:[
                         {title:'项目名称', field:'project_name',},
-                        {title:'项目地点', field:'address',},
-                        {title:'项目大小(单位:平米)', field:'size',},
-                        {title:'项目标的(单位:元)', field:'budget',},
-                        {title:'项目状态', field:'status',},
-                        {title:'项目周期(单位：天)', field:'project_time',},
-                        {title:'项目时间', field:'begin_time',},
-                        {title:'发布时间', field:'created',},
-                        {title:'查看详情', field:'look',},
+                        {title:'缴纳保证金金额', field:'deposit',},
+                        {title:'保证金状态', field:'deposit_type',},
+                        {title:'项目状态', field:'remark',},
+
                     ]
                 });
             };

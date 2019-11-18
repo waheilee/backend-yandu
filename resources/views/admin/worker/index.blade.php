@@ -1,8 +1,5 @@
 @extends('admin.layout.index')
 @section('css')
-    {{--<link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">--}}
-    {{--<link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}">--}}
-    {{--<link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">--}}
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap-table/dist/bootstrap-table.css') }}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
 @endsection
@@ -12,7 +9,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">发布需求列表</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">工人列表</h6>
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
@@ -21,10 +18,6 @@
                             </ol>
                         </nav>
                     </div>
-                    {{--<div class="col-lg-6 col-5 text-right">--}}
-                    {{--<a href="#" class="btn btn-sm btn-neutral">New</a>--}}
-                    {{--<a href="#" class="btn btn-sm btn-neutral">Filters</a>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -41,17 +34,24 @@
                     <p class="text-sm mb-0">
                         This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
                     </p>
+                    <div class="float-md-right">
+                        <a href="{{url('admin/worker/create')}}"><button class="btn btn-primary btn-lg">新增工人信息</button></a>
+
+                    </div>
+
                 </div>
+
                 <div class="table-responsive py-4">
                     <table  class="table table-no-bordered table-striped"   id="table_id_example">
                         <thead class="thead-light">
                         <tr>
-                            <th>项目名称</th>
-                            <th>项目地点</th>
-                            <th>项目大小</th>
-                            <th>项目标的</th>
-                            <th>项目周期</th>
-                            <th>项目时间</th>
+                            <th>姓名</th>
+                            <th>年龄</th>
+                            <th>性别</th>
+                            <th>手机号码</th>
+                            <th>所在地区</th>
+                            <th>施工技能</th>
+                            <th>工作年限</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,7 +89,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table_id_example').bootstrapTable({
-                    url: '/admin/demand/list',
+                    url: '/admin/worker/list',
                     // method: 'get',                      //请求方式（*）
                     //toolbar: '#toolbar',                //工具按钮用哪个容器
                     //striped: true,                      //是否显示行间隔色
@@ -114,15 +114,14 @@
                     //cardView: false,                    //是否显示详细视图
                     //detailView: false,                   //是否显示父子表
                     columns:[
-                        {title:'项目名称', field:'project_name',},
-                        {title:'项目地点', field:'address',},
-                        {title:'项目大小(单位:平米)', field:'size',},
-                        {title:'项目标的(单位:元)', field:'budget',},
-                        {title:'项目状态', field:'status',},
-                        {title:'项目周期(单位：天)', field:'project_time',},
-                        {title:'项目时间', field:'begin_time',},
-                        {title:'发布时间', field:'created',},
-                        {title:'查看详情', field:'look',},
+                        {title:'姓名', field:'name',},
+                        {title:'年龄', field:'age',},
+                        {title:'性别', field:'sex',},
+                        {title:'手机号码', field:'phone',},
+                        {title:'所在地区', field:'address',},
+                        {title:'施工技能', field:'tec',},
+                        {title:'工作年限', field:'work_age',},
+                        {title:'添加时间', field:'created_at',},
                     ]
                 });
             };

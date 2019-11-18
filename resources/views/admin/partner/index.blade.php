@@ -1,8 +1,5 @@
 @extends('admin.layout.index')
 @section('css')
-    {{--<link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">--}}
-    {{--<link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}">--}}
-    {{--<link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">--}}
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap-table/dist/bootstrap-table.css') }}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
 @endsection
@@ -21,10 +18,6 @@
                             </ol>
                         </nav>
                     </div>
-                    {{--<div class="col-lg-6 col-5 text-right">--}}
-                    {{--<a href="#" class="btn btn-sm btn-neutral">New</a>--}}
-                    {{--<a href="#" class="btn btn-sm btn-neutral">Filters</a>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -47,11 +40,9 @@
                         <thead class="thead-light">
                         <tr>
                             <th>项目名称</th>
-                            <th>项目地点</th>
-                            <th>项目大小</th>
-                            <th>项目标的</th>
-                            <th>项目周期</th>
-                            <th>项目时间</th>
+                            <th>项目状态</th>
+                            <th>操作</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -61,15 +52,55 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="hidden" class="btn btn-block btn-default" id="info" >
+            <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="modal-info" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body p-0">
+                            <div class="card bg-secondary shadow border-0">
+                                <div class="card-header bg-transparent">
+                                    <div class="text-muted text-center mt-2 mb-3"><label>提交验收报告</label></div>
+                                    <div class="btn-wrapper text-center">
+                                    </div>
+                                </div>
+                                <div class="card-body px-lg-5 py-lg-5">
+                                    <div class="text-center text-muted mb-4">
+                                        <small id="username"></small>
+                                    </div>
+                                    <form role="form" id="form">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="project_id" id="project_id" value="">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="content">验收报告详情</label>
+                                            <script id="container" name="content" type="text/plain"></script>
+                                        </div>
+                                    </form>
+                                    <div class="text-center">
+                                        <button type="button" onclick="submit()" class="btn btn-primary my-4">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
 
     <script src="{{asset('assets/vendor/bootstrap-table/dist/bootstrap-table.js') }}"></script>
     <script src="{{asset('assets/vendor/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js') }}"></script>
     <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
-    <script>
-
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+        ue.ready(function() {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+        });
     </script>
     <script>
         $(function () {
@@ -77,11 +108,9 @@
             //1.初始化Table
             var oTable = new TableInit();
             oTable.Init();
-
             //2.初始化Button的点击事件
             // var oButtonInit = new ButtonInit();
             // oButtonInit.Init();
-
         });
 
         var TableInit = function () {
@@ -89,7 +118,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table_id_example').bootstrapTable({
-                    url: '/admin/demand/list',
+                    url: '/admin/demand/partner/list',
                     // method: 'get',                      //请求方式（*）
                     //toolbar: '#toolbar',                //工具按钮用哪个容器
                     //striped: true,                      //是否显示行间隔色
@@ -115,14 +144,8 @@
                     //detailView: false,                   //是否显示父子表
                     columns:[
                         {title:'项目名称', field:'project_name',},
-                        {title:'项目地点', field:'address',},
-                        {title:'项目大小(单位:平米)', field:'size',},
-                        {title:'项目标的(单位:元)', field:'budget',},
-                        {title:'项目状态', field:'status',},
-                        {title:'项目周期(单位：天)', field:'project_time',},
-                        {title:'项目时间', field:'begin_time',},
-                        {title:'发布时间', field:'created',},
-                        {title:'查看详情', field:'look',},
+                        {title:'项目状态', field:'remark',},
+                        {title:'操作', field:'button',},
                     ]
                 });
             };
@@ -139,5 +162,35 @@
             };
             return oTableInit;
         };
+
+
+    </script>
+    <script>
+        function check(data) {
+            $("#project_id").val(data);
+            // 显示模态框
+            $('#modal-info').modal('show');
+        }
+
+        function submit(){
+            var form = new FormData($('#form')[0]);
+            var url = "{{ route('demand.partner.check') }}";
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: form,
+                cache: false,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(data){
+
+                },
+                error:function (data) {
+                    var json = JSON.parse(data.responseText);
+
+                }
+            })
+        }
     </script>
 @endsection

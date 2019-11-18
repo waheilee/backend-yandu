@@ -57,11 +57,7 @@ class DetailController extends Controller
        return $data;
     }
 
-    public function ddd($id)
-    {
-        $da = $this->detailService->getIntentionMerchant($id);
-        dd($da);
-    }
+
 
 
 }

@@ -3,6 +3,8 @@
 use Ramsey\Uuid\Uuid;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
+use App\Models\Merchant;
+use App\Models\Project;
 
 /**
  * 数组转json字符串(非json串)
@@ -135,5 +137,19 @@ function getAppUserUuid()
 function getRaiseSaleIndex($nowPrice, $topPrice)
 {
     return 1000 + (($nowPrice / $topPrice) * 1000);
+}
+
+//本项目中商户的公司名称
+ function getMerchantName($id)
+{
+    $merchantModel = Merchant::whereId($id)->first();
+    return $merchantModel->company;
+}
+
+//本项目的相名称
+function getProjectName($id)
+{
+    $merchantModel = Project::whereId($id)->first();
+    return $merchantModel->project_name;
 }
 

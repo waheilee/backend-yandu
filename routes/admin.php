@@ -5,7 +5,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::get('home', 'IndexController@index')->name('home');
     //我要派单，发布项目，项目需求
-    Route::get('project', 'ProjectController@index')->name('project.list');
+    Route::get('project/index', 'ProjectController@index')->name('project.index');
     Route::get('project/create', 'ProjectController@store')->name('project.store');
     Route::post('project/create', 'ProjectController@store')->name('project.store');
     Route::get('project/list', 'ProjectController@indexRequest')->name('project.indexRequest');
@@ -15,6 +15,21 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::get('demand/index','DemandController@index')->name('demand.index');
     Route::get('demand/list','DemandController@indexRequest')->name('demand.indexRequest');
+
+    Route::get('demand/join/index','JoinController@index')->name('demand.join.index');
+    Route::get('demand/join/list','JoinController@indexRequest')->name('demand.join.indexRequest');
+
+    Route::get('demand/partner/index','PartnerController@index')->name('demand.partner.index');
+    Route::get('demand/partner/list','PartnerController@indexRequest')->name('demand.partner.indexRequest');
+    Route::post('demand/partner/check','PartnerController@check')->name('demand.partner.check');
+
+    Route::get('worker/index','WorkerController@index')->name('worker.index');
+    Route::get('worker/list','WorkerController@indexRequest')->name('worker.indexRequest');
+    Route::get('worker/create','WorkerController@create')->name('worker.create');
+    Route::post('worker/store','WorkerController@store')->name('worker.store');
+    Route::post('worker/image/upload','WorkerController@image');
+
+
 });
 
 

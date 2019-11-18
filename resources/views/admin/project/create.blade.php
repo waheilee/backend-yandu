@@ -49,14 +49,31 @@
                                 <label class="form-control-label" for="">项目名称</label>
                                 <input type="text" class="form-control" name="project_name" id="project_name" placeholder="项目名称">
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="">项目地点</label>
-                                <input type="text" class="form-control" name="address" id="address" placeholder="项目地点">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group " >
+                                        <label class="form-control-label">项目省分 </label>
+                                        <select class="form-control" id="s_province" name="s_province" ></select> 
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group " >
+                                        <label class="form-control-label">市 </label>
+                                        <select class="form-control" id="s_city" name="s_city" ></select> 
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group " >
+                                        <label class="form-control-label">县 </label>
+                                        <select class="form-control" id="s_county" name="s_county" ></select> 
+                                    </div>
+                                </div>
                             </div>
-                            {{--<div class="form-group">--}}
-                                {{--<label class="form-control-label" for="exampleFormControlInput1">项目开始时间</label>--}}
-                                {{--<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="项目开始时间">--}}
-                            {{--</div>--}}
+                            <div class="form-group">
+                                <label class="form-control-label" for="">详细地址</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="项目详细地点">
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group date" id="begin_time">
@@ -69,7 +86,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group date" id="end_time">
-                                        <label class="form-control-label" for="end_time">项目结束时间</label>
+                                        <label class="form-control-label" for="end_time">项目预计结束时间</label>
                                         <input class="form-control" type="text" value="{{date("Y-m-d",time())}}" name="end_time" >
                                         <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
@@ -159,8 +176,27 @@
     <script src="{{asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js')}}"></script>
     <script src="{{asset('assets/vendor/moment/min/moment-with-locales.min.js')}}"></script>
-    <script src="{{ asset('assets/vendor/toastr/build/toastr.min.js') }}"></script>
+    <script src="{{asset('assets/vendor/toastr/build/toastr.min.js') }}"></script>
     <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('assets/js/area.js')}}" type="text/javascript"></script>
+    <script type="text/javascript">_init_area();</script>
+    <script type="text/javascript">
+
+        var Gid  = document.getElementById ;
+
+        var showArea = function(){
+
+            Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
+
+                Gid('s_city').value + " - 县/区" +
+
+                Gid('s_county').value + "</h3>"
+
+        }
+
+        // Gid('s_county').setAttribute('onchange','showArea()');
+
+    </script>
 
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
@@ -201,7 +237,6 @@
         var size = document.getElementById('size').value;
         var budget = document.getElementById('budget').value;
         var people_num = document.getElementById('people_num').value;
-        console.log(cash_deposit);//false
         if(project_name === '') {toastr.warning('请填写项目名称');return false;}
         if(address === '') {toastr.warning('请填写项目地址');return false;}
         if(begin_time === '') {toastr.warning('请选择项目开始时间');return false;}
@@ -236,7 +271,7 @@
                         timer: 2000
                     })
                     setTimeout(function(){
-                        location.href = '{{url('admin/project')}}';
+                        location.href = '{{url('admin/project/index')}}';
                     },2000);
                 }else {
                     $.each(data.errors, function(idx, obj) {
@@ -250,4 +285,5 @@
 
     }
     </script>
+
 @endsection

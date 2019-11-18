@@ -16,6 +16,7 @@ class ProjectService
             $item['project_name'] = "<a href='".url('detail/'.$item['id'])."' target='_blank'>".$item['project_name']."</a>";
             $item['cash_deposit'] = exchangeToYuan($item['cash_deposit']);
             $item['budget']       = exchangeToYuan($item['budget']);
+            $item['address']      = $item['province'].'.'.$item['city'].'.'.$item['county'];
 
         }
         $array['page'] = $project->currentPage();
@@ -44,6 +45,9 @@ class ProjectService
         $proModel->people_num   = $request->input('people_num');
         $proModel->phone        = $request->input('phone');
         $proModel->project_time = $this->diffBetweenTwoDays($request->input('begin_time'),$request->input('end_time')).'天';
+        $proModel->province     = $request->input('s_province');
+        $proModel->city         = $request->input('s_city');
+        $proModel->county       = $request->input('s_county');
         $proModel->content      = $request->input('content');
         return $proModel->save();
     }

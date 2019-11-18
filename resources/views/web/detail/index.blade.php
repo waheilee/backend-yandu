@@ -29,7 +29,7 @@
 <header class="navbar navbar-horizontal navbar-expand navbar-dark flex-row align-items-md-center ct-navbar  py-2" style="background-color: #ffffff">
     <div class="container">
         <a class="navbar-brand mr-0 mr-md-2" href="../../index.html" aria-label="Bootstrap">
-            <img src="../../assets/img/brand/logo.png" style="height: 40px;">
+            <img src="{{asset('assets/img/brand/logo.png')}}" style="height: 40px;">
             <sup>DOCS</sup>
         </a>
     </div>
@@ -55,7 +55,7 @@
             <i class="fas fa-university"></i>
             <span style="margin-right: 40px;">发布单位：严度</span>
             <i class="fas fa-clock"></i>
-            <span style="margin-right: 40px;">发布时间：{{$article->created_at}}</span>
+            <span style="margin-right: 40px;">发布时间：{{date('Y-m-d',strtotime($article->created_at)) }}</span>
         </div>
         <div class="row">
             <div class="col-md-10 col-md-offset-3"></div>
@@ -138,7 +138,7 @@
                             <div class="card-header bg-transparent pb-5">
                                 <div class="text-muted text-center mt-2 mb-3"><small>登录</small></div>
                                 <div class="btn-wrapper text-center">
-                                    <img src="../../assets/img/brand/logo.png" alt="" style="width: 50%;">
+                                    <img src="{{asset('assets/img/brand/logo.png')}}" alt="" style="width: 50%;">
                                 </div>
                             </div>
                             <div class="card-body px-lg-5 py-lg-5">
@@ -296,7 +296,16 @@
             if (200 === data.code) {
                 showQuery(data);
             } else {
-                alert(data.message);
+                Swal.fire({
+                    title: '提示',
+                    text:''+data.message+'',
+                    type: 'info',
+                    focusConfirm: false, //聚焦到确定按钮
+                    showCloseButton: true,//右上角关闭
+                    showConfirmButton:false,
+                    // timer:3000
+                });
+                // alert(data.message);
             }
         })
     });
@@ -332,6 +341,22 @@
                     showConfirmButton:false,
                     // imageAlt: 'Custom image',
                 })
+            },
+            error:function (data) {
+                var json = JSON.parse(data.responseText);
+                Swal.fire({
+                    title: '未满足项目需求',
+                    text: json.message,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    showConfirmButton:false,
+                    cancelButtonText:'取消'
+                })
+                // toastr.warning(json.message,'修改失败');
+                return false;
+                // alert(data.message)
             }
 
 
