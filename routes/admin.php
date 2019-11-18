@@ -23,6 +23,13 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('demand/partner/list','PartnerController@indexRequest')->name('demand.partner.indexRequest');
     Route::post('demand/partner/check','PartnerController@check')->name('demand.partner.check');
 
+    Route::get('worker/index','WorkerController@index')->name('worker.index');
+    Route::get('worker/list','WorkerController@indexRequest')->name('worker.indexRequest');
+    Route::get('worker/create','WorkerController@create')->name('worker.create');
+    Route::post('worker/store','WorkerController@store')->name('worker.store');
+    Route::post('worker/image/upload','WorkerController@image');
+
+
 });
 
 

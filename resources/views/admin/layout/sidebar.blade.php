@@ -72,6 +72,9 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/partner/index') !== false) active @endif">
                                     <a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>
                                 </li>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">
+                                    <a href="{{ url('admin/worker/index') }}" class="nav-link">我的工人</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
