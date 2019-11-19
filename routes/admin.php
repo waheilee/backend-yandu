@@ -13,6 +13,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('project/intention', 'IntentionController@index')->name('project.intention');
     Route::get('project/intention/list', 'IntentionController@indexRequest')->name('project.intention.indexRequest');
     Route::post('project/intention/partner', 'IntentionController@partner')->name('project.intention.partner');
+    Route::post('project/intention/check', 'IntentionController@check')->name('project.intention.check');
 
     Route::get('demand/index','DemandController@index')->name('demand.index');
     Route::get('demand/list','DemandController@indexRequest')->name('demand.indexRequest');

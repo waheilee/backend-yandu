@@ -40,7 +40,7 @@
         <div id="badges-component" class="tab-pane tab-example-result fade active show" role="tabpanel" aria-labelledby="badges-component-tab">
             <span class="badge badge-info">{{$article->address}}</span>
             <span class="badge badge-success">招标公告</span>
-            <span class="badge badge-warning">{{$article->budget.'元'}}</span>
+            <span class="badge badge-warning">{{exchangeToFen($article->budget).'元'}}</span>
         </div>
         <div style="    position: relative;
     width: 100%;

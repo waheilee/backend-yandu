@@ -60,7 +60,43 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="hidden" class="btn btn-block btn-default" id="info" >
+            <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="modal-info" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body p-0">
+                            <div class="card bg-secondary shadow border-0">
+                                <div class="card-header bg-transparent">
+                                    <div class="text-muted text-center mt-2 mb-3"><label>提交验收报告</label></div>
+                                    <div class="btn-wrapper text-center">
+                                    </div>
+                                </div>
+                                <div class="card-body px-lg-5 py-lg-5">
+                                    <div class="text-center text-muted mb-4">
+                                        <small id="username"></small>
+                                    </div>
+                                    <form role="form" id="form">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="project_id" id="project_id" value="">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="content">验收报告详情</label>
+                                            <script id="container" name="content" type="text/plain"></script>
+                                        </div>
+                                    </form>
+                                    <div class="text-center">
+                                        <button type="button" onclick="submit()" class="btn btn-primary my-4">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('js')
@@ -68,7 +104,15 @@
     <script src="{{asset('assets/vendor/bootstrap-table/dist/bootstrap-table.js') }}"></script>
     <script src="{{asset('assets/vendor/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js') }}"></script>
     <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
-
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container',{
+            zIndex:1055,
+        });
+        ue.ready(function() {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+        });
+    </script>
     <script>
         $(function () {
 
@@ -138,7 +182,7 @@
             Swal.fire({
                 title: '是否确定?',
                 text: "确认后无法选择其他商户!",
-                icon: 'warning',
+                type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -168,6 +212,34 @@
                             return false;
                         },
                     });
+
+                }
+            })
+        }
+    </script>
+    <script>
+        function check(data) {
+            $("#project_id").val(data);
+            // 显示模态框
+            $('#modal-info').modal('show');
+        }
+
+        function submit(){
+            var form = new FormData($('#form')[0]);
+            var url = "{{ route('project.intention.check') }}";
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: form,
+                cache: false,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(data){
+
+                },
+                error:function (data) {
+                    var json = JSON.parse(data.responseText);
 
                 }
             })

@@ -168,6 +168,7 @@ return [
         Overtrue\LaravelUEditor\UEditorServiceProvider::class,//百度编辑器
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jacobcyl\AliOSS\AliOssServiceProvider::class,
+        Yansongda\LaravelPay\PayServiceProvider::class,
 
         /*
          * Application Service Providers...

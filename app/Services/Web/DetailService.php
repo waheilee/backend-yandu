@@ -65,7 +65,7 @@ class DetailService
     {
         $arr = [];
         foreach ($data as $k){
-            $arr[] =   "<div class=\"custom-control custom-control-alternative custom-checkbox col-xs-3 col-sm-2\">".
+            $arr[] =   "<div class=\"custom-control custom-control-alternative custom-checkbox col-md-3 \">".
                 "<input class=\"custom-control-input\" name='worker[]' id=\" customCheck".$k->id."\" type=\"checkbox\" value='".$k->id."'>".
                 "<label class=\"custom-control-label\" for=\" customCheck".$k->id."\">".
                 "<span class=\"text-muted\">".$k->name."</span>".

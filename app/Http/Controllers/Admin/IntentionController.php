@@ -33,4 +33,10 @@ class IntentionController extends Controller
        $data = $this->intentionService->getPartner($request);
        return $data;
     }
+
+    public function check(Request $request)
+    {
+        $data =$this->intentionService->checkStore($request);
+        return $data;
+    }
 }

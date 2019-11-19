@@ -97,7 +97,9 @@
     <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-        var ue = UE.getEditor('container');
+        var ue = UE.getEditor('container',{
+            zIndex:1055,
+        });
         ue.ready(function() {
             ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
         });
@@ -144,7 +146,7 @@
                     //detailView: false,                   //是否显示父子表
                     columns:[
                         {title:'项目名称', field:'project_name',},
-                        {title:'项目状态', field:'remark',},
+                        {title:'项目状态', field:'status',},
                         {title:'操作', field:'button',},
                     ]
                 });

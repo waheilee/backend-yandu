@@ -32,6 +32,5 @@ class PartnerController extends Controller
     {
         $data =$this->partnerService->checkStore($request);
         return $data;
-        dd($request->all());
     }
 }
