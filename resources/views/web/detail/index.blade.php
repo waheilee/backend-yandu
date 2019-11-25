@@ -23,7 +23,7 @@
     <!--[if lt IE 9]>
     <!--<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>-->
     {{--<script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>--}}
-    <![endif]-->
+    <!--[endif]-->
 </head>
 <body style="background-color: #ffffff">
 <header class="navbar navbar-horizontal navbar-expand navbar-dark flex-row align-items-md-center ct-navbar  py-2" style="background-color: #ffffff">
@@ -181,33 +181,54 @@
             <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-body p-0">
-                        <div class="card bg-secondary shadow border-0">
-                            <div class="card-header bg-transparent pb-5">
-                                <div class="text-muted text-center mt-2 mb-3"><small>成为意向商户</small></div>
-                                <div class="btn-wrapper text-center">
+                        <div class="card">
+                            <img src="../../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top" style="height: 200px">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-3 order-lg-2">
+                                    <div class="card-profile-image">
+                                        <a href="#">
+                                            <img src="../../assets/img/theme/team-4.jpg" class="rounded-circle">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body px-lg-5 py-lg-5">
-                                <div class="text-center text-muted mb-4">
-                                    <small id="username"></small>
+                            {{--<div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">--}}
+                                {{--<div class="d-flex justify-content-between">--}}
+                                    {{--<a href="#" class="btn btn-sm btn-info mr-4">Connect</a>--}}
+                                    {{--<a href="#" class="btn btn-sm btn-default float-right">Message</a>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            <div class="card-body pt-6">
+                                <div class="row">
+                                    <div class="col">
+
+                                    </div>
                                 </div>
-                                <form role="form" id="form">
+                                <div class="text-center">
+                                    <h5 class="h3">
+                                        Jessica Jones<span class="font-weight-light">, 27</span>
+                                    </h5>
+                                    <div class="h5 font-weight-300">
+                                        <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card header -->
+                            <div class="card-header">
+                                <h3 class="mb-0">选择工人</h3>
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <form id="form">
                                     {{csrf_field()}}
-                                    <div class="container">
-                                        <div class="row ">
-                                            <label class="text-center text-muted mb-4" for="">选择工人</label>
+                                    <div class="row" id="worker">
 
-                                            <div class="form-inline form-group col-md-12" id="worker">
-
-
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <small>成为意向商户所需缴纳的押金（押金为该项目的1%）</small>
                                         <div class="input-group input-group-alternative">
-                                            <input class="form-control" placeholder="" name="cash_deposit" type="text" id="cash_deposit" value="" readonly="readonly">
-                                        </div>
+                                        <input class="form-control" placeholder="" name="cash_deposit" type="text" id="cash_deposit" value="" readonly="readonly">
+                                    </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group input-group-alternative">
@@ -217,10 +238,55 @@
                                     </div>
                                 </form>
                                 <div class="text-center">
-                                    <button type="button" onclick="merchant()" class="btn btn-primary my-4">成为意向商户</button>
+                                    <button class="btn"><img src="{{asset('web/images/aliapy.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="alipay()"></button>
+                                    <button class="btn"><img src="{{asset('web/images/WeChat.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="wechat()"></button>
                                 </div>
                             </div>
                         </div>
+                        {{--<div class="card bg-secondary shadow border-0">--}}
+                            {{--<div class="card-header bg-transparent pb-5">--}}
+                                {{--<div class="text-muted text-center mt-2 mb-3"><small>成为意向商户</small></div>--}}
+                                {{--<div class="btn-wrapper text-center">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="card-body px-lg-5 py-lg-5">--}}
+                                {{--<div class="text-center text-muted mb-4">--}}
+                                    {{--<small id="username"></small>--}}
+                                {{--</div>--}}
+                                {{--<form role="form" id="form">--}}
+                                    {{--{{csrf_field()}}--}}
+                                    {{--<div class="container">--}}
+                                        {{--<div class="row ">--}}
+                                            {{--<label class="text-center text-muted mb-4" for="">选择工人</label>--}}
+
+                                            {{--<div class="form-inline form-group col-md-12" id="worker">--}}
+
+
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<small>成为意向商户所需缴纳的押金（押金为该项目的1%）</small>--}}
+                                        {{--<div class="input-group input-group-alternative">--}}
+                                            {{--<input class="form-control" placeholder="" name="cash_deposit" type="text" id="cash_deposit" value="" readonly="readonly">--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<div class="input-group input-group-alternative">--}}
+                                            {{--<input class="form-control" placeholder="" id="merchant_id" name="merchant_id" type="hidden" value="">--}}
+                                            {{--<input class="form-control" placeholder="" id="project_id" name="project_id" type="hidden" value="">--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</form>--}}
+                                {{--<div class="text-center">--}}
+                                    {{--<button class="btn"><img src="{{asset('web/images/aliapy.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="merchant()"></button>--}}
+                                    {{--<button class="btn"><img src="{{asset('web/images/WeChat.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="merchant()"></button>--}}
+                                {{--</div>--}}
+                                {{--<div class="text-center">--}}
+
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
 
                 </div>
@@ -319,10 +385,10 @@
         $('#modal-info').modal('show');
     }
 
-    function merchant(){
+    function wechat(){
         var form = new FormData($('#form')[0]);
         var url = "{{ route('intention') }}";
-
+        form.append('pay_type','wechat')
         $.ajax({
             type: 'post',
             url: url,
@@ -363,7 +429,73 @@
         });
     }
 
+    function alipay(){
+        var form = new FormData($('#form')[0]);
+        var url = "{{ route('intention') }}";
+        form.append('pay_type','alipay')
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(data){
+                Swal.fire({
+                    title: '支付宝支付!',
+                    text: '请使用支付宝扫一扫\n' + '扫描二维码支付',
+                    imageUrl: data.qrcode,
+                    imageWidth: 300,
+                    imageHeight: 300,
+                    showConfirmButton:false,
+                    // imageAlt: 'Custom image',
+                })
+                window.setInterval(function(){$.ajax({
+                    type: 'post',
+                    url:"{{route('notify')}}",
+                    data: form,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    dataType:'json',
 
+                    success:function(data) {
+                        Swal.fire({
+                            title: '提示',
+                            text:''+data.message+'',
+                            type: 'success',
+                            focusConfirm: false, //聚焦到确定按钮
+                            showCloseButton: true,//右上角关闭
+                            showConfirmButton:false,
+                            timer:2000
+                        });
+                        setTimeout(function() {
+                            window.location.reload()
+                        },2000);
+                    }
+                })},3000);
+            },
+            error:function (data) {
+                var json = JSON.parse(data.responseText);
+                Swal.fire({
+                    title: '未满足项目需求',
+                    text: json.message,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    showConfirmButton:false,
+                    cancelButtonText:'取消'
+                })
+                // toastr.warning(json.message,'修改失败');
+                return false;
+                // alert(data.message)
+            }
+
+
+        });
+    }
 
     $("#login_submit").click(function () {
 

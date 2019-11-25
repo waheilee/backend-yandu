@@ -3,6 +3,7 @@
 
 namespace App\Services\Web;
 
+use App\Http\Controllers\Web\AlipayController;
 use App\Models\ProjectOrder;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use App\Models\Merchant;
 use App\Models\OrderLog;
 use App\Models\ProjectMerchant;
 use App\Models\Project;
+use Yansongda\Pay\Pay;
 
 class DetailService
 {
@@ -42,129 +44,10 @@ class DetailService
             $data['cash_deposit'] = exchangeToYuan($project->cash_deposit);
             $data['merchant_id']  = $merchantModel->id;
             $data['project_id']   = $project->id;
+            $data['logo']   = $merchantModel->logo;
             return response()->json($data);
         }
 
-    }
-
-    public function getData($data)
-    {
-        $arr = [];
-        $arr['code'] = 200;
-        $arr['merchant_name'] = $data->company;
-        $arr['worker']        = $this->getWorker($data->workers()->get());
-        return $arr;
-    }
-
-    /**
-     * 获取工人信息
-     * @param $data
-     * @return array
-     */
-    public function getWorker($data)
-    {
-        $arr = [];
-        foreach ($data as $k){
-            $arr[] =   "<div class=\"custom-control custom-control-alternative custom-checkbox col-md-3 \">".
-                "<input class=\"custom-control-input\" name='worker[]' id=\" customCheck".$k->id."\" type=\"checkbox\" value='".$k->id."'>".
-                "<label class=\"custom-control-label\" for=\" customCheck".$k->id."\">".
-                "<span class=\"text-muted\">".$k->name."</span>".
-                "</label>".
-                "</div>";
-        }
-        return $arr;
-    }
-
-
-    /**
-     * @param Request $request
-     * @return string
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getIntention(Request $request)
-    {
-        $projectId   = $request->input('project_id');
-        $merchantId  = $request->input('merchant_id');
-        $cashDeposit = $request->input('cash_deposit');
-        $worker      = $request->input('worker');
-        $project    = Project::whereId($projectId)->first();
-        $model       = ProjectOrder::whereMerchantId($merchantId)->whereProjectId($projectId)->wherePayStatus(1)->first();
-        if ($model){
-            return response()->json(['message'=>'您已经是意向商户'],403);
-        }
-        if (empty($worker)){
-            return response()->json(['message'=>'施工人元数量不能为空，请从新选择'],403);
-        }
-        if (count($worker) < $project->people_num){
-            return response()->json(['message'=>'您提交施工人员小于项目最低要求，请从新选择'],403);
-        }
-        $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
-            ->whereProjectId($projectId)
-            ->wherePayStatus(0)
-            ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
-            ->first();
-        if ($checkOrder){
-            $qrCodePath = 'uploads/image/qrcode/order/' . $checkOrder->id . '.png';
-            $data['qrcode'] = url($qrCodePath);
-            return $data;
-        }
-        $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker);
-        $orderCode= $this->qr($orderId);
-        return $orderCode;
-
-    }
-
-    /**
-     * 创建订单
-     * @param $projectId
-     * @param $cashDeposit
-     * @param $worker
-     * @return int
-     */
-    public function newOrderStore($projectId,$cashDeposit,$worker)
-    {
-        $model = new ProjectOrder();
-        $model->merchant_id     = \Auth::guard('admin')->user()->id;
-        $model->project_id      = $projectId;
-        $model->money           = exchangeToFen($cashDeposit) ;
-        $model->order_no        = date('YmdHis') . rand(10000, 99999);
-        $model->channel         = 'WEB';
-        $model->refund_trade_no = 0;
-        $model->pay_status      = 0;
-        $model->worker_id       = json_encode($worker);
-        $model->save();
-        OrderLog::addLog($model->id, '意向商户押金', \Auth::guard('admin')->user()->id);
-        return $model->id;
-    }
-
-    /**
-     * 获取微信支付二维码
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function qr($id)
-    {
-        $app = new WeChatPayController();
-        $order = ProjectOrder::find($id);
-        $result = $app->weChatPay()->order->unify([
-            'body' => '缴纳项目保证金',
-            'out_trade_no' => $order->order_no,
-            'total_fee' =>  $order->money,
-            'notify_url' => url('api/notify/order/2'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-            'trade_type' => 'NATIVE', // 请对应换成你的支付方式对应的值类型
-        ]);
-
-        $qrCodePath = 'uploads/image/qrcode/order/' . $id . '.png';
-        QrCode::format('png')->size(300)->generate($result['code_url'], public_path($qrCodePath));
-
-        $data['qrcode'] = url($qrCodePath);
-        $data['out_trade_no'] = $order->order_no;
-        return $data;
     }
 
     /**
@@ -191,7 +74,6 @@ class DetailService
     }
 
 
-
     //获取意向商户在本项目中的施工人员
     public function getWorkers(array $id)
     {
@@ -205,6 +87,152 @@ class DetailService
             $data[] =$i;
         }
         return $data;
+    }
+
+    public function getData($data)
+    {
+        $arr                  = [];
+        $arr['code']          = 200;
+        $arr['merchant_name'] = $data->company;
+        $arr['worker']        = $this->getWorker($data->workers()->get());
+        return $arr;
+    }
+
+    /**
+     * 获取工人信息
+     * @param $data
+     * @return array
+     */
+    public function getWorker($data)
+    {
+        $arr = [];
+        foreach ($data as $k){
+            $arr[] = "<div class=\"col-md-3\">".
+                        "<div class=\"custom-control custom-checkbox mb-3\">".
+                            "<input class=\"custom-control-input\" name='worker[]' id=\"customCheck".$k->id."\" type=\"checkbox\" value='".$k->id."'>".
+                            "<label class=\"custom-control-label\" for=\"customCheck".$k->id."\">".$k->name."</label>".
+                        "</div>".
+                     "</div>";
+        }
+        return $arr;
+    }
+
+
+    /**
+     * 成为意向商户
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getIntention(Request $request)
+    {
+        $projectId   = $request->input('project_id');
+        $merchantId  = $request->input('merchant_id');
+        $cashDeposit = $request->input('cash_deposit');
+        $worker      = $request->input('worker');
+        $payType     = $request->input('pay_type');
+        $project     = Project::whereId($projectId)->first();
+        $model       = ProjectOrder::whereMerchantId($merchantId)->whereProjectId($projectId)->wherePayStatus(1)->first();
+        if ($model){
+            return response()->json(['message'=>'您已经是意向商户'],403);
+        }
+        if (empty($worker)){
+            return response()->json(['message'=>'施工人元数量不能为空，请从新选择'],403);
+        }
+        if (count($worker) < $project->people_num){
+            return response()->json(['message'=>'您提交施工人员小于项目最低要求，请从新选择'],403);
+        }
+
+        if ($payType == 'wechat'){
+            $data = $this->wechatQrCode($projectId,$cashDeposit,$worker,$payType);
+            return $data;
+        }else{
+            $data = $this->alipayQrCode($projectId,$cashDeposit,$worker,$payType);
+            return $data;
+        }
+
+    }
+
+
+    /**
+     * @param $projectId
+     * @param $cashDeposit
+     * @param $worker
+     * @param $type
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+
+    public function wechatQrCode($projectId,$cashDeposit,$worker,$type)
+    {
+        $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
+            ->whereProjectId($projectId)
+            ->wherePayStatus(0)
+            ->whereChannel($type)
+            ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
+            ->first();
+        if ($checkOrder){
+            $qrCodePath     = 'uploads/image/qrcode/order/'. 'wechat'. $checkOrder->id . '.png';
+            $data['qrcode'] = url($qrCodePath);
+            return $data;
+        }
+        $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker,$type);
+        $orderCode= new WeChatPayController();
+        $scan     = $orderCode->wechatScan($orderId);
+        return $scan;
+    }
+
+    /**
+     * @param $projectId
+     * @param $cashDeposit
+     * @param $worker
+     * @param $type
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function alipayQrCode($projectId,$cashDeposit,$worker,$type)
+    {
+        $checkOrder = ProjectOrder::whereMerchantId( \Auth::guard('admin')->user()->id)
+            ->whereProjectId($projectId)
+            ->wherePayStatus(0)
+            ->whereChannel($type)
+            ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
+            ->first();
+        if ($checkOrder){
+            $qrCodePath     = 'uploads/image/qrcode/order/'. 'alipay'. $checkOrder->id . '.png';
+            $data['qrcode'] = url($qrCodePath);
+            return $data;
+        }
+        $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker,$type);
+        $orderCode= new AlipayController();
+        $scan     = $orderCode->aliPayScan($orderId);
+        return $scan;
+    }
+
+    /**
+     * 创建订单
+     * @param $projectId
+     * @param $cashDeposit
+     * @param $worker
+     * @return int
+     */
+    public function newOrderStore($projectId,$cashDeposit,$worker,$type)
+    {
+        $model = new ProjectOrder();
+        $model->merchant_id     = \Auth::guard('admin')->user()->id;
+        $model->project_id      = $projectId;
+        $model->money           = exchangeToFen($cashDeposit) ;
+        $model->order_no        = date('YmdHis') . rand(10000, 99999);
+        $model->channel         = $type;
+        $model->refund_trade_no = 0;
+        $model->pay_status      = 0;
+        $model->worker_id       = json_encode($worker);
+        $model->save();
+        OrderLog::addLog($model->id, '意向商户押金', \Auth::guard('admin')->user()->id);
+        return $model->id;
     }
 
 }

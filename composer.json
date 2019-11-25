@@ -19,7 +19,7 @@
         "overtrue/laravel-wechat": "~5.0",
         "simplesoftwareio/simple-qrcode": "~2",
         "summergeorge/ali-oss-storage": "^2.1",
-
+        "yansongda/laravel-pay": "^2.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

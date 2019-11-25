@@ -10,6 +10,7 @@ use App\Models\ProjectDeposit;
 use App\Models\ProjectOrder;
 use EasyWeChat\Factory;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class WeChatPayController extends Controller
 {
@@ -56,6 +57,34 @@ class WeChatPayController extends Controller
 
         $app = Factory::payment($config);
         return $app;
+    }
+
+    /**
+     * 获取微信支付二维码
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function wechatScan($id)
+    {
+        $app = new WeChatPayController();
+        $order = ProjectOrder::find($id);
+        $result = $app->weChatPay()->order->unify([
+            'body' => '缴纳项目保证金',
+            'out_trade_no' => $order->order_no,
+            'total_fee' =>  $order->money,
+            'notify_url' => url('api/notify/order/2'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'trade_type' => 'NATIVE', // 请对应换成你的支付方式对应的值类型
+        ]);
+
+        $qrCodePath = 'uploads/image/qrcode/order/'.'wechat'. $id . '.png';
+        QrCode::format('png')->size(300)->generate($result['code_url'], public_path($qrCodePath));
+
+        $data['qrcode'] = url($qrCodePath);
+        $data['out_trade_no'] = $order->order_no;
+        return $data;
     }
 
     /**

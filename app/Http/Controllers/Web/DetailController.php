@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 
 use App\Models\Project;
+use App\Models\ProjectDeposit;
 use App\Models\ProjectOrder;
 use Illuminate\Http\Request;
 use App\Services\Web\DetailService;
@@ -58,6 +59,19 @@ class DetailController extends Controller
     }
 
 
+    public function notify(Request $request)
+    {
+        $model = ProjectOrder::whereMerchantId($request->input('merchant_id'))
+                            ->whereProjectId($request->input('project_id'))
+                            ->wherePayStatus(1)
+                            ->whereChannel($request->input('pay_type'))
+                            ->first();
+        if ($model){
+            return response()->json(['message'=>'支付成功']);
+        }else{
+            return false;
+        }
+    }
 
 
 }
