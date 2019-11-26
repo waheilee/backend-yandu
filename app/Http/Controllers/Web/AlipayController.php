@@ -10,8 +10,6 @@ use App\Models\ProjectOrder;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class AlipayController extends Controller
 {
-    private $pay_order;     //我方订单号
-    private $call_order;    //第三方订单号
 
     // 支付宝扫码 支付
     public function aliPayScan($id)
@@ -45,10 +43,6 @@ class AlipayController extends Controller
         $alipay = Pay::alipay(config('pay.alipay'));
 
         try{
-            $this->pay_order = $request->out_trade_no;
-            $this->call_order = $request->trade_no;
-
-            //$save_back = $m_pay_back->addback($this->pay_order,json_encode($request->all()));  //将支付回调信息记录到数据库中
             $data = $alipay->verify(); // 是的，验签就这么简单！
 
             // 请自行对 trade_status 进行判断及其它逻辑进行判断，在支付宝的业务通知中，只有交易通知状态为 TRADE_SUCCESS 或 TRADE_FINISHED 时，支付宝才会认定为买家付款成功。
@@ -58,7 +52,7 @@ class AlipayController extends Controller
             // 4、验证app_id是否为该商户本身。
             // 5、其它业务逻辑情况
 
-            \Log::debug('Alipay notify', $request->all());
+            \Log::debug('Alipay notify', $data->all());
         } catch (\Exception $e) {
             // $e->getMessage();
         }
