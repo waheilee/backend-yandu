@@ -53,17 +53,17 @@ class AlipayController extends Controller
             // 3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）；
             // 4、验证app_id是否为该商户本身。
             // 5、其它业务逻辑情况
-            $order = ProjectOrder::whereOrderNo( $request->input('out_trade_no'))->first();
+            $order = ProjectOrder::whereOrderNo( $data->out_trade_no)->first();
             if (!$order) { // 如果订单不存在 或者 订单已经支付过了
                 return true; // 告诉支付宝，我已经处理完了，订单没找到，别再通知我了
             }
 
-            if ($request->input('trade_status') === 'TRADE_SUCCESS' or 'TRADE_FINISHED'){
+            if ($data->trade_status === 'TRADE_SUCCESS' or 'TRADE_FINISHED'){
 
-                if ($request->input('app_id') != env('ALI_APP_ID')){
+                if ($data->app_id != env('ALI_APP_ID')){
                     return false;
                 }
-                if (exchangeToFen($request->input('total_amount')) != $order->money ){
+                if (exchangeToFen($data->total_amount) != $order->money ){
                     return false;
                 }
                 $order_status = 1;
@@ -86,7 +86,7 @@ class AlipayController extends Controller
             $model->relate_order = $order->order_no;
             $model->remark = '-';
             $model->save();
-            \Log::debug('Alipay notify', $data->all());
+            \Log::debug('Alipay notify success', $data->all());
         } catch (\Exception $e) {
             throw new $e->getMessage();
             // $e->getMessage();
