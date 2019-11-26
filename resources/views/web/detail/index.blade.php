@@ -388,7 +388,7 @@
     function wechat(){
         var form = new FormData($('#form')[0]);
         var url = "{{ route('intention') }}";
-        form.append('pay_type','wechat')
+        form.append('pay_type','wechat');
         $.ajax({
             type: 'post',
             url: url,
@@ -406,51 +406,7 @@
                     imageHeight: 300,
                     showConfirmButton:false,
                     // imageAlt: 'Custom image',
-                })
-            },
-            error:function (data) {
-                var json = JSON.parse(data.responseText);
-                Swal.fire({
-                    title: '未满足项目需求',
-                    text: json.message,
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    showConfirmButton:false,
-                    cancelButtonText:'取消'
-                })
-                // toastr.warning(json.message,'修改失败');
-                return false;
-                // alert(data.message)
-            }
-
-
-        });
-    }
-
-    function alipay(){
-        var form = new FormData($('#form')[0]);
-        var url = "{{ route('intention') }}";
-        form.append('pay_type','alipay')
-        $.ajax({
-            type: 'post',
-            url: url,
-            data: form,
-            cache: false,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(data){
-                Swal.fire({
-                    title: '支付宝支付!',
-                    text: '请使用支付宝扫一扫\n' + '扫描二维码支付',
-                    imageUrl: data.qrcode,
-                    imageWidth: 300,
-                    imageHeight: 300,
-                    showConfirmButton:false,
-                    // imageAlt: 'Custom image',
-                })
+                });
                 window.setInterval(function(){$.ajax({
                     type: 'post',
                     url:"{{route('notify')}}",
@@ -487,7 +443,75 @@
                     cancelButtonColor: '#d33',
                     showConfirmButton:false,
                     cancelButtonText:'取消'
-                })
+                });
+                // toastr.warning(json.message,'修改失败');
+                return false;
+                // alert(data.message)
+            }
+
+
+        });
+    }
+
+    function alipay(){
+        var form = new FormData($('#form')[0]);
+        var url = "{{ route('intention') }}";
+        form.append('pay_type','alipay');
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(data){
+                Swal.fire({
+                    title: '支付宝支付!',
+                    text: '请使用支付宝扫一扫\n' + '扫描二维码支付',
+                    imageUrl: data.qrcode,
+                    imageWidth: 300,
+                    imageHeight: 300,
+                    showConfirmButton:false,
+                    // imageAlt: 'Custom image',
+                });
+                window.setInterval(function(){$.ajax({
+                    type: 'post',
+                    url:"{{route('notify')}}",
+                    data: form,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    dataType:'json',
+
+                    success:function(data) {
+                        Swal.fire({
+                            title: '提示',
+                            text:''+data.message+'',
+                            type: 'success',
+                            focusConfirm: false, //聚焦到确定按钮
+                            showCloseButton: true,//右上角关闭
+                            showConfirmButton:false,
+                            timer:2000
+                        });
+                        setTimeout(function() {
+                            window.location.reload()
+                        },2000);
+                    }
+                })},3000);
+            },
+            error:function (data) {
+                var json = JSON.parse(data.responseText);
+                Swal.fire({
+                    title: '未满足项目需求',
+                    text: json.message,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    showConfirmButton:false,
+                    cancelButtonText:'取消'
+                });
                 // toastr.warning(json.message,'修改失败');
                 return false;
                 // alert(data.message)
