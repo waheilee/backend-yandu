@@ -57,42 +57,44 @@ class AlipayController extends Controller
             if (!$order) { // 如果订单不存在 或者 订单已经支付过了
                 return true; // 告诉支付宝，我已经处理完了，订单没找到，别再通知我了
             }
-
-            if ($data->trade_status === 'TRADE_SUCCESS' or 'TRADE_FINISHED'){
-
+            if ($order->pay_status === 1){
+                return true;
+            }
+            if ($data->trade_status === 'TRADE_SUCCESS'){
+                $order_status = 1;
                 if ($data->app_id != env('ALI_APP_ID')){
                     return false;
                 }
                 if (exchangeToFen($data->total_amount) != $order->money ){
                     return false;
                 }
-                $order_status = 1;
+                ProjectOrder::whereId( $order->id)->update([
+                    'pay_status' => $order_status
+                ]);
+                $userModel = Project::whereId($order->project_id)->first();
+
+                # 押金记录
+                $model = new ProjectDeposit();
+                $model->merchant_id = $order->merchant_id;
+                $model->project_id = $order->project_id;
+                $model->pr_mer_id = $userModel->merchant_id;
+                $model->deposit_type = 1;
+                $model->deposit = $order->money;
+                $model->relate_order_id = $order->id;
+                $model->relate_order = $order->order_no;
+                $model->remark = '-';
+                $model->save();
+                \Log::debug('Alipay notify success', $data->all());
             }else{
                 return false;
             }
-            ProjectOrder::whereId( $order->id)->update([
-                'pay_status' => $order_status
-            ]);
-            $userModel = Project::whereId($order->project_id)->first();
 
-            # 押金记录
-            $model = new ProjectDeposit();
-            $model->merchant_id = $order->merchant_id;
-            $model->project_id = $order->project_id;
-            $model->pr_mer_id = $userModel->merchant_id;
-            $model->deposit_type = 1;
-            $model->deposit = $order->money;
-            $model->relate_order_id = $order->id;
-            $model->relate_order = $order->order_no;
-            $model->remark = '-';
-            $model->save();
-            \Log::debug('Alipay notify success', $data->all());
         } catch (\Exception $e) {
             throw new $e->getMessage();
             // $e->getMessage();
         }
 
-        return $alipay->success()->send();// laravel 框架中请直接 `return $alipay->success()`
+        return $alipay->success();// laravel 框架中请直接 `return $alipay->success()`
     }
 
     /**
