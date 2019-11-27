@@ -169,6 +169,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jacobcyl\AliOSS\AliOssServiceProvider::class,
         Yansongda\LaravelPay\PayServiceProvider::class,
+        Douyasi\WangEditor\EditorServiceProvider::class,
 
         /*
          * Application Service Providers...

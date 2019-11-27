@@ -31,7 +31,11 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('worker/store','WorkerController@store')->name('worker.store');
     Route::post('worker/image/upload','WorkerController@image');
 
-
+    //评价
+    Route::get('evaluate','EvaluateController@index');
+    Route::get('evaluate/project_side','EvaluateController@ProjectSide');
+    Route::post('evaluate/merchant/project_side','EvaluateController@evaluateProjectSide');
+    Route::post('evaluate/project_side/merchant','EvaluateController@evaluateMerchant');
 });
 
 

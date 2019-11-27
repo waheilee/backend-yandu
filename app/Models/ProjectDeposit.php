@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit wherePrMerId($value)
  * @property int $check_status
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit whereCheckStatus($value)
+ * @property int $status 项目方查看项目状态
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectDeposit whereStatus($value)
  */
 class ProjectDeposit extends Model
 {

@@ -19,7 +19,7 @@ class IntentionService
             $item['deposit']      = exchangeToYuan( $item['deposit']);
             $item['merchant_name']  = getMerchantName($item['merchant_id']);
             $item['project_name']   = getProjectName($item['project_id']);
-            $item['button']   = $this->getButton($item['check_status'],$item['project_id'],$item['merchant_id'],$item['relate_order']);
+            $item['button']   = $this->getButton($item['status'],$item['project_id'],$item['merchant_id'],$item['relate_order']);
         }
         $array['page'] = $project->currentPage();
         $array['rows'] = $project->items();
@@ -35,15 +35,23 @@ class IntentionService
         $pId      = $request->input('project_id');
         $mId      = $request->input('merchant_id');
         $orderNum = $request->input('order_num');
+
         $proModel = ProjectDeposit::whereProjectId($pId)->get();
         foreach ($proModel as $item){
-            $item->remark = 0;
+            $item->status = 1;//把所有商户状态调整为未合作状态
+            $item->check_status = 1;//把所有商户状态调整为未合作状态
             $item->update();
         }
-        $model = ProjectDeposit::whereProjectId($pId)->whereMerchantId($mId)->whereRelateOrder($orderNum)->first();
-        $model->remark       = 1;
-        $model->check_status = 2;
+
+        $model = ProjectDeposit::whereProjectId($pId)
+                ->whereMerchantId($mId)
+                ->whereRelateOrder($orderNum)
+                ->first();
+        $model->remark = 1;
+        $model->status = 2;//调整此商户为合作商户
+        $model->check_status = 2;//调整此商户为合作商户
         $model->update();
+
         $projectModel = Project::whereId($pId)->first();
         $projectModel->status = 1;
         $projectModel->update();
@@ -54,14 +62,18 @@ class IntentionService
 
     public function checkStore(Request $request)
     {
-        $proId = $request->input('project_id');
+        $proId   = $request->input('project_id');
         $content = $request->input('content');
-        $model = new ProjectCheck();
+        $model   = new ProjectCheck();
         $model->project_id  = $proId;
         $model->merchant_id = \Auth::user()->id;
         $model->content     = $content;
         $model->save();
-        $proModel = ProjectDeposit::whereProjectId($proId)->wherePrMerId(\Auth::user()->id)->whereCheckStatus(2)->first();
+        $proModel = ProjectDeposit::whereProjectId($proId)
+                    ->wherePrMerId(\Auth::user()->id)
+                    ->whereCheckStatus(2)
+                    ->first();
+        $proModel->status = 3;//修改为评价状态
         $proModel->check_status = 3;//修改为评价状态
         $proModel->update();
         return response()->json(['message'=>'检测报告提交成功']);
@@ -82,7 +94,7 @@ class IntentionService
                           "<button type=\"button\" class=\"btn btn-outline-danger btn-sm\" onclick='check($pId)'>提交验收报告</button>";
                 break;
             case 3:
-                $status = "<button  class=\"btn btn-success btn-sm\" >评价</button>";
+                $status = "<a href='".url('admin/evaluate/project_side?order_num='.$orderNum)."'><button  class=\"btn btn-success btn-sm\" >评价</button></a>";
                 break;
             case 4:
                 $status = "<button  class=\"btn btn-secondary btn-sm\" disabled>此项目已完成</button>";

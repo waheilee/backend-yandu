@@ -14,11 +14,15 @@ class PartnerService
     {
         $limit   = $request->input('limit');
         $project = ProjectDeposit::whereMerchantId(\Auth::user()->id)->whereRemark(1)->paginate($limit);
-        foreach ($project as $item) {
+
+        foreach ($project as $item)
+        {
             $item['project_name'] = "<a href='".url('detail/'.$item['project_id'])."' target='_blank'>".getProjectName($item['project_id'])."</a>";
-            $item['button']       = $this->getButton($item['check_status'],$item['project_id']);
-            $item['status']       =   $this->projectStatus($item['check_status']);
+            $item['button']       = $this->getButton($item['check_status'],$item['project_id'],$item['pr_mer_id']);
+            $item['status']       = $this->projectStatus($item['check_status']);
+
         }
+
         $array['page'] = $project->currentPage();
         $array['rows'] = $project->items();
         $array['total'] = $project->total();
@@ -36,6 +40,7 @@ class PartnerService
         $model->save();
         $proModel = ProjectDeposit::whereProjectId($proId)->wherePrMerId(\Auth::user()->id)->whereCheckStatus(2)->first();
         $proModel->check_status = 3;//修改为评价状态
+        $proModel->status = 3;//修改为评价状态
         $proModel->update();
         return response()->json(['message'=>'检测报告提交成功']);
 
@@ -65,26 +70,21 @@ class PartnerService
         return $status;
     }
 
-    public function getButton($status,$pId)
+    public function getButton($status,$pId,$prMerId)
     {
-//        if ($cheStatus == 1){
-//            return "<button type=\"button\" class=\"btn btn-outline-danger btn-sm\" onclick='check($proId)'>评价</button>";
-//        }
-//        if ($cheStatus == 2){
-//            return "<button type=\"button\" class=\"btn btn-secondary btn-sm\" >合作项目已完成</button>";
-//        }
+
         switch ($status) {
             case 0:
                 $status = "未合作";
                 break;
             case 1:
-                $status = " 未合作";
+                $status = "未合作";
                 break;
             case 2:
                 $status = " <button type=\"button\" class=\"btn btn-outline-danger btn-sm\" onclick='check($pId)'>提交验收报告</button>";
                 break;
             case 3:
-                $status = " <button type=\"button\" class=\"btn btn-outline-danger btn-sm\" >评价</button>";
+                $status = " <a href='".url('admin/evaluate?project_id='.$pId.'&pr_mer_id='.$prMerId)."'><button type=\"button\" class=\"btn btn-outline-danger btn-sm\" > 评价</button></a>";
                 break;
             case 4:
                 $status = " <button type=\"button\" class=\"btn btn-outline-danger btn-sm\" >完成此项目</button>";
