@@ -36,7 +36,7 @@
                         <thead class="thead-light">
                         <tr>
                             <th>项目名称</th>
-                            <th>项目状态</th>
+                            {{--<th>项目状态</th>--}}
                             <th>操作</th>
 
                         </tr>
@@ -69,8 +69,8 @@
                                         {{csrf_field()}}
                                         <input type="hidden" name="project_id" id="project_id" value="">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="content">验收报告详情</label>
-                                            <script id="container" name="content" type="text/plain"></script>
+                                            <label class="form-control-label" for="content">上传验收报告文件</label>
+                                            <input type="file" class="form-control">
                                         </div>
                                     </form>
                                     <div class="text-center">
@@ -142,7 +142,7 @@
                     //detailView: false,                   //是否显示父子表
                     columns:[
                         {title:'项目名称', field:'project_name',},
-                        {title:'项目状态', field:'status',},
+                        // {title:'项目状态', field:'status',},
                         {title:'操作', field:'button',},
                     ]
                 });

@@ -26,7 +26,7 @@ class PartnerService
         {
             $item['project_name'] = "<a href='".url('detail/'.$item['project_id'])."' target='_blank'>".getProjectName($item['project_id'])."</a>";
             $item['button']       = $this->getButton($item['check_status'],$item['project_id'],$item['pr_mer_id']);
-            $item['status']       = $this->projectStatus($item['check_status']);
+//            $item['status']       = $this->projectStatus($item['check_status']);
 
         }
 
@@ -92,29 +92,29 @@ class PartnerService
         return response()->json(['message'=>'确认成功']);
     }
 
-    public function projectStatus($status)
-    {
-        switch ($status){
-
-            case 0:
-                $status = '未合作';
-                break;
-            case 1:
-                $status = '未合作';
-                break;
-            case 2:
-                $status = '合作中';
-                break;
-            case 3:
-                $status = '完成';
-                break;
-            case 4:
-                $status = '完成';
-                break;
-
-        }
-        return $status;
-    }
+//    public function projectStatus($status)
+//    {
+//        switch ($status){
+//
+//            case 0:
+//                $status = '未合作';
+//                break;
+//            case 1:
+//                $status = '未合作';
+//                break;
+//            case 2:
+//                $status = '合作中';
+//                break;
+//            case 3:
+//                $status = '完成';
+//                break;
+//            case 4:
+//                $status = '完成';
+//                break;
+//
+//        }
+//        return $status;
+//    }
 
     public function getButton($status,$pId,$prMerId)
     {
