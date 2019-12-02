@@ -136,7 +136,7 @@ class IntentionService
                 $status = "<button  class=\"btn btn-success btn-sm\">已提交验收报告</button>";
                 break;
             case BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK:
-                $status = "<button  class=\"btn btn-success btn-sm\" onclick='confirm_check($pId)'>确认验收报告</button>";
+                $status = "<button  class=\"btn btn-success btn-sm\" onclick='confirm_check($pId,$mId)'>确认验收报告</button>";
                 break;
             case BaseConstants::ORDER_STATUS_EVALUATE:
                 $status = "<a href='".url('admin/evaluate/project_side?order_num='.$orderNum)."'><button  class=\"btn btn-success btn-sm\" >评价</button></a>";

@@ -248,42 +248,55 @@
             })
         }
 
-        function confirm_check(id){
-            Swal.fire({
-                title: '是否确认?',
-                text: "确认后商户将退回项目押金!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '确认!',
-                cancelButtonText:'取消'
-            }).then((result) => {
-                if (result.value) {
-                    var url = "{{ route('project.intention.confirm_check') }}";
-                    $.ajax({
-                        type: 'post',
-                        url: url,
-                        data: {'id':id},
-                        dataType: 'json',
-                        success: function(data){
-                            Swal.fire(
-                                '成功!',
-                                '完成该项目',
-                                'success'
-                            )
-                            setTimeout(function(){
-                                location.reload();
-                            },1000);
-                        },
-                        error:function (data) {
-                            var json = JSON.parse(data.responseText);
+        function confirm_check(pro_id,mer_id){
+            $.ajax({
+                type: 'post',
+                url: "{{route('project.intention.download')}}",
+                data: {'project_id':pro_id,'mer_id':mer_id},
+                dataType: 'json',
+                success: function(data){
+                    Swal.fire({
+                        title: '确认后将向乙方退回项目押金！',
+                        type: 'warning',
+                        html: data.url,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '确认验收!',
+                        cancelButtonText:'暂不验收'
+                    }).then((result) => {
+                        if (result.value) {
+                            var url = "{{ route('project.intention.confirm_check') }}";
+                            $.ajax({
+                                type: 'post',
+                                url: url,
+                                data: {'id':pro_id},
+                                dataType: 'json',
+                                success: function(data){
+                                    Swal.fire(
+                                        '成功!',
+                                        '完成该项目',
+                                        'success'
+                                    )
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },2000);
+                                },
+                                error:function (data) {
+                                    var json = JSON.parse(data.responseText);
+
+                                }
+                            });
 
                         }
-                    });
+                    })
+                },
+                error:function (data) {
+                    var json = JSON.parse(data.responseText);
 
                 }
-            })
+            });
+
 
         }
     </script>

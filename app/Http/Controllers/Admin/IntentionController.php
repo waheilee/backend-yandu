@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\ProjectCheck;
 use App\Services\Admin\IntentionService;
 use Illuminate\Http\Request;
 
@@ -54,5 +55,14 @@ class IntentionController extends Controller
     {
         $data =$this->intentionService->confirmCheck($request);
         return $data;
+    }
+
+    public function download(Request $request)
+    {
+        $projectId = $request->input('project_id');
+        $MerId = $request->input('mer_id');
+        $model = ProjectCheck::whereProjectId($projectId)->whereMerchantId($MerId)->first();
+        $data['url'] = "<a href='".$model->content."'>点击下载查看检测报告</a>";
+        return response()->json($data);
     }
 }

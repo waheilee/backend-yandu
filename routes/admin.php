@@ -16,6 +16,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('project/intention/partner', 'IntentionController@partner')->name('project.intention.partner');
     Route::post('project/intention/check', 'IntentionController@check')->name('project.intention.check');
     Route::post('project/intention/confirm_check', 'IntentionController@confirm')->name('project.intention.confirm_check');
+    Route::post('project/intention/download/check','IntentionController@download')->name('project.intention.download');
+
 
     Route::get('demand/index','DemandController@index')->name('demand.index');
     Route::get('demand/list','DemandController@indexRequest')->name('demand.indexRequest');

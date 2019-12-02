@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ef1f60474e5e24635ef16d003d01809",
+    "content-hash": "a80fdc974434f4585ce92a4e663dcc6c",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -1017,6 +1017,58 @@
                 "php"
             ],
             "time": "2019-10-30T14:39:59+00:00"
+        },
+        {
+            "name": "douyasi/laravel-wang-editor",
+            "version": "2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/douyasi/laravel-wang-editor.git",
+                "reference": "72e666b6d0bab1e2ecc62c4ef7536f6b751b36d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/douyasi/laravel-wang-editor/zipball/72e666b6d0bab1e2ecc62c4ef7536f6b751b36d5",
+                "reference": "72e666b6d0bab1e2ecc62c4ef7536f6b751b36d5",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Douyasi\\WangEditor\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "raoyc",
+                    "email": "raoyc2009@gmail.com"
+                }
+            ],
+            "description": "wangEditor for laravel",
+            "keywords": [
+                "douyasi",
+                "laravel",
+                "wangEditor",
+                "web editor",
+                "wysiwyg"
+            ],
+            "time": "2017-12-26T11:16:34+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -4864,16 +4916,16 @@
         },
         {
             "name": "symfony/psr-http-message-bridge",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/psr-http-message-bridge.git",
-                "reference": "9ab9d71f97d5c7d35a121a7fb69f74fee95cd0ad"
+                "reference": "9d3e80d54d9ae747ad573cad796e8e247df7b796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/9ab9d71f97d5c7d35a121a7fb69f74fee95cd0ad",
-                "reference": "9ab9d71f97d5c7d35a121a7fb69f74fee95cd0ad",
+                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/9d3e80d54d9ae747ad573cad796e8e247df7b796",
+                "reference": "9d3e80d54d9ae747ad573cad796e8e247df7b796",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -4885,11 +4937,11 @@
             "require": {
                 "php": "^7.1",
                 "psr/http-message": "^1.0",
-                "symfony/http-foundation": "^3.4 || ^4.0"
+                "symfony/http-foundation": "^4.4 || ^5.0"
             },
             "require-dev": {
                 "nyholm/psr7": "^1.1",
-                "symfony/phpunit-bridge": "^3.4.20 || ^4.0",
+                "symfony/phpunit-bridge": "^4.4 || ^5.0",
                 "zendframework/zend-diactoros": "^1.4.1 || ^2.0"
             },
             "suggest": {
@@ -4898,7 +4950,7 @@
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -4915,12 +4967,12 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
                 }
             ],
             "description": "PSR HTTP message bridge",
@@ -4931,7 +4983,7 @@
                 "psr-17",
                 "psr-7"
             ],
-            "time": "2019-03-11T18:22:33+00:00"
+            "time": "2019-11-25T19:33:50+00:00"
         },
         {
             "name": "symfony/routing",

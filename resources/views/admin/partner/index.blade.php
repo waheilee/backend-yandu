@@ -206,8 +206,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: '确认!',
-                cancelButtonText:'取消'
+                confirmButtonText: '确认验收!',
+                cancelButtonText:'暂不验收'
             }).then((result) => {
                 if (result.value) {
                     var url = "{{ route('demand.partner.confirm_check') }}";
