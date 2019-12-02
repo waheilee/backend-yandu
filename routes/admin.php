@@ -8,12 +8,14 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('project/index', 'ProjectController@index')->name('project.index');
     Route::get('project/create', 'ProjectController@store')->name('project.store');
     Route::post('project/create', 'ProjectController@store')->name('project.store');
+    Route::get('project/edit', 'ProjectController@edit')->name('project.edit');
     Route::post('project/delete', 'ProjectController@delete')->name('project.delete');
     Route::get('project/list', 'ProjectController@indexRequest')->name('project.indexRequest');
     Route::get('project/intention', 'IntentionController@index')->name('project.intention');
     Route::get('project/intention/list', 'IntentionController@indexRequest')->name('project.intention.indexRequest');
     Route::post('project/intention/partner', 'IntentionController@partner')->name('project.intention.partner');
     Route::post('project/intention/check', 'IntentionController@check')->name('project.intention.check');
+    Route::post('project/intention/confirm_check', 'IntentionController@confirm')->name('project.intention.confirm_check');
 
     Route::get('demand/index','DemandController@index')->name('demand.index');
     Route::get('demand/list','DemandController@indexRequest')->name('demand.indexRequest');
@@ -24,6 +26,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('demand/partner/index','PartnerController@index')->name('demand.partner.index');
     Route::get('demand/partner/list','PartnerController@indexRequest')->name('demand.partner.indexRequest');
     Route::post('demand/partner/check','PartnerController@check')->name('demand.partner.check');
+    Route::post('demand/partner/confirm_check','PartnerController@confirm')->name('demand.partner.confirm_check');
 
     Route::get('worker/index','WorkerController@index')->name('worker.index');
     Route::get('worker/list','WorkerController@indexRequest')->name('worker.indexRequest');

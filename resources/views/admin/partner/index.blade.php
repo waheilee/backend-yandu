@@ -9,12 +9,11 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">发布需求列表</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">我合作的项目</h6>
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">首页</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">发布需求列表</li>
                             </ol>
                         </nav>
                     </div>
@@ -30,10 +29,7 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Datatable</h3>
-                    <p class="text-sm mb-0">
-                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
-                    </p>
+
                 </div>
                 <div class="table-responsive py-4">
                     <table  class="table table-no-bordered table-striped"   id="table_id_example">
@@ -186,13 +182,59 @@
                 contentType: false,
                 dataType: 'json',
                 success: function(data){
-
+                    Swal.fire(
+                        '检测报告成功!',
+                        '',
+                        'success'
+                    )
+                    setTimeout(function(){
+                        location.reload();
+                    },1000);
                 },
                 error:function (data) {
                     var json = JSON.parse(data.responseText);
 
                 }
             })
+        }
+
+        function confirm_check(id){
+            Swal.fire({
+                title: '是否确认?',
+                text: "确认后退回押金!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确认!',
+                cancelButtonText:'取消'
+            }).then((result) => {
+                if (result.value) {
+                    var url = "{{ route('demand.partner.confirm_check') }}";
+                    $.ajax({
+                        type: 'post',
+                        url: url,
+                        data: {'id':id},
+                        dataType: 'json',
+                        success: function(data){
+                            Swal.fire(
+                                '成功!',
+                                '完成该项目',
+                                'success'
+                            )
+                            setTimeout(function(){
+                                location.reload();
+                            },2000);
+                        },
+                        error:function (data) {
+                            var json = JSON.parse(data.responseText);
+
+                        }
+                    });
+
+                }
+            })
+
         }
     </script>
 @endsection

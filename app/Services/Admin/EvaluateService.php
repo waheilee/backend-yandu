@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 
+use App\Constants\BaseConstants;
 use App\Models\ProjectDeposit;
 use App\Models\ProjectEvaluate;
 use App\Models\WorkerEvaluate;
@@ -39,7 +40,7 @@ class EvaluateService
                     ->whereProjectId($project)
                     ->wherePrMerId($projectSide)
                     ->first();
-        $projectDep->check_status = 4;//将项目状态改为完成
+        $projectDep->check_status = BaseConstants::ORDER_STATUS_DONE;//将乙方项目状态改为完成
         $projectDep->update();
         return response()->json(['message'=>'评价成功']);
     }
@@ -79,7 +80,7 @@ class EvaluateService
                     ->whereProjectId($project)
                     ->wherePrMerId(\Auth::user()->id)
                     ->first();
-        $projectDep->status = 4;//将项目状态改为完成
+        $projectDep->status = BaseConstants::ORDER_STATUS_DONE;//将甲方项目状态改为完成
         $projectDep->update();
         return response()->json(['message'=>'评价成功']);
     }

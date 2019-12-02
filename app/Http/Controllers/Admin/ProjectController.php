@@ -48,6 +48,29 @@ class ProjectController extends Controller
         }
     }
 
+
+
+    public function edit(ProjectRequest $request)
+    {
+        if ($request->isMethod('get')){
+            $model = Project::whereId($request->input('id'))->first();
+//            dd($model);
+            return view('admin.project.edit',compact('model'));
+        }else{
+            try{
+//                dd($request->all());
+                $data = $this->projectService->updateProject($request);
+                if ($data){
+                    $result['status'] = true;
+                    $result['message'] = '项目修改成功';
+                    return response()->json($result);
+                }
+            }catch (\Exception $exception){
+                throw $exception;
+            }
+        }
+    }
+
     public function delete(Request $request)
     {
         $id = $request->input('id');

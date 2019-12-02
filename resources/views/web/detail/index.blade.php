@@ -38,9 +38,9 @@
     <div class="container">
         <h1 >{{$article->project_name}}</h1>
         <div id="badges-component" class="tab-pane tab-example-result fade active show" role="tabpanel" aria-labelledby="badges-component-tab">
-            <span class="badge badge-info">{{$article->address}}</span>
-            <span class="badge badge-success">招标公告</span>
-            <span class="badge badge-warning">{{exchangeToFen($article->budget).'元'}}</span>
+            <span class="badge badge-info">{{$article->province.'.'.$article->city.'.'.$article->county}}</span></br>
+            <span class="badge badge-secondary">最低施工人数：{{$article->people_num}}人</span></br>
+            <span class="badge badge-warning">{{exchangeToYuan($article->budget).'元'}}</span>
         </div>
         <div style="    position: relative;
     width: 100%;
@@ -215,7 +215,7 @@
                             </div>
                             <!-- Card header -->
                             <div class="card-header">
-                                <h3 class="mb-0">选择工人</h3>
+                                <h3 class="mb-0">选择工人<span class="heading-title text-warning mb-0" id="peo" style="font-size: 1rem"></span></h3>
                             </div>
                             <!-- Card body -->
                             <div class="card-body">
@@ -359,9 +359,25 @@
             'merchant_id': id,
             '_token':'{{csrf_token()}}'
         }, function (data) {
-            if (200 === data.code) {
+            if (data.code === 200) {
                 showQuery(data);
-            } else {
+            }else if(data.code === 403){
+                Swal.fire({
+                    title: '提示',
+                    text:''+data.message+'',
+                    type: 'info',
+                    focusConfirm: false, //聚焦到确定按钮
+                    showCloseButton: true,//右上角关闭
+                    showConfirmButton:true,
+                    confirmButtonText:"前往工人添加页"
+                    // timer:3000
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href="{{url('admin/worker/create')}}"
+                    }
+                });
+                // alert(data.message);
+            }else {
                 Swal.fire({
                     title: '提示',
                     text:''+data.message+'',
@@ -370,8 +386,7 @@
                     showCloseButton: true,//右上角关闭
                     showConfirmButton:false,
                     // timer:3000
-                });
-                // alert(data.message);
+                })
             }
         })
     });
@@ -381,6 +396,7 @@
         $("#cash_deposit").val(data.cash_deposit);
         $("#merchant_id").val(data.merchant_id);
         $("#project_id").val(data.project_id);
+        $("#peo").html(data.people);
         // 显示模态框
         $('#modal-info').modal('show');
     }

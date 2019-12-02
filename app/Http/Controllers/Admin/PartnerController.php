@@ -28,9 +28,25 @@ class PartnerController extends Controller
         return $data;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function check(Request $request)
     {
         $data =$this->partnerService->checkStore($request);
+        return $data;
+    }
+
+    /**
+     * 确认验收报告
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function confirm(Request $request)
+    {
+        $data =$this->partnerService->confirmCheck($request);
         return $data;
     }
 }

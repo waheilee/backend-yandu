@@ -18,6 +18,7 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">首页</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">发布需求</li>
                             </ol>
                         </nav>
                     </div>
@@ -46,14 +47,14 @@
                         <form id="project_form">
                             <div class="form-group">
                                 <label class="form-control-label" for="">项目名称</label>
-                                <input type="text" class="form-control" name="project_name" id="project_name" placeholder="项目名称">
+                                <input type="text" class="form-control" name="project_name" id="project_name" value="{{$model->project_name}}" placeholder="项目名称">
                             </div>
 
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group " >
                                         <label class="form-control-label">项目省分 </label>
-                                        <select class="form-control" id="s_province" name="s_province" ></select> 
+                                        <select class="form-control" id="s_province" name="s_province"></select> 
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -68,16 +69,20 @@
                                         <select class="form-control" id="s_county" name="s_county" ></select> 
                                     </div>
                                 </div>
+                                <input type="hidden" name="province" id="province_s" value="{{$model->province}}">
+                                <input type="hidden" name="city" id="city_s" value="{{$model->city}}">
+                                <input type="hidden" name="county"  id="county_s" value="{{$model->county}}">
+                                <div id="show"></div>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="">详细地址</label>
-                                <input type="text" class="form-control" name="address" id="address" placeholder="项目详细地点">
+                                <input type="text" class="form-control" name="address" id="address" value="{{$model->address}}"  placeholder="项目详细地点">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group date" id="begin_time">
                                         <label class="form-control-label" for="begin_time">项目开始时间</label>
-                                        <input class="form-control" type="text" value="{{date("Y-m-d",time())}}" name="begin_time" >
+                                        <input class="form-control" type="text" value="{{$model->begin_time}}" name="begin_time" >
                                         <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -86,7 +91,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group date" id="end_time">
                                         <label class="form-control-label" for="end_time">项目预计结束时间</label>
-                                        <input class="form-control" type="text" value="{{date("Y-m-d",time())}}" name="end_time" >
+                                        <input class="form-control" type="text" value="{{$model->end_time}}" name="end_time" >
                                         <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -97,19 +102,19 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="size">项目大小(平米数)</label>
-                                <input type="text" class="form-control" name="size" id="size" placeholder="施工面积大小">
+                                <input type="text" class="form-control" name="size" id="size" placeholder="施工面积大小" value="{{$model->size}}">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="budget">项目预算价格</label>
-                                <input type="text" class="form-control" id="budget" name="budget" placeholder="本项目预算价格">
+                                <input type="text" class="form-control" id="budget" name="budget" placeholder="本项目预算价格" value="{{$model->budget}}">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="cash_deposit">保证金金额(乙方所需缴纳的保证金额,根据项目预算的1%手续)</label>
-                                <input type="text" class="form-control" id="cash_deposit" name="cash_deposit" value="" placeholder="" readonly="readonly">
+                                <input type="text" class="form-control" id="cash_deposit" name="cash_deposit"  placeholder="" readonly="readonly" value="{{$model->cash_deposit}}">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="people_num">根据项目大小最低使用人数</label><span class="heading-title text-warning mb-0" id="peo" style="font-size: 1rem"></span>
-                                <input type="text" class="form-control" name="people_num" id="people_num" placeholder="乙方必须达到最低使用人数才能参加本项目">
+                                <input type="text" class="form-control" name="people_num" id="people_num" placeholder="乙方必须达到最低使用人数才能参加本项目" value="{{$model->people_num}}">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="phone">联系方式</label>
@@ -117,12 +122,12 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="content">项目详细介绍</label>
-                                <script id="container" name="content" type="text/plain"></script>
+                                <script id="container" name="content" type="text/plain">{!! $model->content !!}</script>
                             </div>
                             <div class="row">
                                 <div class="col-xs">
                                     <div class="form-group">
-                                        <input class="" type="checkbox"  value="1" name="state" id="state">
+                                        <input class="" type="checkbox"  value="1" name="state" id="state" checked>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -153,11 +158,11 @@
                         </div>
 
                         <div class="modal-body" style="max-height: 500px; overflow-y:auto;">
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
                         </div>
 
                         <div class="modal-footer">
@@ -185,15 +190,13 @@
         //
         // var showArea = function(){
         //
-        //     Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
-        //
-        //         Gid('s_city').value + " - 县/区" +
-        //
-        //         Gid('s_county').value + "</h3>"
+        //     Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + Gid('s_city').value + " - 县/区" + Gid('s_county').value + "</h3>"
         //
         // }
-
+        //
         // Gid('s_county').setAttribute('onchange','showArea()');
+
+
 
     </script>
 
@@ -222,7 +225,7 @@
         });
         function get_worker_num(num){
             var str ="";
-            if (num<500) {
+             if (num<500) {
                 str=2
             }else if(num>500 && num<1000){
                 str=3;
@@ -235,8 +238,8 @@
             }else if(num>50000 && num<200000){
                 str=10;
             }else if(num>200000){
-                str=15
-            }
+                 str=15
+             }
 
             return str;
         }
@@ -255,61 +258,61 @@
 
     </script>
     <script>
-    function submit(){
-        var project_name = document.getElementById('project_name').value;
-        var address = document.getElementById('address').value;
-        var begin_time = document.getElementById('begin_time').value;
-        var end_time = document.getElementById('end_time').value;
-        var size = document.getElementById('size').value;
-        var budget = document.getElementById('budget').value;
-        var people_num = document.getElementById('people_num').value;
-        if(project_name === '') {toastr.warning('请填写项目名称');return false;}
-        if(address === '') {toastr.warning('请填写项目地址');return false;}
-        if(begin_time === '') {toastr.warning('请选择项目开始时间');return false;}
-        if(end_time === '') {toastr.warning('请选择项目结束时间');return false;}
-        if(size === '') {toastr.warning('请填写项目大小');return false;}
-        if(budget === '') {toastr.warning('项目预算为多少？');return false;}
-        if(people_num === '') {toastr.warning('本项目最低需要几人？');return false;}
-        if(!$("input[type='checkbox']").prop('checked')){toastr.warning('我同意《我同意xxxxxx申明》');return false;}
+        function submit(){
+            var project_name = document.getElementById('project_name').value;
+            var address = document.getElementById('address').value;
+            var begin_time = document.getElementById('begin_time').value;
+            var end_time = document.getElementById('end_time').value;
+            var size = document.getElementById('size').value;
+            var budget = document.getElementById('budget').value;
+            var people_num = document.getElementById('people_num').value;
+            if(project_name === '') {toastr.warning('请填写项目名称');return false;}
+            if(address === '') {toastr.warning('请填写项目地址');return false;}
+            if(begin_time === '') {toastr.warning('请选择项目开始时间');return false;}
+            if(end_time === '') {toastr.warning('请选择项目结束时间');return false;}
+            if(size === '') {toastr.warning('请填写项目大小');return false;}
+            if(budget === '') {toastr.warning('项目预算为多少？');return false;}
+            if(people_num === '') {toastr.warning('本项目最低需要几人？');return false;}
+            if(!$("input[type='checkbox']").prop('checked')){toastr.warning('我同意《我同意xxxxxx申明》');return false;}
 
-        // if($('input[name="state"]').prop("checked")){toastr.warning('请阅读申明后勾选申明');return false;}
+            // if($('input[name="state"]').prop("checked")){toastr.warning('请阅读申明后勾选申明');return false;}
 
-        var formData = new FormData($('#project_form')[0]);
+            var formData = new FormData($('#project_form')[0]);
 
-        $.ajax({
-            type: 'POST',
-            url: '/admin/project/create',
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            headers: {
-                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-            },
-            success : function (data) {
-                if(data.status){
-                    Swal.fire({
-                        title: data.message,
-                        type: 'success',
-                        focusConfirm: false, //聚焦到确定按钮
-                        showCloseButton: true,//右上角关闭
-                        timer: 2000
-                    })
-                    setTimeout(function(){
-                        location.href = '{{url('admin/project/index')}}';
-                    },2000);
-                }else {
-                    $.each(data.errors, function(idx, obj) {
-                        layer.msg(obj[0]);
-                        // alert(obj[0]);
-                        return false;
-                    });
+            $.ajax({
+                type: 'POST',
+                url: '/admin/project/create',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                success : function (data) {
+                    if(data.status){
+                        Swal.fire({
+                            title: data.message,
+                            type: 'success',
+                            focusConfirm: false, //聚焦到确定按钮
+                            showCloseButton: true,//右上角关闭
+                            timer: 2000
+                        })
+                        setTimeout(function(){
+                            location.href = '{{url('admin/project/index')}}';
+                        },2000);
+                    }else {
+                        $.each(data.errors, function(idx, obj) {
+                            layer.msg(obj[0]);
+                            // alert(obj[0]);
+                            return false;
+                        });
+                    }
                 }
-            }
-        })
+            })
 
-    }
+        }
     </script>
 
 @endsection

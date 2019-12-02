@@ -28,7 +28,7 @@ class EvaluateController
     }
 
     /**
-     * 评价项目发布方（甲方）
+     * 商户评价项目发布方（甲方）
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -49,7 +49,7 @@ class EvaluateController
 
 
     /**
-     * 评价商户方
+     * 甲方评价商户方
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */

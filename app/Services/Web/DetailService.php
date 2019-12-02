@@ -38,13 +38,14 @@ class DetailService
             $merchantModel = Merchant::whereId($merchantId)->first();
             $worker = $merchantModel->workers()->get();
             if ($worker->count() < $project->people_num){
-                return response()->json(['code'=>422,'message'=>'您商户下的施工人数小于该项目的用工最低人数']);
+                return response()->json(['code'=>403,'message'=>'您商户下的施工人数小于该项目的用工最低人数']);
             }
             $data = $this->getData($merchantModel);
             $data['cash_deposit'] = exchangeToYuan($project->cash_deposit);
+            $data['people']       = "（最低施工人数要求：".$project->people_num."人）";
             $data['merchant_id']  = $merchantModel->id;
             $data['project_id']   = $project->id;
-            $data['logo']   = $merchantModel->logo;
+            $data['logo']         = $merchantModel->logo;
             return response()->json($data);
         }
 

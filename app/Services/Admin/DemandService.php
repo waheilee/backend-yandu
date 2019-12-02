@@ -15,10 +15,11 @@ class DemandService
         $project = Project::paginate($limit);
         foreach ($project as $item) {
             $item['project_name'] = "<a href='".url('detail/'.$item['id'])."' target='_blank'>".$item['project_name']."</a>";
-            $item['budget']      = exchangeToYuan( $item['budget']);
-            $item['status']      = $this->getStatus($item['status']);
-            $item['look']      = "<a href='".url('detail/'.$item['id'])."' target='_blank'><button class='btn btn-warning btn-sm'>查看详情</button></a>";
-            $item['created'] = date('Y-m-d',strtotime($item['created_at']));
+            $item['budget']       = exchangeToYuan( $item['budget']);
+            $item['status']       = $this->getStatus($item['status']);
+            $item['look']         = "<a href='".url('detail/'.$item['id'])."' target='_blank'><button class='btn btn-warning btn-sm'>查看详情</button></a>";
+            $item['worker']       = $item['people_num'].'人';
+            $item['created']      = date('Y-m-d',strtotime($item['created_at']));
             $item['address']      = $item['province'].'.'.$item['city'].'.'.$item['county'];
 
         }
