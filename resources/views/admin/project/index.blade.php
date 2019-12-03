@@ -259,7 +259,7 @@
                         {title:'项目标的(单位:元)', field:'budget',},
                         {title:'项目周期(单位：天)', field:'project_time',},
                         {title:'施工人数', field:'people_num',},
-                        {title:'项目时间', field:'begin_time',},
+                        {title:'项目发布时间', field:'begin_time',},
                         {title:'操作', field:'button',},
                     ]
                 });
