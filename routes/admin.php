@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('merchant', 'MerchantController@index')->name('merchant.index');
     Route::post('merchant/edit_intro', 'MerchantController@updateIntro')->name('merchant.edit_intro');
 
+    Route::get('news_detail','DetailController@newsDetail')->name('news_detail');
+    Route::get('service_detail','DetailController@serviceDetail')->name('service_detail');
+
 });
 
 

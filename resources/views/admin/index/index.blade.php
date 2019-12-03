@@ -129,7 +129,8 @@
                     <form>
                         <div class="bootstrap-tagsinput">
                             @foreach($service as $item)
-                                <button type="button" class="btn btn-outline-secondary btn-lg my-2">{{$item->name}}</button>
+                                <a href="{{route('service_detail').'?id='.$item->id}}" class="btn btn-outline-secondary btn-lg my-2">{{$item->name}}</a>
+                                {{--<button type="button" class="btn btn-outline-secondary btn-lg my-2">{{$item->name}}</button>--}}
 
                             @endforeach
                         </div>
@@ -158,19 +159,23 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <a href="#" class=" rounded-lg" >
+                                        <a href="{{route('news_detail').'?id='.$item->id}}" class=" rounded-lg" >
                                             <img class="avatar-xl" alt="Image placeholder" src="http://yandu2019.oss-cn-beijing.aliyuncs.com/{{$item->cover}}" style="width: 200px;height: 130px">
                                         </a>
                                     </div>
-                                    <div class="col ml--2">
-                                        <h4 class="mb-0">
-                                            <a href="#!">{{$item->title}}</a>
-                                        </h4>
 
-                                        <small><p class="text-sm lh-160">{{$item->summary}}</p></small>
+                                    <div class="col ml--2">
+                                        <div class="col-md-8">
+                                            <h4 class="mb-0">
+                                                <a href="{{route('news_detail').'?id='.$item->id}}">{{$item->title}}</a>
+                                            </h4>
+
+                                            <small><p class="text-sm lh-160">{{$item->summary}}</p></small>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-sm btn-primary">Add</button>
+                                    <div class="col-auto text-sm lh-160">
+                                        浏览量：{{$item->views}}
+                                        {{--<button type="button" class="btn btn-sm btn-primary">Add</button>--}}
                                     </div>
                                 </div>
                             </li>

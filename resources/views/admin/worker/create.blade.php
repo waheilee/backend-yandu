@@ -1,8 +1,5 @@
 @extends('admin.layout.index')
 @section('css')
-    <link href="{{asset('assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/build/toastr.css') }}">
-    <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
     <style>
         *{margin: 0;padding: 0;}
         li{list-style-type: none;}
@@ -15,7 +12,7 @@
         .img-list{margin: 10px 5px;}
         .img-list_a li{position: relative;display: inline-block;width: 150px;height: 150px;margin: 5px 5px 20px 5px;border: 1px solid rgb(100,149,198);background: #fff no-repeat center;background-size: cover;}
         .img-list_b li{position: relative;display: inline-block;width: 150px;height: 150px;margin: 5px 5px 20px 5px;border: 1px solid rgb(100,149,198);background: #fff no-repeat center;background-size: cover;}
-        .progress{position: absolute;width: 100%;height: 20px;line-height: 20px;bottom: 0;left: 0;background-color:rgba(100,149,198,.5);}
+        .progress_w{position: absolute;width: 100%;height: 20px;line-height: 20px;bottom: 0;left: 0;background-color:rgba(100,149,198,.5);}
         .progress span{display: block;width: 0;height: 100%;background-color:rgb(100,149,198);text-align: center;color: #FFF;font-size: 13px;}
         .size{position: absolute;width: 100%;height: 15px;line-height: 15px;bottom: -18px;text-align: center;font-size: 13px;color: #666;}
         .tips{display: block;text-align:center;font-size: 13px;margin: 10px;color: #999;}
@@ -23,6 +20,10 @@
         .pic-list a{display: block;margin: 10px 0;}
         .pic-list a img{vertical-align: middle;max-width: 30px;max-height: 30px;margin: -4px 0 0 10px;}
     </style>
+    <link href="{{asset('assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/build/toastr.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
+
 
 
 @endsection
@@ -214,26 +215,26 @@
 
         function submit() {
 
-            // var card_a = document.getElementById('card_as').value;
-            // var card_b = document.getElementById('card_bs').value;
-            var card = document.getElementById('card_num').value;
-            var name = document.getElementById('name').value;
-            var age = document.getElementById('age').value;
-            var sex = document.getElementById('sex').value;
-            var phone = document.getElementById('phone').value;
-            var province = document.getElementById('s_province').value;
-            var city = document.getElementById('s_city').value;
-            var county = document.getElementById('s_county').value;
-            var work_age = document.getElementById('work_age').value;
-            var tec = document.getElementById('tec').value;
-            // if(card_a === '') {
-            //     toastr.warning('请上传身份证正面');
-            //     return false;
-            // }
-            // if(card_b === '') {
-            //     toastr.warning('请上传身份证反面');
-            //     return false;
-            // }
+            var card_a = $('#card_as').val();
+            var card_b = $('#card_bs').val();
+            var card = $('#card_num').val();
+            var name = $('#name').val();
+            var age = $('#age').val();
+            var sex = $('#sex').val();
+            var phone = $('#phone').val();
+            var province = $('#s_province').val();
+            var city = $('#s_city').val();
+            var county = $('#s_county').val();
+            var work_age = $('#work_age').val();
+            var tec = $('#tec').val();
+            if(card_a === '') {
+                toastr.warning('请上传身份证正面');
+                return false;
+            }
+            if(card_b === '') {
+                toastr.warning('请上传身份证反面');
+                return false;
+            }
             if(card === '') {
                 toastr.warning('身份证号码不能为空');
                 return false;
@@ -358,7 +359,7 @@
                 var li = document.createElement("li");
 //          获取图片大小
                 var size = file.size / 1024 > 1024 ? (~~(10 * file.size / 1024 / 1024)) / 10 + "MB" : ~~(file.size / 1024) + "KB";
-                li.innerHTML = '<div class="progress"><span></span></div><div class="size">' + size + '</div>';
+                li.innerHTML = '<div class="progress_w"><span></span></div><div class="size">' + size + '</div>';
                 $(".img-list_a").append($(li));
                 reader.onload = function() {
                     var result = this.result;
@@ -405,7 +406,7 @@
                 var li = document.createElement("li");
 //          获取图片大小
                 var size = file.size / 1024 > 1024 ? (~~(10 * file.size / 1024 / 1024)) / 10 + "MB" : ~~(file.size / 1024) + "KB";
-                li.innerHTML = '<div class="progress"><span></span></div><div class="size">' + size + '</div>';
+                li.innerHTML = '<div class="progress_w"><span></span></div><div class="size">' + size + '</div>';
                 $(".img-list_b").append($(li));
                 reader.onload = function() {
                     var result = this.result;
@@ -512,7 +513,7 @@
                     console.log(text + '：' + imagedata.path);
                     clearInterval(loop);
                     //当收到该消息时上传完毕
-                    $li.find(".progress span").animate({'width': "100%"}, pecent < 95 ? 200 : 0, function() {
+                    $li.find(".progress_w span").animate({'width': "100%"}, pecent < 95 ? 200 : 0, function() {
                         $(this).html(text);
                     });
                     if(jsonData.img_id === 'card_as')
@@ -532,10 +533,10 @@
                 }
             };
             //数据发送进度，前50%展示该进度
-            xhr.upload.addEventListener('progress', function(e) {
+            xhr.upload.addEventListener('progress_w', function(e) {
                 if (loop) return;
                 pecent = ~~(100 * e.loaded / e.total) / 2;
-                $li.find(".progress span").css('width', pecent + "%");
+                $li.find(".progress_w span").css('width', pecent + "%");
                 if (pecent == 50) {
                     mockProgress();
                 }
@@ -545,7 +546,7 @@
                 if (loop) return;
                 loop = setInterval(function() {
                     pecent++;
-                    $li.find(".progress span").css('width', pecent + "%");
+                    $li.find(".progress_w span").css('width', pecent + "%");
                     if (pecent == 99) {
                         clearInterval(loop);
                     }
