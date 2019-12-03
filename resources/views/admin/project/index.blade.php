@@ -38,21 +38,24 @@
                 <div class="card-header">
 
                 </div>
-                <div class="table-responsive py-4">
-                    <table  class="table table-no-bordered table-striped"   id="table_id_example">
-                        <thead class="thead-light">
-                        <tr>
-                            <th>项目名称</th>
-                            <th>项目地点</th>
-                            <th>项目大小(单位:平米)</th>
-                            <th>项目标的(单位:元)</th>
-                            <th>项目周期(单位：天)</th>
-                            <th>项目时间</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <div class="table-responsive py-4">
+                        <table  class="table table-no-bordered table-striped"   id="table_id_example">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>项目名称</th>
+                                <th>项目地点</th>
+                                <th>项目大小(单位:平米)</th>
+                                <th>项目标的(单位:元)</th>
+                                <th>项目周期(单位：天)</th>
+                                <th>项目时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>

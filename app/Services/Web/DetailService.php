@@ -45,7 +45,7 @@ class DetailService
             $data['people']       = "（最低施工人数要求：".$project->people_num."人）";
             $data['merchant_id']  = $merchantModel->id;
             $data['project_id']   = $project->id;
-            $data['logo']         = $merchantModel->logo;
+            $data['logo']         = getAliOssUrl().$merchantModel->logo;
             return response()->json($data);
         }
 

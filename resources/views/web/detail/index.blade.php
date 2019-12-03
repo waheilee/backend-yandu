@@ -182,12 +182,12 @@
                 <div class="modal-content">
                     <div class="modal-body p-0">
                         <div class="card">
-                            <img src="../../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top" style="height: 200px">
+                            <img src="{{asset('assets/img/banner1.jpg')}}" alt="Image placeholder" class="card-img-top" style="height: 200px">
                             <div class="row justify-content-center">
                                 <div class="col-lg-3 order-lg-2">
                                     <div class="card-profile-image">
                                         <a href="#">
-                                            <img src="../../assets/img/theme/team-4.jpg" class="rounded-circle">
+                                            <img src="" id="logo" class="rounded-circle">
                                         </a>
                                     </div>
                                 </div>
@@ -205,12 +205,9 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <h5 class="h3">
-                                        Jessica Jones<span class="font-weight-light">, 27</span>
-                                    </h5>
-                                    <div class="h5 font-weight-300">
-                                        <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                                    </div>
+                                    <h3 class="h2" id="merchant_name">
+                                        <span class="font-weight-light">, 27</span>
+                                    </h3>
                                 </div>
                             </div>
                             <!-- Card header -->
@@ -243,50 +240,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{--<div class="card bg-secondary shadow border-0">--}}
-                            {{--<div class="card-header bg-transparent pb-5">--}}
-                                {{--<div class="text-muted text-center mt-2 mb-3"><small>成为意向商户</small></div>--}}
-                                {{--<div class="btn-wrapper text-center">--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="card-body px-lg-5 py-lg-5">--}}
-                                {{--<div class="text-center text-muted mb-4">--}}
-                                    {{--<small id="username"></small>--}}
-                                {{--</div>--}}
-                                {{--<form role="form" id="form">--}}
-                                    {{--{{csrf_field()}}--}}
-                                    {{--<div class="container">--}}
-                                        {{--<div class="row ">--}}
-                                            {{--<label class="text-center text-muted mb-4" for="">选择工人</label>--}}
-
-                                            {{--<div class="form-inline form-group col-md-12" id="worker">--}}
-
-
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<small>成为意向商户所需缴纳的押金（押金为该项目的1%）</small>--}}
-                                        {{--<div class="input-group input-group-alternative">--}}
-                                            {{--<input class="form-control" placeholder="" name="cash_deposit" type="text" id="cash_deposit" value="" readonly="readonly">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<div class="input-group input-group-alternative">--}}
-                                            {{--<input class="form-control" placeholder="" id="merchant_id" name="merchant_id" type="hidden" value="">--}}
-                                            {{--<input class="form-control" placeholder="" id="project_id" name="project_id" type="hidden" value="">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</form>--}}
-                                {{--<div class="text-center">--}}
-                                    {{--<button class="btn"><img src="{{asset('web/images/aliapy.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="merchant()"></button>--}}
-                                    {{--<button class="btn"><img src="{{asset('web/images/WeChat.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="merchant()"></button>--}}
-                                {{--</div>--}}
-                                {{--<div class="text-center">--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                     </div>
 
                 </div>
@@ -391,12 +344,13 @@
         })
     });
     function showQuery(data) {
-        $("#username").html(data.merchant_name);
+        $("#merchant_name").html(data.merchant_name);
         $("#worker").html(data.worker);
         $("#cash_deposit").val(data.cash_deposit);
         $("#merchant_id").val(data.merchant_id);
         $("#project_id").val(data.project_id);
         $("#peo").html(data.people);
+        $("#logo").attr('src',data.logo);
         // 显示模态框
         $('#modal-info').modal('show');
     }

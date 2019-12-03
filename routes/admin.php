@@ -54,8 +54,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('policies/update', 'PolicyController@update')->name('policy.update');
     Route::post('policies/delete', 'PolicyController@delete')->name('policy.delete');
 
-    Route::post('policies/{id}', [PolicyController::class, 'update'])->where('id', '[0-9]+');
-    Route::post('policies/{id}/delete', [PolicyController::class, 'delete'])->where('id', '[0-9]+');
+
+    Route::get('merchant', 'MerchantController@index')->name('merchant.index');
+    Route::post('merchant/edit_intro', 'MerchantController@updateIntro')->name('merchant.edit_intro');
+
 });
 
 

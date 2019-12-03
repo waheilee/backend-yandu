@@ -36,23 +36,25 @@
                     </div>
 
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive py-4">
+                        <table  class="table table-no-bordered table-striped"   id="table_id_example">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>姓名</th>
+                                <th>年龄</th>
+                                <th>性别</th>
+                                <th>手机号码</th>
+                                <th>所在地区</th>
+                                <th>施工技能</th>
+                                <th>工作年限</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div class="table-responsive py-4">
-                    <table  class="table table-no-bordered table-striped"   id="table_id_example">
-                        <thead class="thead-light">
-                        <tr>
-                            <th>姓名</th>
-                            <th>年龄</th>
-                            <th>性别</th>
-                            <th>手机号码</th>
-                            <th>所在地区</th>
-                            <th>施工技能</th>
-                            <th>工作年限</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

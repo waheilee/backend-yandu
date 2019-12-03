@@ -69,9 +69,9 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">
                                     <a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>
                                 </li>
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/partner/index') !== false) active @endif">
-                                    <a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>
-                                </li>
+                                {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/partner/index') !== false) active @endif">--}}
+                                    {{--<a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>--}}
+                                {{--</li>--}}
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">
                                     <a href="{{ url('admin/worker/index') }}" class="nav-link">我的工人</a>
                                 </li>
@@ -80,8 +80,14 @@
                     </li>
                     <li class="nav-item  @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) active @endif">
                         <a  class="nav-link " href="{{ url('admin/policies') }}"  role="button"  aria-controls="navbar-dashboards">
-                            <i class="ni ni-shop text-primary"></i>
+                            <i class="ni ni-archive-2 text-danger"></i>
                             <span class="nav-link-text">保单管理</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  @if(strpos(Route::getCurrentRoute()->uri, 'admin/merchant') !== false) active @endif">
+                        <a  class="nav-link " href="{{ url('admin/merchant') }}"  role="button"  aria-controls="navbar-dashboards">
+                            <i class="ni ni-circle-08 text-default"></i>
+                            <span class="nav-link-text">个人中心</span>
                         </a>
                     </li>
 

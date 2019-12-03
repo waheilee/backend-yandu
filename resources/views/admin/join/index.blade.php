@@ -53,20 +53,23 @@
                     </form>
 
                 </div>
-                <div class="table-responsive py-4">
-                    <table  class="table table-no-bordered table-striped"   id="table_id_example">
-                        <thead class="thead-light">
-                        <tr>
-                            <th>项目名称</th>
-                            <th>缴纳保证金金额</th>
-                            <th>押金缴纳时间</th>
-                            <th>保证金状态</th>
-                            <th>项目状态</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <div class="table-responsive py-4">
+                        <table  class="table table-no-bordered table-striped"   id="table_id_example">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>项目名称</th>
+                                <th>缴纳保证金金额</th>
+                                <th>押金缴纳时间</th>
+                                <th>保证金状态</th>
+                                <th>项目状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
