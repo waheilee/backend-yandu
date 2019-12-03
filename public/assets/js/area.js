@@ -412,15 +412,17 @@ dsy.add("0_33_0",[" "]);
 dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","连江","苗栗","南投","澎湖","屏东","台东","台南","桃园","新竹","宜兰","云林","彰化"]);
 dsy.add("0",["北京市","天津市","上海市","重庆市","河北省","山西省","内蒙古","辽宁省","吉林省","黑龙江省","江苏省","浙江省","安徽省","福建省","江西省","山东省","河南省","湖北省","湖南省","广东省","广西","海南省","四川省","贵州省","云南省","西藏","陕西省","甘肃省","青海省","宁夏","新疆","香港","澳门","台湾省"]);
 
-province = document.getElementById("province_s").value;
+province = $("#province_s").val();
 if(!province){
     province = "省份";
 }
-city_s = document.getElementById("city_s").value;
+city_s = $("#city_s").val();
+
 if(!city_s){
     city_s = "市"
 }
-county_s = document.getElementById("county_s").value;
+county_s = $("#county_s").val();
+
 if(!county_s){
     county_s = "区、县"
 }

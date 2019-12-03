@@ -45,7 +45,7 @@ class DetailService
             $data['people']       = "（最低施工人数要求：".$project->people_num."人）";
             $data['merchant_id']  = $merchantModel->id;
             $data['project_id']   = $project->id;
-            $data['logo']         = getAliOssUrl().$merchantModel->logo;
+            $data['logo']         = $this->getLogo($merchantModel->logo);
             return response()->json($data);
         }
 
@@ -234,6 +234,17 @@ class DetailService
         $model->save();
         OrderLog::addLog($model->id, '意向商户押金', \Auth::guard('admin')->user()->id);
         return $model->id;
+    }
+
+    //商户头像
+    public function getLogo($logo)
+    {
+        if (empty($logo)){
+            return asset('assets/img/logo.jpeg');
+        }else{
+            return getAliOssUrl().$logo;
+        }
+
     }
 
 }

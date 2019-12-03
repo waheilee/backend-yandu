@@ -64,7 +64,7 @@
                         <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand') !== false) show @endif"  id="navbar-components">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/index') !== false) active @endif">
-                                    <a href="{{ url('admin/demand/index') }}" class="nav-link">需求市场</a>
+                                    <a href="{{ url('admin/demand/index') }}" class="nav-link">项目需求列表</a>
                                 </li>
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">
                                     <a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>
@@ -73,7 +73,7 @@
                                     {{--<a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>--}}
                                 {{--</li>--}}
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">
-                                    <a href="{{ url('admin/worker/index') }}" class="nav-link">我的工人</a>
+                                    <a href="{{ url('admin/worker/index') }}" class="nav-link">施工人员管理</a>
                                 </li>
                             </ul>
                         </div>

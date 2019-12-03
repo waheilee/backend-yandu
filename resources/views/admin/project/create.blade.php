@@ -119,18 +119,18 @@
                                 <label class="form-control-label" for="content">项目详细介绍</label>
                                 <script id="container" name="content" type="text/plain"></script>
                             </div>
-                            <div class="row">
-                                <div class="col-xs">
-                                    <div class="form-group">
-                                        <input class="" type="checkbox"  value="1" name="state" id="state">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <a href="" data-toggle="modal" data-target="#modal-default">《平台XXXXXXXXX申明》</a>
-                                    </div>
-                                </div>
-                            </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="col-xs">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<input class="" type="checkbox"  value="1" name="state" id="state">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<a href="" data-toggle="modal" data-target="#modal-default">《平台XXXXXXXXX申明》</a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </form>
                         <button type="button" class="btn btn-primary btn-lg btn-block" onclick="submit()">提交</button>
                     </div>
@@ -216,7 +216,7 @@
         $('#size').on('blur',function(){
             var size = document.getElementById('size').value;
             var worker = get_worker_num(size);
-            console.log(worker)
+            // console.log(worker)
             $("#peo").html("(建议使用人数:"+worker+"人)");
             // document.getElementById('cash_deposit').value=cash_deposit;
         });
@@ -270,7 +270,7 @@
         if(size === '') {toastr.warning('请填写项目大小');return false;}
         if(budget === '') {toastr.warning('项目预算为多少？');return false;}
         if(people_num === '') {toastr.warning('本项目最低需要几人？');return false;}
-        if(!$("input[type='checkbox']").prop('checked')){toastr.warning('我同意《我同意xxxxxx申明》');return false;}
+        // if(!$("input[type='checkbox']").prop('checked')){toastr.warning('我同意《我同意xxxxxx申明》');return false;}
 
         // if($('input[name="state"]').prop("checked")){toastr.warning('请阅读申明后勾选申明');return false;}
 
