@@ -21,24 +21,24 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link " href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+                    <li class="nav-item  @if(strpos(Route::getCurrentRoute()->uri, 'admin/home') !== false) active @endif">
+                        <a  class="nav-link " href="{{ url('admin/home') }}"  role="button"  aria-controls="navbar-dashboards">
                             <i class="ni ni-shop text-primary"></i>
-                            <span class="nav-link-text">Dashboards</span>
+                            <span class="nav-link-text">首页</span>
                         </a>
-                        <div class="collapse" id="navbar-dashboards">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/home') !== false) active @endif">
-                                    <a href="{{ url('admin/home') }}" class="nav-link">首页</a>
-                                </li>
+                        {{--<div class="collapse" id="navbar-dashboards">--}}
+                            {{--<ul class="nav nav-sm flex-column">--}}
+                                {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/home') !== false) active @endif">--}}
+                                    {{--<a href="{{ url('admin/home') }}" class="nav-link">首页</a>--}}
+                                {{--</li>--}}
                                 {{--<li class="nav-item">--}}
                                     {{--<a href="../../pages/dashboards/alternative.html" class="nav-link">Alternative</a>--}}
                                 {{--</li>--}}
-                            </ul>
-                        </div>
+                            {{--</ul>--}}
+                        {{--</div>--}}
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <a class="nav-link" href="#navbar-examples" data-toggle="collapse" role="button"  aria-controls="navbar-examples">
                             <i class="ni ni-ungroup text-orange"></i>
                             <span class="nav-link-text">我要派单</span>
                         </a>
@@ -77,6 +77,12 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                    <li class="nav-item  @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) active @endif">
+                        <a  class="nav-link " href="{{ url('admin/policies') }}"  role="button"  aria-controls="navbar-dashboards">
+                            <i class="ni ni-shop text-primary"></i>
+                            <span class="nav-link-text">保单管理</span>
+                        </a>
                     </li>
 
                 </ul>

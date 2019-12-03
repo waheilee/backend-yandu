@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Admin\PolicyController;
 //Route::get('logout','Auth\LoginController@');
 Route::group(['middleware' => ['auth:admin']], function () {
 
@@ -45,6 +46,16 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('evaluate/project_side','EvaluateController@ProjectSide');
     Route::post('evaluate/merchant/project_side','EvaluateController@evaluateProjectSide');
     Route::post('evaluate/project_side/merchant','EvaluateController@evaluateMerchant');
+
+    Route::get('policies', 'PolicyController@index')->name('policy.index');
+    Route::get('policies/list', 'PolicyController@indexRequest')->name('policy.indexRequest');
+    Route::post('policies/create', 'PolicyController@store')->name('policy.create');
+    Route::post('policies/edit', 'PolicyController@edit')->name('policy.edit');
+    Route::post('policies/update', 'PolicyController@update')->name('policy.update');
+    Route::post('policies/delete', 'PolicyController@delete')->name('policy.delete');
+
+    Route::post('policies/{id}', [PolicyController::class, 'update'])->where('id', '[0-9]+');
+    Route::post('policies/{id}/delete', [PolicyController::class, 'delete'])->where('id', '[0-9]+');
 });
 
 

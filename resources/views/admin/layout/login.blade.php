@@ -32,16 +32,16 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                         <h1 class="text-white">严度派</h1>
-                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+                        {{--<p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>--}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="separator separator-bottom separator-skew zindex-100">
-            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-        </div>
+        {{--<div class="separator separator-bottom separator-skew zindex-100">--}}
+            {{--<svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">--}}
+                {{--<polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>--}}
+            {{--</svg>--}}
+        {{--</div>--}}
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
@@ -49,11 +49,11 @@
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary border-0 mb-0">
                     <div class="card-header bg-transparent pb-5">
-                        <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+                        {{--<div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>--}}
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>Or sign in with credentials</small>
+                            {{--<small>Or sign in with credentials</small>--}}
                         </div>
                         <form   method="POST" id="login_form" class="margin-bottom-0" >
                             <div class="form-group mb-3">
@@ -78,20 +78,20 @@
                                     {{--<span class="text-muted">Remember me</span>--}}
                                 {{--</label>--}}
                             {{--</div>--}}
-                            <div class="text-center">
-                                <button type="button" id="login_submit" class="btn btn-primary my-4">登录</button>
-                            </div>
                         </form>
+                        <div class="text-center">
+                            <button type="button" onclick="login_submit()" class="btn btn-primary my-4">登录</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="#" class="text-light"><small>忘记密码</small></a>
-                    </div>
-                    <div class="col-6 text-right">
-                        <a href="#" class="text-light"><small>注册</small></a>
-                    </div>
-                </div>
+                {{--<div class="row mt-3">--}}
+                    {{--<div class="col-6">--}}
+                        {{--<a href="#" class="text-light"><small>忘记密码</small></a>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-6 text-right">--}}
+                        {{--<a href="#" class="text-light"><small>注册</small></a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>
@@ -195,9 +195,16 @@
         {{--})--}}
 
     {{--})--}}
+        document.onkeydown = function (e) { // 回车提交表单
+// 兼容FF和IE和Opera
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+        if (code === 13) {
+            login_submit();
+        }
+    }
 
-
-    $("#login_submit").click(function () {
+    function login_submit () {
 
         var url = "{{ route('login') }}";
             $.post(url, {
@@ -211,7 +218,7 @@
                     alert(data.msg);
                 }
             })
-    });
+    };
 
 </script>
 </body>

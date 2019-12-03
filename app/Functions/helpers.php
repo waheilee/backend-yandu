@@ -153,3 +153,8 @@ function getProjectName($id)
     return $merchantModel->project_name;
 }
 
+function getAliOssUrl()
+{
+    return 'http://yandu2019.oss-cn-beijing.aliyuncs.com/';
+}
+
