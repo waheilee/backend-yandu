@@ -9,6 +9,7 @@ use App\Models\ProjectCheck;
 use App\Models\Project;
 use App\Models\ProjectDeposit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IntentionService
 {
@@ -69,23 +70,23 @@ class IntentionService
      */
     public function checkStore(Request $request)
     {
-        $proId   = $request->input('project_id');
-        $content = $request->input('content');
+        $projectId = $request->input('project_id');
+        $file   = $request->file('project');
+        $files = $file->store('checks');
+        $filePath = Storage::url($files);
         try{
             \DB::beginTransaction();
             $model   = new ProjectCheck();
-            $model->project_id  = $proId;
+            $model->project_id  = $projectId;
             $model->merchant_id = \Auth::user()->id;
-            $model->content     = $content;
+            $model->content     = $filePath;
             $model->save();
-            $proModel = ProjectDeposit::whereProjectId($proId)
+            $proModel = ProjectDeposit::whereProjectId($projectId)
                 ->wherePrMerId(\Auth::user()->id)
                 ->whereStatus(BaseConstants::ORDER_STATUS_COOPERATION)
                 ->first();
-//        dd($proModel);
             if (!$proModel){
                 return response()->json(['message'=>"未找到该笔订单"],422);
-//
             }
             $proModel->status       = BaseConstants::ORDER_STATUS_CHECK;//修改为已提交验收报告
             $proModel->check_status = BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK;//修改为确认验收报告转态
