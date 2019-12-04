@@ -59,7 +59,10 @@
         </div>
         <div class="row">
             <div class="col-md-10 col-md-offset-3"></div>
-            <button type="button" class="btn btn-primary" onclick="submit()">对此项目感兴趣</button>
+                @if(!$deposit and !$project)
+                <button type="button" class="btn btn-primary" onclick="submit()">对此项目感兴趣</button>
+                    @endif
+
         </div>
         <form action="">
             <input type="hidden" name="user_id" id="user_id" value="@if(!empty($userId)){{$userId}}@endif" >
@@ -105,7 +108,7 @@
                                         @endforeach
                                 </td>
                                 <td>
-                                    状态
+                                    {!! $k['status'] !!}
                                 </td>
                             </tr>
                             @endforeach
@@ -222,10 +225,11 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <small>成为意向商户所需缴纳的押金（押金为该项目的1%）</small>
-                                        <div class="input-group input-group-alternative">
-                                        <input class="form-control" placeholder="" name="cash_deposit" type="text" id="cash_deposit" value="" readonly="readonly">
-                                    </div>
+                                        <h3 class="mb-0">成为意向商户所需缴纳的押金<span class="heading-title text-warning mb-0" style="font-size: 1rem">（押金为该项目的1%）</span></h3>
+                                        <small>如成功竞标，项目结束双方确认验收后，会在三个工作日内退回押金；如流标，将于三个工作日内退回押金。</small>
+                                        <div class="input-group input-group-alternative mt-4">
+                                            <input class="form-control" placeholder="" name="cash_deposit" type="text" id="cash_deposit" value="" readonly="readonly">
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group input-group-alternative">

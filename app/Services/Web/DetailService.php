@@ -3,7 +3,9 @@
 
 namespace App\Services\Web;
 
+use App\Constants\BaseConstants;
 use App\Http\Controllers\Web\AlipayController;
+use App\Models\ProjectDeposit;
 use App\Models\ProjectOrder;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -42,7 +44,7 @@ class DetailService
             }
             $data = $this->getData($merchantModel);
             $data['cash_deposit'] = exchangeToYuan($project->cash_deposit);
-            $data['people']       = "（最低施工人数要求：".$project->people_num."人）";
+            $data['people']       = "（该项目最低施工人数要求：".$project->people_num."人）";
             $data['merchant_id']  = $merchantModel->id;
             $data['project_id']   = $project->id;
             $data['logo']         = $this->getLogo($merchantModel->logo);
@@ -64,10 +66,12 @@ class DetailService
         }
         $data=[];
         foreach ($inMerModel as $item) {
+            $deposit = ProjectDeposit::whereRelateOrder($item->order_no)->first();
             $i = [];
             $i['merchant_name'] = getMerchantName($item->merchant_id);
             $i['merchant_id']   = $item->merchant_id;
             $i['workers']       = $this->getWorkers(json_decode($item->worker_id));
+            $i['status']       = $this->getButton($deposit->check_status);
             $data[] = $i;
         }
 
@@ -244,6 +248,39 @@ class DetailService
         }else{
             return getAliOssUrl().$logo;
         }
+
+    }
+
+    public function getButton($status)
+    {
+
+        switch ($status) {
+            case BaseConstants::ORDER_STATUS_INIT:
+                $status = "<button class=\"btn btn-outline-info btn-sm m-r-5\" >待合作</button>";
+                break;
+            case BaseConstants::ORDER_STATUS_COOPERATION:
+                $status = "<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\" >合作中</button>";
+                break;
+            case BaseConstants::ORDER_STATUS_CLOSE:
+                $status = "<button  class=\"btn btn-success btn-sm\">未合作</button>";
+                break;
+            case BaseConstants::ORDER_STATUS_CHECK:
+                $status = "<button  class=\"btn btn-success btn-sm\">已提交验收报告</button>";
+                break;
+            case BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK:
+                $status = "<button  class=\"btn btn-success btn-sm\" >确认验收报告</button>";
+                break;
+            case BaseConstants::ORDER_STATUS_EVALUATE:
+                $status = "<button  class=\"btn btn-success btn-sm\" >待评价</button>";
+
+                break;
+            case BaseConstants::ORDER_STATUS_DONE:
+                $status = "<button  class=\"btn btn-secondary btn-sm\" disabled>项目已完成</button>";
+
+                break;
+
+        }
+        return $status;
 
     }
 

@@ -69,7 +69,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group" style="text-align: center;">
-
+                                        <span style="color: red">*</span>
                                         <input type="file" id="card_a" accept="image/*" multiple>
                                         <ul class="img-list_a"></ul>
                                         <a id="upload_a">上传身份证正面照图片</a>
@@ -80,6 +80,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group" style="text-align: center;">
+                                        <span style="color: red">*</span>
                                         <input type="file" id="card_b" accept="image/*" multiple>
                                         <ul class="img-list_b"></ul>
                                         <a id="upload_b">上传身份证反面照图片</a>
