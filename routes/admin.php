@@ -7,9 +7,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('home', 'IndexController@index')->name('home');
     //我要派单，发布项目，项目需求
     Route::get('project/index', 'ProjectController@index')->name('project.index');
-    Route::get('project/create', 'ProjectController@store')->name('project.store');
+    Route::get('project/create', 'ProjectController@create')->name('project.create');
     Route::post('project/create', 'ProjectController@store')->name('project.store');
     Route::get('project/edit', 'ProjectController@edit')->name('project.edit');
+    Route::post('project/edit', 'ProjectController@update')->name('project.update');
     Route::post('project/delete', 'ProjectController@delete')->name('project.delete');
     Route::get('project/list', 'ProjectController@indexRequest')->name('project.indexRequest');
     Route::get('project/intention', 'IntentionController@index')->name('project.intention');

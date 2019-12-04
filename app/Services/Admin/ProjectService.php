@@ -59,7 +59,7 @@ class ProjectService
      */
     public function updateProject(Request $request)
     {
-        $proModel = new Project();
+        $proModel = Project::whereId($request->input('id'))->first();
         $proModel->num = time();
         $proModel->project_name = $request->input('project_name');
         $proModel->address      = $request->input('address');

@@ -29,45 +29,46 @@ class ProjectController extends Controller
         return $data;
     }
 
+    public function create()
+    {
+        return view('admin.project.create');
+    }
+
     public function store(ProjectRequest $request)
     {
-        if ($request->isMethod('get')){
-            return view('admin.project.create');
-        }else{
-            try{
-//                dd($request->all());
-               $data = $this->projectService->createProject($request);
-               if ($data){
-                   $result['status'] = true;
-                   $result['message'] = '项目发布成功';
-                   return response()->json($result);
-               }
-            }catch (\Exception $exception){
-                throw $exception;
-            }
+        try{
+           $data = $this->projectService->createProject($request);
+           if ($data){
+               $result['status'] = true;
+               $result['message'] = '项目发布成功';
+               return response()->json($result);
+           }
+        }catch (\Exception $exception){
+            throw $exception;
         }
+
     }
 
 
 
-    public function edit(ProjectRequest $request)
+    public function edit(Request $request)
     {
-        if ($request->isMethod('get')){
-            $model = Project::whereId($request->input('id'))->first();
-//            dd($model);
-            return view('admin.project.edit',compact('model'));
-        }else{
-            try{
-//                dd($request->all());
-                $data = $this->projectService->updateProject($request);
-                if ($data){
-                    $result['status'] = true;
-                    $result['message'] = '项目修改成功';
-                    return response()->json($result);
-                }
-            }catch (\Exception $exception){
-                throw $exception;
+        $model = Project::whereId($request->input('id'))->first();
+        return view('admin.project.edit',compact('model'));
+
+    }
+
+    public function update(ProjectRequest $request)
+    {
+        try{
+            $data = $this->projectService->updateProject($request);
+            if ($data){
+                $result['status'] = true;
+                $result['message'] = '项目修改成功';
+                return response()->json($result);
             }
+        }catch (\Exception $exception){
+            throw $exception;
         }
     }
 

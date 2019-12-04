@@ -24,7 +24,7 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'content' => 'required',
         ];
     }
 
@@ -35,7 +35,7 @@ class ProjectRequest extends FormRequest
     public function messages()
     {
         return [
-
+            'content.required' => '项目详情不能为空',
         ];
     }
 
