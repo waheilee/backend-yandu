@@ -33,12 +33,11 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">我要派单</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">添加施工人员</h6>
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">首页</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">发布需求</li>
                             </ol>
                         </nav>
                     </div>
@@ -60,7 +59,7 @@
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header">
-                        <h3 class="mb-0">发布需求</h3>
+                        <h3 class="mb-0">添加施工人员信息</h3>
                     </div>
                     <!-- Card body -->
                     <div class="card-body col-md-8 center">
