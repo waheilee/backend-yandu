@@ -47,7 +47,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('admin.layout.login');
+        return view('admin.layout.login-');
     }
     /**
      * 处理应用程序的登录请求。
@@ -180,7 +180,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ?: redirect('/login');
     }
 
     /**

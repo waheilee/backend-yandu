@@ -5,7 +5,7 @@
     {!! we_js() !!}
 @endsection
 @section('contend_head')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-yandu pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
@@ -106,7 +106,7 @@
                                 {!! we_config('wangeditor') !!}
                             </form>
                             <div class="fa-pull-right col-md-4 m-3">
-                                <button type="button" onclick="submit()" class="btn btn-primary btn-lg btn-block">保存</button>
+                                <button type="button" onclick="submit()" class="btn btn-yandu btn-lg btn-block">保存</button>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header d-flex align-items-center">
-            <a class="navbar-brand" href="../../pages/dashboards/dashboard.html">
+            <a class="navbar-brand" href="https://www.yd-hb.com/">
                 <img src="{{asset('assets/img/brand/logo.png')}}" class="navbar-brand-img" alt="...">
             </a>
             <div class="ml-auto">

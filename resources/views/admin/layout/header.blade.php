@@ -1,4 +1,4 @@
-<nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+<nav class="navbar navbar-top navbar-expand navbar-dark bg-yandu border-bottom">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- 搜索框 -->

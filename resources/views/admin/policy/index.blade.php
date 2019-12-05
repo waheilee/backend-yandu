@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
 @endsection
 @section('contend_head')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-yandu pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
@@ -97,7 +97,7 @@
                 <!-- Card body -->
                 <div class="card-body">
                     <div class="fa-pull-right col-md-2">
-                        <button type="button" class="btn btn-primary  btn-block" data-toggle="modal" data-target="#modal-form">添加新项目</button>
+                        <button type="button" class="btn btn-yandu  btn-block" data-toggle="modal" data-target="#modal-form">添加新项目</button>
                     </div>
                     <div class="table-responsive py-4">
                         <table  class="table table-no-bordered table-striped"   id="table_id_example">

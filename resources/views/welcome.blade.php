@@ -46,7 +46,7 @@
                 <div class="probootstrap-text">
                     <h1 class="probootstrap-heading text-white mb-4">除醛、安全、保障</h1>
                     <div class="probootstrap-subheading mb-5">
-                        <p class="h4 font-weight-normal">提供快速专业的除醛、空气净化灯服务</p>
+                        <p class="h4 font-weight-normal">提供快速专业的除醛、空气净化等服务</p>
                     </div>
                     {{--<p><a href="#" class="btn btn-primary mr-2 mb-2">Get This for Free</a><a href="#" class="btn btn-primary btn-outline-white mb-2">Visit uiCookies</a></p>--}}
                 </div>

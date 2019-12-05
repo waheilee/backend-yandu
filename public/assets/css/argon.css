@@ -3096,6 +3096,14 @@ fieldset:disabled a.btn
     pointer-events: none;
 }
 
+.btn-yandu
+{
+    color: #fff;
+    border-color: #b51f19;
+    background-color: #b51f19;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+}
+
 .btn-primary
 {
     color: #fff;
@@ -8439,6 +8447,19 @@ a.close.disabled
 .align-text-top
 {
     vertical-align: text-top !important;
+}
+
+.bg-yandu
+{
+    background-color: #b51f19 !important;
+}
+
+a.bg-yandu:hover,
+a.bg-yandu:focus,
+button.bg-yandu:hover,
+button.bg-yandu:focus
+{
+    background-color: #a90d07 !important;
 }
 
 .bg-primary

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
+    <title>YANDU</title>
 
     <!-- Bootstrap -->
     {{--<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">--}}
@@ -62,7 +62,6 @@
                 @if(!$deposit and !$project)
                 <button type="button" class="btn btn-primary" onclick="submit()">对此项目感兴趣</button>
                     @endif
-
         </div>
         <form action="">
             <input type="hidden" name="user_id" id="user_id" value="@if(!empty($userId)){{$userId}}@endif" >

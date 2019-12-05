@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    redirect('/login') ;
 });
 
 Route::get('detail/{id}','Web\DetailController@index');

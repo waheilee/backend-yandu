@@ -8,7 +8,7 @@
 
 @endsection
 @section('contend_head')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-yandu pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </form>
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="submit()">提交</button>
+                        <button type="button" class="btn btn-yandu btn-lg btn-block" onclick="submit()">提交</button>
                     </div>
                 </div>
 
@@ -314,7 +314,7 @@
 
                         <div class="modal-footer">
                             {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
-                            <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">关闭</button>
                         </div>
 
                     </div>

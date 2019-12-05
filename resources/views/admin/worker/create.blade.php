@@ -28,7 +28,7 @@
 
 @endsection
 @section('contend_head')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-yandu pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
@@ -178,7 +178,7 @@
 
 
                         </form>
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="submit()">提交</button>
+                        <button type="button" class="btn btn-yandu btn-lg btn-block" onclick="submit()">提交</button>
                     </div>
                 </div>
 

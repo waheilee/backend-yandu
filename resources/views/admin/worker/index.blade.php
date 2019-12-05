@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
 @endsection
 @section('contend_head')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-yandu pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
@@ -31,7 +31,7 @@
                 <div class="card-header">
 
                     <div class="float-md-right">
-                        <a href="{{url('admin/worker/create')}}"><button class="btn btn-primary btn-lg">新增工人信息</button></a>
+                        <a href="{{url('admin/worker/create')}}"><button class="btn btn-yandu btn-lg">新增工人信息</button></a>
 
                     </div>
 
