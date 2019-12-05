@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="description" content="严度是专业的空气治理、空气检测、除醛净化综合服务平台，通过“互联网+空气治理”掀起一场健康居家、现代装修新革命，覆盖整个居所装修后空气质量产业链条，产品包括空气治理、空气净化、空气权威检测、空气净化设备、空气治理药剂等">
+    <meta name="keywords" content="空气治理,空气净化,空气检测,空气检测网站,除醛净化,除甲醛,空气净化设备,空气治理药剂," >
     <meta name="author" content="Creative Tim">
     <meta name="_token" content="{{ csrf_token() }}" />
-    <title>Argon Dashboard PRO - Premium Bootstrap 4 Admin Template</title>
+    <title>严度商户后台</title>
     <!-- Favicon -->
-    <link rel="icon" href="{{asset('assets/img/brand/favicon.png')}}" type="image/png">
+    <link rel="icon" href="{{asset('assets/img/logo.jpeg')}}" type="image/png">
     <!-- Fonts -->
     <!-- Icons -->
     <link rel="stylesheet" href="{{asset('assets/vendor/nucleo/css/nucleo.css')}}" type="text/css">
