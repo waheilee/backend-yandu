@@ -159,7 +159,7 @@ class WeChatPayController extends Controller
     {
         $refundOrder = date('YmdHis') . rand(10000, 99999);
         $order = ProjectOrder::whereOrderNo($orderNum)->first();
-        if ($order){
+        if (!$order){
             return '查无此订单';
         }
         $app = $this->weChatPay();
