@@ -83,7 +83,7 @@ class AlipayController extends Controller
             }
 
         } catch (\Exception $e) {
-            throw new $e->getMessage();
+            throw new $e;
             // $e->getMessage();
         }
 
