@@ -107,7 +107,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="budget">项目预算价格</label>
-                                <input type="text" class="form-control" id="budget" name="budget" placeholder="本项目预算价格" value="{{$model->budget}}">
+                                <input type="text" class="form-control" id="budget" name="budget" placeholder="本项目预算价格" value="{{exchangeToYuan($model->budget)}}">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="cash_deposit">保证金金额(乙方所需缴纳的保证金额,根据项目预算的1%手续)</label>
