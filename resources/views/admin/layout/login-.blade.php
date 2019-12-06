@@ -28,35 +28,76 @@
 </head>
 <body class="bg-white">
 <!-- Navbar -->
-<div class="container-fluid">
-    <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand mr-0 mr-md-2" href="../../index.html" aria-label="Bootstrap">
-                <img src="{{asset('assets/img/brand/logo.png')}}" style="height: 40px;">
+{{--<div class="container-fluid">--}}
+    {{--<nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">--}}
+        {{--<div class="container">--}}
+            {{--<a class="navbar-brand mr-0 mr-md-2" href="../../index.html" aria-label="Bootstrap">--}}
+                {{--<img src="{{asset('assets/img/brand/logo.png')}}" style="height: 40px;">--}}
 
-            </a>
+            {{--</a>--}}
+        {{--</div>--}}
+    {{--</nav>--}}
+{{--</div>--}}
+<nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="https://www.yd-hb.com/">
+            <img src="{{asset('assets/img/logo2.png')}}" style="height: 40px;">
+        </a>
+        <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
+            <div class="navbar-collapse-header">
+                <div class="row">
+                    {{--<div class="col-6 collapse-brand">--}}
+                        {{--<a href="../../pages/dashboards/dashboard.html">--}}
+                            {{--<img src="../../assets/img/brand/blue.png">--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-6 collapse-close">--}}
+                        {{--<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">--}}
+                            {{--<span></span>--}}
+                            {{--<span></span>--}}
+                        {{--</button>--}}
+                    {{--</div>--}}
+                </div>
+            </div>
+            <hr class="d-lg-none">
         </div>
-    </nav>
-</div>
-
+    </div>
+</nav>
 <!-- Main content -->
 <div class="main-content">
     <!-- Header -->
-    <div class="header bg-gradient-white py-1 py-lg-2 pt-lg-7">
+    <div class="header bg-gradient-yandu py-1 py-lg-1 pt-lg-1">
+        <div class="container">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
 
+                </div>
+            </div>
+        </div>
         <div class="separator separator-bottom separator-skew zindex-100">
 
         </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid" style="min-height: 500px; background-image: url(../../assets/img/theme/img-1-1000x600.jpg); background-size: cover; background-position: center top;">
+    <div class="container-fluid" style="min-height: 500px; background-image: url(../../assets/img/banner3.jpeg); background-size: cover; background-position: center top;">
         <div class="container" >
+
+
             <div class="row pb-5">
                 <div class="col">
+                    <div class="col-md-8 float-md-left mt-6 mb-6">
+                        <div class="probootstrap-text">
+                            <h1 class="display-1 text-white mb-4">WELCOME</h1>
+                            <div class="probootstrap-subheading mb-5">
+                                <h1 class="display-1 text-white mb-4">欢迎来到严度平台</h1>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-4 float-md-right mt-6 mb-6">
                         <div class="card bg-secondary border-0 mb-0">
                             <div class="card-header bg-transparent ">
-                                <div class="text-muted text-center "><small>Sign in with</small></div>
+                                <div class="text-muted text-center "><small>登录</small></div>
                             </div>
                             <div class="card-body px-lg-5 py-lg-5">
                                 <form   method="POST" id="login_form" class="margin-bottom-0" >

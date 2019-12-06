@@ -25091,12 +25091,17 @@ button.section-darker:focus
 
 .bg-gradient-neutral
 {
-    background: linear-gradient(87deg, #fff 0, white 100%) !important;
+    background: linear-gradient(87deg, #fff 0, #ffffff 100%) !important;
 }
 
 .bg-gradient-darker
 {
     background: linear-gradient(87deg, black 0, black 100%) !important;
+}
+
+.bg-gradient-yandu
+{
+    background: linear-gradient(87deg, #bb0113 0, #bb0113 100%) !important;
 }
 
 .fill-primary
