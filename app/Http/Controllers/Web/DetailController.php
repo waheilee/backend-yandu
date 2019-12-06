@@ -24,12 +24,13 @@ class DetailController extends Controller
     public function index($id)
     {
         $article = Project::whereId($id)->first();
-        $user = \Auth::user();
+        $user = \Auth::guard('admin')->user();
         $merInfo = $this->detailService->getIntentionMerchant($id);
         if ($user){
             $userId = $user->id;
             $deposit = ProjectDeposit::whereProjectId($id)->whereMerchantId($userId)->first();
             $project = Project::whereId($id)->whereMerchantId($userId)->first();
+//            dd( $project);
             return view('web.detail.index',compact('userId','article','merInfo','deposit','project'));
         }else{
             $deposit = null;
