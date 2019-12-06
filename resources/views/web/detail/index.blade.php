@@ -439,39 +439,41 @@
             contentType: false,
             dataType: 'json',
             success: function(data){
-                Swal.fire({
-                    title: '支付宝支付!',
-                    text: '请使用支付宝扫一扫\n' + '扫描二维码支付',
-                    imageUrl: data.qrcode,
-                    imageWidth: 300,
-                    imageHeight: 300,
-                    showConfirmButton:false,
-                    // imageAlt: 'Custom image',
-                });
-                window.setInterval(function(){$.ajax({
-                    type: 'post',
-                    url:"{{route('notify')}}",
-                    data: form,
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    dataType:'json',
+                console.log(data)
+                // Swal.fire({
+                //     title: '支付宝支付!',
+                //     text: '请使用支付宝扫一扫\n' + '扫描二维码支付',
+                //     imageUrl: data.qrcode,
+                //     imageWidth: 300,
+                //     imageHeight: 300,
+                //     showConfirmButton:false,
+                //     // imageAlt: 'Custom image',
+                // });
+                window.location.href = "/alipay/"+data;
+                {{--window.setInterval(function(){$.ajax({--}}
+                    {{--type: 'post',--}}
+                    {{--url:"{{route('notify')}}",--}}
+                    {{--data: form,--}}
+                    {{--cache: false,--}}
+                    {{--processData: false,--}}
+                    {{--contentType: false,--}}
+                    {{--dataType:'json',--}}
 
-                    success:function(data) {
-                        Swal.fire({
-                            title: '提示',
-                            text:''+data.message+'',
-                            type: 'success',
-                            focusConfirm: false, //聚焦到确定按钮
-                            showCloseButton: true,//右上角关闭
-                            showConfirmButton:false,
-                            timer:2000
-                        });
-                        setTimeout(function() {
-                            window.location.reload()
-                        },2000);
-                    }
-                })},3000);
+                    {{--success:function(data) {--}}
+                        {{--Swal.fire({--}}
+                            {{--title: '提示',--}}
+                            {{--text:''+data.message+'',--}}
+                            {{--type: 'success',--}}
+                            {{--focusConfirm: false, //聚焦到确定按钮--}}
+                            {{--showCloseButton: true,//右上角关闭--}}
+                            {{--showConfirmButton:false,--}}
+                            {{--timer:2000--}}
+                        {{--});--}}
+                        {{--setTimeout(function() {--}}
+                            {{--window.location.reload()--}}
+                        {{--},2000);--}}
+                    {{--}--}}
+                {{--})},3000);--}}
             },
             error:function (data) {
                 var json = JSON.parse(data.responseText);

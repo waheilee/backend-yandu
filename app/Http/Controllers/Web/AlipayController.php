@@ -13,27 +13,34 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class AlipayController extends Controller
 {
 
-    // 支付宝扫码 支付
-    public function aliPayScan($id)
+
+
+    // 支付宝网页支付
+    public function aliPay($id)
     {
 
         $order = ProjectOrder::find($id);
+        $project = Project::whereId($order->project_id)->first();
         $aliPayOrder = [
             'out_trade_no' => $order->order_no,
             'total_amount' => exchangeToYuan($order->money), // 支付金额
-            'subject'      =>  '意向商户押金' // 备注
+            'subject'      =>  '《'.substr($project->project_name,0,30).'...》的意向商户押金', // 备注
+            'http_method'  => 'GET'
         ];
 
         $config = config('pay.alipay');
-        $scan   = Pay::alipay($config)->scan($aliPayOrder);
 
-        if(empty($scan->code) || $scan->code !== '10000') return false;
-        $qrCodePath = 'uploads/image/qrcode/order/'. 'alipay' . $id . '.png';
-        QrCode::format('png')->size(300)->generate($scan->qr_code, public_path($qrCodePath));
-
-        $data['qrcode']       = url($qrCodePath);
-        $data['out_trade_no'] = $order->order_no;
-        return $data;
+        return  Pay::alipay($config)->web($aliPayOrder);
+//        dd($dd);
+//        $scan   = Pay::alipay($config)->scan($aliPayOrder);
+//
+//        if(empty($scan->code) || $scan->code !== '10000') return false;
+//        $qrCodePath = 'uploads/image/qrcode/order/'. 'alipay' . $id . '.png';
+//        QrCode::format('png')->size(300)->generate($scan->qr_code, public_path($qrCodePath));
+//
+//        $data['qrcode']       = url($qrCodePath);
+//        $data['out_trade_no'] = $order->order_no;
+//        return $data;
     }
 
     /**

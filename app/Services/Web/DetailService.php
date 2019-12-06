@@ -196,7 +196,7 @@ class DetailService
      * @param $cashDeposit
      * @param $worker
      * @param $type
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return int
      */
     public function alipayQrCode($projectId,$cashDeposit,$worker,$type)
     {
@@ -206,15 +206,15 @@ class DetailService
             ->whereChannel($type)
             ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
             ->first();
-        if ($checkOrder){
-            $qrCodePath     = 'uploads/image/qrcode/order/'. 'alipay'. $checkOrder->id . '.png';
-            $data['qrcode'] = url($qrCodePath);
-            return $data;
-        }
+//        if ($checkOrder){
+//            $qrCodePath     = 'uploads/image/qrcode/order/'. 'alipay'. $checkOrder->id . '.png';
+//            $data['qrcode'] = url($qrCodePath);
+//            return $data;
+//        }
         $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker,$type);
-        $orderCode= new AlipayController();
-        $scan     = $orderCode->aliPayScan($orderId);
-        return $scan;
+//        $orderCode= new AlipayController();
+//        $scan     = $orderCode->aliPayScan($orderId);
+        return $orderId;
     }
 
     /**
