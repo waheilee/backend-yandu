@@ -150,16 +150,26 @@ class WeChatPayController extends Controller
         return $response;
     }
 
-//    /**
-//     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
-//     */
-//    public function refund()
-//    {
-//        $app = $this->weChatPay();
-//        $result = $app->refund->byOutTradeNumber('out-trade-no-xxx', 'refund-no-xxx', 20000, 1000, [
-//            // 可在此处传入其他参数，详细参数见微信支付文档
-//            'refund_desc' => '退运费',
-//        ]);
-//    }
+    /**
+     * @param $orderNum
+     * @return string
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
+    public function refund($orderNum)
+    {
+        $refundOrder = date('YmdHis') . rand(10000, 99999);
+        $order = ProjectOrder::whereOrderNo($orderNum)->first();
+        if ($order){
+            return '查无此订单';
+        }
+        $app = $this->weChatPay();
+        $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, exchangeToYuan($order->money), exchangeToYuan($order->money), [
+            // 可在此处传入其他参数，详细参数见微信支付文档
+            'refund_desc' => '退押金',
+        ]);
+        $order->refund_trade_no = $refundOrder;
+        $order->update();
+        return '退款中';
+    }
 
 }
