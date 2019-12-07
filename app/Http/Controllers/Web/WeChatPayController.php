@@ -159,14 +159,14 @@ class WeChatPayController extends Controller
     {
         $refundOrder = date('YmdHis') . rand(10000, 99999);
         $order = ProjectOrder::whereOrderNo($orderNum)->first();
-        $projectModel = Project::whereId($order->project_id)->first();
+//        $projectModel = Project::whereId($order->project_id)->first();
         if (!$order){
             return '查无此订单';
         }
         $app = $this->weChatPay();
         $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, exchangeToYuan($order->money), exchangeToYuan($order->money), [
             // 可在此处传入其他参数，详细参数见微信支付文档
-            'refund_desc' => '退回《'.$projectModel->project_name.'》押金',
+            'refund_desc' => '项目押金退回',
         ]);
         $order->refund_trade_no = $refundOrder;
         $order->update();
