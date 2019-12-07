@@ -164,7 +164,7 @@ class WeChatPayController extends Controller
             return '查无此订单';
         }
         $app = $this->weChatPay();
-        $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, exchangeToYuan($order->money), exchangeToYuan($order->money), [
+        $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, $order->money, $order->money, [
             // 可在此处传入其他参数，详细参数见微信支付文档
             'refund_desc' => '项目押金退回',
         ]);
