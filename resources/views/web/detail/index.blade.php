@@ -100,7 +100,7 @@
                         @foreach($merInfo as $value =>$k)
                             <tr >
                                 {{--<th scope="row"><code>lib/</code></th>--}}
-                                <td >{{$k['merchant_name']}}</td>
+                                <td >{!! $k['merchant_name'] !!}</td>
                                 <td >
                                     @foreach($k['workers'] as $item =>$i)
                                         {{$i['worker_name']}}&nbsp;&nbsp;&nbsp;&nbsp;

@@ -5,6 +5,7 @@ namespace App\Services\Admin;
 
 use App\Constants\BaseConstants;
 use App\Exceptions\ServiceException;
+use App\Models\Project;
 use App\Models\ProjectCheck;
 use App\Models\ProjectDeposit;
 use Illuminate\Http\Request;
@@ -87,6 +88,9 @@ class JoinService
         $proModel->check_status = BaseConstants::ORDER_STATUS_EVALUATE;//修改为已提交验收报告
         $proModel->status       = BaseConstants::ORDER_STATUS_EVALUATE;//修改为确认验收报告
         $proModel->update();
+        $projectModel = Project::whereId($proModel->project_id)->first();//完成该项目并改变项目转态为关闭
+        $projectModel->status = 1;
+        $projectModel->update();
         return response()->json(['message'=>'确认成功']);
     }
 

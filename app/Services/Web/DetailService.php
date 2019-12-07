@@ -68,7 +68,7 @@ class DetailService
         foreach ($inMerModel as $item) {
             $deposit = ProjectDeposit::whereRelateOrder($item->order_no)->first();
             $i = [];
-            $i['merchant_name'] = getMerchantName($item->merchant_id);
+            $i['merchant_name'] = "<a href='https://www.yd-hb.com/com?id=".$item->merchant_id."' target='_blank'>".getMerchantName($item->merchant_id)."</a>";
             $i['merchant_id']   = $item->merchant_id;
             $i['workers']       = $this->getWorkers(json_decode($item->worker_id));
             $i['status']       = $this->getButton($deposit->check_status);

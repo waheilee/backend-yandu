@@ -82,7 +82,7 @@ class AlipayController extends Controller
                 $model->deposit = $order->money;
                 $model->relate_order_id = $order->id;
                 $model->relate_order = $order->order_no;
-                $model->remark = '-';
+                $model->remark = 'alipay';
                 $model->save();
                 \Log::debug('Alipay notify success', $data->all());
             }else{

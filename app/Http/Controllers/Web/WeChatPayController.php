@@ -138,7 +138,7 @@ class WeChatPayController extends Controller
             $model->deposit = $order->money;
             $model->relate_order_id = $order->id;
             $model->relate_order = $order->order_no;
-            $model->remark = '-';
+            $model->remark = 'wechat';
             $model->save();
 
             # 财务记录
@@ -159,17 +159,29 @@ class WeChatPayController extends Controller
     {
         $refundOrder = date('YmdHis') . rand(10000, 99999);
         $order = ProjectOrder::whereOrderNo($orderNum)->first();
+        $projectModel = Project::whereId($order->project_id)->first();
         if (!$order){
             return '查无此订单';
         }
         $app = $this->weChatPay();
         $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, exchangeToYuan($order->money), exchangeToYuan($order->money), [
             // 可在此处传入其他参数，详细参数见微信支付文档
-            'refund_desc' => '退押金',
+            'refund_desc' => '退回《'.$projectModel->project_name.'》押金',
         ]);
         $order->refund_trade_no = $refundOrder;
         $order->update();
-        return '退款中';
+    }
+
+    /**
+     * @param $refundOrder
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
+    public function queryRefund($refundOrder)
+    {
+        $app = $this->weChatPay();
+        $result = $app->refund->queryByOutRefundNumber($refundOrder);
+        return $result;
     }
 
 }

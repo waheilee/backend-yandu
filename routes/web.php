@@ -22,6 +22,7 @@ Route::get('web/merchants/intention','Web\DetailController@intention')->name('in
 Route::post('web/pay_notify','Web\DetailController@notify')->name('notify');
 Route::get('alipay/{id}','Web\AlipayController@Alipay')->name('alipay');
 Route::get('wechat/refund/{orderNum}','Web\WeChatPayController@refund')->name('wechat.refund');
+Route::get('wechat/refund/query_order/{refundOrder}','Web\WeChatPayController@queryRefund')->name('wechat.queryRefund');
 
 Auth::routes();
 

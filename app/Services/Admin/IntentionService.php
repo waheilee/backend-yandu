@@ -10,7 +10,7 @@ use App\Models\Project;
 use App\Models\ProjectDeposit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Controllers\Web\WeChatPayController;
 class IntentionService
 {
 
@@ -33,6 +33,12 @@ class IntentionService
 
 
     //选择合作商户
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
     public function getPartner(Request $request)
     {
         $pId      = $request->input('project_id');
@@ -50,14 +56,20 @@ class IntentionService
                 ->whereMerchantId($mId)
                 ->whereRelateOrder($orderNum)
                 ->first();
-        $model->remark       = 1;
         $model->status       = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
         $model->check_status = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
         $model->update();
-
-        $projectModel = Project::whereId($pId)->first();
-        $projectModel->status = 1;
-        $projectModel->update();
+        $refund = ProjectDeposit::whereProjectId($pId)->whereCheckStatus(BaseConstants::ORDER_STATUS_CLOSE)->get();
+        //给未选择为合作的商户退款
+        foreach ($refund as $temp){
+            if ($temp->remark == 'wechat'){
+               $wechat = new WeChatPayController();
+               $wechat->refund($temp->relate_order);
+            }
+        }
+//        $projectModel = Project::whereId($pId)->first();
+//        $projectModel->status = 1;
+//        $projectModel->update();
         $data['code'] = 200;
         $data['merchant_name'] = getMerchantName($mId);
         return response()->json($data);
