@@ -170,6 +170,7 @@ class WeChatPayController extends Controller
         ]);
         $order->refund_trade_no = $refundOrder;
         $order->update();
+        return $result;
     }
 
     /**
