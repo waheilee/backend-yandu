@@ -79,8 +79,8 @@
                                         {{csrf_field()}}
                                         <input type="hidden" name="project_id" id="project_id" value="">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="content">验收报告详情</label>
-                                            <script id="container" name="content" type="text/plain"></script>
+                                            <label class="form-control-label" for="content">上传验收报告文件</label>
+                                            <input type="file" name="project" class="form-control">
                                         </div>
                                     </form>
                                     <div class="text-center">

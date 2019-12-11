@@ -29,6 +29,12 @@ class IntentionController extends Controller
         return $data;
     }
 
+    /**
+     * 选择合作意向商户
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
     public function partner(Request $request)
     {
        $data = $this->intentionService->getPartner($request);
