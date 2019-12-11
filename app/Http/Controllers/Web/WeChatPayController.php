@@ -175,7 +175,7 @@ class WeChatPayController extends Controller
                 if (array_get($result, 'result_code') === 'SUCCESS') {
                     $order->refund_trade_no = $refundOrder;
                     $order->update();
-                    $orderDep->deposit_type;
+                    $orderDep->deposit_type = 2;//将项目修改为已退款
                     $orderDep->update();
                     // 用户支付失败
                 } elseif (array_get($result, 'result_code') === 'FAIL') {
