@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 
+use App\Constants\ErrorMsgConstants;
+use App\Exceptions\ServiceException;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\project_check;
@@ -152,25 +154,41 @@ class WeChatPayController extends Controller
 
     /**
      * @param $orderNum
-     * @return string
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @return bool
      */
     public function refund($orderNum)
     {
         $refundOrder = date('YmdHis') . rand(10000, 99999);
-        $order = ProjectOrder::whereOrderNo($orderNum)->first();
-//        $projectModel = Project::whereId($order->project_id)->first();
-        if (!$order){
-            return '查无此订单';
+        try{
+            $order = ProjectOrder::whereOrderNo($orderNum)->first();
+            $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
+            if (!$order) {
+                throw new ServiceException(ErrorMsgConstants::DEFAULT_ERROR, "查无此订单");
+            }
+            $app = $this->weChatPay();
+            $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, $order->money, $order->money, [
+                // 可在此处传入其他参数，详细参数见微信支付文档
+                'refund_desc' => '项目押金退回',
+            ]);
+            if ($result['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
+                // 用户是否支付成功
+                if (array_get($result, 'result_code') === 'SUCCESS') {
+                    $order->refund_trade_no = $refundOrder;
+                    $order->update();
+                    $orderDep->deposit_type;
+                    $orderDep->update();
+                    // 用户支付失败
+                } elseif (array_get($result, 'result_code') === 'FAIL') {
+                    $this->refund($order->order_no);//
+                }
+            } else {
+                $this->refund($order->order_no);//
+            }
+            return true;
+        }catch (\Exception $exception){
+            throw new ServiceException(ErrorMsgConstants::DEFAULT_ERROR, "退款失败！");
         }
-        $app = $this->weChatPay();
-        $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, $order->money, $order->money, [
-            // 可在此处传入其他参数，详细参数见微信支付文档
-            'refund_desc' => '项目押金退回',
-        ]);
-        $order->refund_trade_no = $refundOrder;
-        $order->update();
-        return $result;
+
     }
 
     /**

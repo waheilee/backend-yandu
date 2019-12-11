@@ -37,7 +37,6 @@ class IntentionService
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
      */
     public function getPartner(Request $request)
     {
@@ -128,6 +127,11 @@ class IntentionService
         $proModel->status       = BaseConstants::ORDER_STATUS_EVALUATE;//修改为确认验收报告
         $proModel->check_status = BaseConstants::ORDER_STATUS_EVALUATE;//修改为已提交验收报告
         $proModel->update();
+        $projectModel = Project::whereId($proModel->project_id)->first();//完成该项目并改变项目转态为关闭
+        $projectModel->status = 1;
+        $projectModel->update();
+        $wechat = new WeChatPayController();
+        $wechat->refund($proModel->relate_order);
         return response()->json(['message'=>'确认成功']);
     }
 
