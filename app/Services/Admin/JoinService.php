@@ -27,7 +27,7 @@ class JoinService
 
             $item['project_name'] = "<a href='".url('detail/'.$item['project_id'])."' target='_blank'>".getProjectName($item['project_id'])."</a>";
             $item['deposit']      = exchangeToYuan( $item['deposit']);
-            $item['deposit_type'] = $this->depositType($item['deposit_type']);
+            $item['deposit_type'] = $this->depositType($item['deposit_type'],$item['relate_order']);
             $item['check']       =   $this->getButton($item['check_status'],$item['project_id'],$item['pr_mer_id']);
         }
         $array['page'] = $project->currentPage();
@@ -97,14 +97,15 @@ class JoinService
         return response()->json(['message'=>'确认成功']);
     }
 
-    public function depositType($type)
+    public function depositType($type,$order)
     {
         switch ($type){
             case 1:
                 $type = '已付款';
                 break;
             case 2:
-                $type = '已退款';
+                $srt = json_encode($order);
+                $type = "<span class='badge badge-default'>已退款</span>"."<button class=\"btn btn-outline-info btn-sm m-r-5\" onclick='refund($srt)' >查询退款详情</button>";
                 break;
         }
         return $type;

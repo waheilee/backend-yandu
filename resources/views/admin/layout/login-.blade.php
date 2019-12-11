@@ -152,81 +152,83 @@
                 <div class="copyright text-center text-xl-left text-muted mt-2 mb-3">
                     <p  class="font-weight-bold ml-1" >关于我们</p>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="https://yd-hb.com/news_detail?id=122" class="font-weight-300 ml-1 text-sm" target="_blank">严度简介</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="https://yd-hb.com/news_detail?id=122" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">严度简介</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="https://yd-hb.com/news_detail?id=125" class="font-weight-300 ml-1 text-sm" target="_blank">发展历史</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="https://yd-hb.com/news_detail?id=125" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">发展历史</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="https://yd-hb.com/news_detail?id=126" class="font-weight-300 ml-1 text-sm" target="_blank">联系我们</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="https://yd-hb.com/news_detail?id=126" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">联系我们</a>
                 </div>
             </div>
-            <div class="col-xl-2">
+            <div class="col-md-2">
                 <div class="copyright text-center text-xl-left text-muted mt-2 md-3">
                     <p  class="font-weight-bold ml-1" >帮助中心</p>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2 ">
-                    <a href="https://yandu.dev.chilunyc.com/news/join" class="font-weight-300 ml-1 text-sm" target="_blank">招商加盟</a>
+                <div class="copyright text-center text-xl-left  mt-2 ">
+                    <a href="https://yandu.dev.chilunyc.com/news/join" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">招商加盟</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2 ">
-                    <a href="https://yd-hb.com/news_detail?id=127" class="font-weight-300 ml-1 text-sm" target="_blank">商家平台操作</a>
+                <div class="copyright text-center text-xl-left  mt-2 ">
+                    <a href="https://yd-hb.com/news_detail?id=127" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">商家平台操作</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2 ">
-                    <a href="https://yd-hb.com/news_detail?id=128" class="font-weight-300 ml-1 text-sm" target="_blank">广告位租赁</a>
+                <div class="copyright text-center text-xl-left  mt-2 ">
+                    <a href="https://yd-hb.com/news_detail?id=128" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">广告位租赁</a>
                 </div>
 
-                <div class="copyright text-center text-xl-left text-muted mt-2 ">
-                    <a href="https://yandu.dev.chilunyc.com/news/platform" class="font-weight-300 ml-1" target="_blank">平台说明</a>
+                <div class="copyright text-center text-xl-left  mt-2 ">
+                    <a href="https://yandu.dev.chilunyc.com/news/platform" class="font-weight-300 ml-1 text-muted" target="_blank">平台说明</a>
                 </div>
             </div>
-            <div class="col-xl-2 p-1">
+            <div class="col-md-2 p-1">
                 <div class="copyright text-center text-xl-left text-muted mt-2 mb-3">
                     <p  class="font-weight-bold ml-1" >平台服务</p>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="https://yd-hb.com/picc" class="font-weight-300 ml-1 text-sm" target="_blank">PICC保障</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="https://yd-hb.com/picc" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">PICC保障</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="https://yd-hb.com/news_detail?id=129" class="font-weight-300 ml-1 text-sm" target="_blank">平台技术支持</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="https://yd-hb.com/news_detail?id=129" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">平台技术支持</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="https://yd-hb.com/news_detail?id=108" class="font-weight-300 ml-1 text-sm" target="_blank">全国CMA服务</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="https://yd-hb.com/news_detail?id=108" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">全国CMA服务</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="" class="font-weight-300 ml-1 text-sm" target="_blank">加盟电话：4008-010-911</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">加盟电话：4008-010-911</a>
                 </div>
             </div>
-            <div class="col-xl-2">
+            <div class="col-md-2">
                 <div class="copyright text-center text-xl-left text-muted mt-2">
                     <p  class="font-weight-bold ml-1" >友情链接</p>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="http://www.ciea.net.cn/" class="font-weight-300 ml-1 text-sm" target="_blank">中国室内环境协会
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="http://www.ciea.net.cn/" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">中国室内环境协会
                     </a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="http://www.ciega.org.cn/" class="font-weight-300 ml-1 text-sm" target="_blank">中国室内治理协会</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="http://www.ciega.org.cn/" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">中国室内治理协会</a>
                 </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <a href="http://www.cietc.com/" class="font-weight-300 ml-1 text-sm" target="_blank">室内环境网</a>
+                <div class="copyright text-center text-xl-left  mt-2">
+                    <a href="http://www.cietc.com/" class="font-weight-300 ml-1 text-sm text-muted" target="_blank">室内环境网</a>
                 </div>
             </div>
-            <div class="col-xl-2 px-6">
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <p  class="font-weight-bold ml-1" >严度测评公众号</p>
-                </div>
-                <div class="copyright text-center text-xl-left text-muted mt-2">
+            <div class="col-md-2">
+                <div class="copyright  text-left text-muted text-center">
+                    <p  class="font-weight-200 ml-1 text-xs " >严度测评公众号</p>
                     <img src="{{asset('assets/img/wechat_qrcode.png')}}"  style="width: 120px" />
                 </div>
+                {{--<div class="copyright text-center text-xl-left text-muted mt-2">--}}
+
+                {{--</div>--}}
 
             </div>
-            <div class="col-xl-2">
-                <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <p  class="font-weight-bold ml-1" >严度测评小程序</p>
+            <div class="col-md-2">
+                <div class="copyright  text-left text-muted text-center">
+                    <p  class="font-weight-200 ml-1 text-xs " >严度测评小程序</p>
+                    <img src="{{asset('assets/img/miniprogram_qrcodepng.png')}}"  style="width: 120px"/>
+
                 </div>
                 <div class="copyright text-center text-xl-left text-muted mt-2">
-                    <img src="{{asset('assets/img/miniprogram_qrcodepng.png')}}"  style="width: 120px"/>
                 </div>
 
             </div>

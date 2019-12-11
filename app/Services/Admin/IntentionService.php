@@ -140,7 +140,7 @@ class IntentionService
 
         switch ($status) {
             case BaseConstants::ORDER_STATUS_INIT:
-                $status = "<button class=\"btn btn-outline-info btn-sm m-r-5\" onclick=\"partner('$pId','$mId','$orderNum')\">待合作</button>";
+                $status = "<button class=\"btn btn-outline-info btn-sm m-r-5\" onclick=\"partner('$pId','$mId','$orderNum')\">点击选择合作</button>";
                 break;
             case BaseConstants::ORDER_STATUS_COOPERATION:
                 $status = "<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\" >合作中</button>".

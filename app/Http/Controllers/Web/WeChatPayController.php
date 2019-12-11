@@ -192,15 +192,45 @@ class WeChatPayController extends Controller
     }
 
     /**
-     * @param $refundOrder
+     * @param Request $request
      * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
      * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
      */
-    public function queryRefund($refundOrder)
+    public function queryRefund(Request $request)
     {
+        $order = $request->input('order');
         $app = $this->weChatPay();
-        $result = $app->refund->queryByOutRefundNumber($refundOrder);
-        return $result;
+        $result = $app->refund->queryByOutTradeNumber($order);
+        if ($result['return_code'] === 'SUCCESS'){
+            $data['refund_fee'] = exchangeToYuan($result['refund_fee']).'元' ;
+            //$data['result_code'] = $result['result_code'];//处理结果
+            $data['refund_status'] = $this->refundStatus($result['refund_status_0']) ;//退款转态
+            $data['refund_success_time'] = $result['refund_success_time_0'];
+            return $data;
+        }else{
+
+            return $result;
+        }
+//        return $result;
+    }
+
+    public function refundStatus($status)
+    {
+        switch ($status){
+            case 'SUCCESS':
+                $status = '退款成功';
+                break;
+            case 'REFUNDCLOSE':
+                $status = '退款关闭';
+                break;
+            case 'PROCESSING':
+                $status = '退款处理中';
+                break;
+            case 'CHANGE':
+                $status = '退款异常';
+                break;
+        }
+        return $status;
     }
 
 }

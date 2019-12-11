@@ -112,6 +112,54 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-4">
+            {{--<input type="hidden" class="btn btn-block btn-default" id="info" >--}}
+            <div class="modal fade" id="modal-refund" tabindex="-1" role="dialog" aria-labelledby="modal-info" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body p-0">
+                            <div class="card bg-secondary shadow border-0">
+                                <div class="card-header bg-transparent">
+                                    <div class="text-muted text-center mt-2 mb-3"><label>查看退款</label></div>
+                                    <div class="btn-wrapper text-center">
+                                    </div>
+                                </div>
+                                <div class="card-body px-lg-5 py-lg-5">
+                                    <div class="text-center text-muted mb-4">
+                                        <small id="username"></small>
+                                    </div>
+                                    <div class="">
+
+                                        <label class="label" >
+                                            <span class="text-muted">退款金额:</span><span class="text-muted" id="refund_fee"></span>
+                                        </label>
+
+                                    </div>
+                                    <div class="">
+
+                                        <label class="label" >
+                                            <span class="text-muted">退款状态:</span><span class="text-muted" id="refund_status"></span>
+                                        </label>
+
+                                    </div>
+                                    <div class="">
+
+                                        <label class="label" >
+                                            <span class="text-muted">退款时间:</span><span class="text-muted" id="refund_success_time"></span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('js')
 
@@ -276,6 +324,24 @@
             });
 
 
+        }
+    </script>
+    <script>
+        function refund(order) {
+            var url="{{route('wechat.queryRefund')}}";
+            $.post(url,{
+                'order': order,
+                '_token':'{{csrf_token()}}'
+            }, function (data) {
+                showQuery(data);
+            })
+        };
+        function showQuery(data) {
+            $("#refund_fee").html(data.refund_fee);
+            $("#refund_status").html(data.refund_status);
+            $("#refund_success_time").html(data.refund_success_time);
+            // 显示模态框
+            $('#modal-refund').modal('show');
         }
     </script>
 @endsection
