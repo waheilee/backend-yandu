@@ -160,7 +160,7 @@
                                     <div class="col-auto">
                                         <!-- Avatar -->
                                         <a href="{{route('news_detail').'?id='.$item->id}}" class=" rounded-lg" >
-                                            <img class="avatar-xl" alt="Image placeholder" src="http://yandu2019.oss-cn-beijing.aliyuncs.com/{{$item->cover}}" style="width: 200px;height: 130px">
+                                            <img class="avatar-xl" alt="Image placeholder" src="http://yandu2019.oss-cn-beijing.aliyuncs.com/{{$item->cover}}" >
                                         </a>
                                     </div>
 
