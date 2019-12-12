@@ -32,12 +32,13 @@ class IntentionService
     }
 
 
-
-    //选择合作商户
-
     /**
+     * 选择合作商户
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function getPartner(Request $request)
     {
@@ -109,6 +110,9 @@ class IntentionService
      * 甲方确认验收报告
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function confirmCheck(Request $request)
     {
@@ -122,8 +126,14 @@ class IntentionService
         $projectModel = Project::whereId($proModel->project_id)->first();//完成该项目并改变项目转态为关闭
         $projectModel->status = 1;
         $projectModel->update();
-        $wechat = new WeChatPayController();
-        $wechat->refund($proModel->relate_order);
+        if ($proModel->remark === 'wechat'){
+            $wechat = new WeChatPayController();
+            $wechat->refund($proModel->relate_order);
+        }else{
+            $alipay =new AlipayController();
+            $alipay->alipayRefund($proModel->relate_order);
+        }
+
         return response()->json(['message'=>'确认成功']);
     }
 
