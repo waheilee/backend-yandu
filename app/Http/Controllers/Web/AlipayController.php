@@ -47,7 +47,7 @@ class AlipayController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function notify(Request $request)
+    public function alipayNotify(Request $request)
     {
         $alipay = Pay::alipay(config('pay.alipay'));
 
@@ -99,18 +99,15 @@ class AlipayController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
-     * @throws \Yansongda\Pay\Exceptions\GatewayException
-     * @throws \Yansongda\Pay\Exceptions\InvalidArgumentException
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
-     * @throws \Yansongda\Pay\Exceptions\InvalidGatewayException
      * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
-    public function return(Request $request)
+    public function alipayReturn(Request $request)
     {
-        $alipay = Pay::alipay(config('pay.alipay'));
-
-        return $alipay->driver('alipay')->gateway()->verify($request->all());
+        $alipay = Pay::alipay(config('pay.alipay'))->verify();
+        $projectOrder = ProjectDeposit::whereRelateOrder($alipay->out_trade_no)->first();
+        return redirect('detail/'.$projectOrder->project_id);
     }
 
 

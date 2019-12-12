@@ -238,7 +238,7 @@
                                     </div>
                                 </form>
                                 <div class="text-center">
-                                    {{--<button class="btn"><img src="{{asset('web/images/aliapy.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="alipay()"></button>--}}
+                                    <button class="btn"><img src="{{asset('web/images/aliapy.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="alipay()"></button>
                                     <button class="btn"><img src="{{asset('web/images/WeChat.jpeg')}}" alt="" style="width: 100px; margin: 1px 50px;" onclick="wechat()"></button>
                                 </div>
                             </div>
@@ -449,7 +449,7 @@
                 //     showConfirmButton:false,
                 //     // imageAlt: 'Custom image',
                 // });
-                window.location.href = "/alipay/"+data;
+                window.open("/alipay/"+data);
                 {{--window.setInterval(function(){$.ajax({--}}
                     {{--type: 'post',--}}
                     {{--url:"{{route('notify')}}",--}}
