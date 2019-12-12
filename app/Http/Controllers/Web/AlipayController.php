@@ -31,16 +31,6 @@ class AlipayController extends Controller
         $config = config('pay.alipay');
 
         return  Pay::alipay($config)->web($aliPayOrder);
-//        dd($dd);
-//        $scan   = Pay::alipay($config)->scan($aliPayOrder);
-//
-//        if(empty($scan->code) || $scan->code !== '10000') return false;
-//        $qrCodePath = 'uploads/image/qrcode/order/'. 'alipay' . $id . '.png';
-//        QrCode::format('png')->size(300)->generate($scan->qr_code, public_path($qrCodePath));
-//
-//        $data['qrcode']       = url($qrCodePath);
-//        $data['out_trade_no'] = $order->order_no;
-//        return $data;
     }
 
     /**
@@ -110,5 +100,38 @@ class AlipayController extends Controller
         return redirect('detail/'.$projectOrder->project_id);
     }
 
+    /**
+     * @param $orderNum
+     * @return bool
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
+     */
+    public function alipayRefund($orderNum)
+    {
+        $alipay = Pay::alipay(config('pay.alipay'));
+        $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
+        $order = ProjectOrder::whereOrderNo($orderNum)->first();
+
+        $orders = [
+            'out_trade_no' => $orderDep->relate_order,
+            'refund_amount' => exchangeToYuan($orderDep->deposit),
+        ];
+
+        $result = $alipay->refund($orders);
+        if ($result['code'] === 10000) {
+
+            if (array_get($result, 'msg') === 'Success') {
+                $orderDep->deposit_type = 2;//将项目修改为已退款
+                $orderDep->update();
+                // 用户支付失败
+            } elseif (array_get($result, 'code') === 20000) {
+                $this->alipayRefund($order->order_no);//
+            }
+            \Log::debug('Alipay refund', $result->all());
+
+        }
+        return true;
+    }
 
 }

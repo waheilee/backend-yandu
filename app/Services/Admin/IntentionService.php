@@ -5,6 +5,7 @@ namespace App\Services\Admin;
 
 use App\Constants\BaseConstants;
 use App\Exceptions\ServiceException;
+use App\Http\Controllers\Web\AlipayController;
 use App\Models\ProjectCheck;
 use App\Models\Project;
 use App\Models\ProjectDeposit;
@@ -58,17 +59,8 @@ class IntentionService
         $model->status       = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
         $model->check_status = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
         $model->update();
-        $refund = ProjectDeposit::whereProjectId($pId)->whereCheckStatus(BaseConstants::ORDER_STATUS_CLOSE)->get();
-        //给未选择为合作的商户退款
-        foreach ($refund as $temp){
-            if ($temp->remark == 'wechat'){
-               $wechat = new WeChatPayController();
-               $wechat->refund($temp->relate_order);
-            }
-        }
-//        $projectModel = Project::whereId($pId)->first();
-//        $projectModel->status = 1;
-//        $projectModel->update();
+        $this->refund($pId);
+
         $data['code'] = 200;
         $data['merchant_name'] = getMerchantName($mId);
         return response()->json($data);
@@ -167,5 +159,26 @@ class IntentionService
         }
         return $status;
 
+    }
+
+    /**
+     * @param $id
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
+     */
+    public function refund($id)
+    {
+        $refund = ProjectDeposit::whereProjectId($id)->whereCheckStatus(BaseConstants::ORDER_STATUS_CLOSE)->get();
+        //给未选择为合作的商户退款
+        foreach ($refund as $temp){
+            if ($temp->remark == 'wechat'){
+                $wechat = new WeChatPayController();
+                $wechat->refund($temp->relate_order);
+            }else{
+                $alipay =new AlipayController();
+                $alipay->alipayRefund($temp->relate_order);
+            }
+        }
     }
 }
