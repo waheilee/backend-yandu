@@ -120,12 +120,13 @@ class AlipayController extends Controller
 
         $result = $alipay->refund($orders);
         if ($result['code'] === 10000) {
-
-            if (array_get($result, 'msg') === 'Success') {
+            if ($result['msg'] === 'Success') {
+                $order->refund_trade_no = $result['trade_no'];
+                $order->update();
                 $orderDep->deposit_type = 2;//将项目修改为已退款
                 $orderDep->update();
                 // 用户支付失败
-            } elseif (array_get($result, 'code') === 20000) {
+            } elseif ($result['code'] === 20000) {
                 $this->alipayRefund($order->order_no);//
             }
             \Log::debug('Alipay refund', $result->all());
