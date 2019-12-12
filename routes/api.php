@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('notify/order/{id}', 'Web\WeChatPayController@deposit');
-Route::post('alipay_notify/order', 'Web\AlipayController@notify');
-Route::post('alipay_return/order', 'Web\AlipayController@return');
+Route::post('alipay_notify/order', 'Web\AlipayController@alipayNotify');
+Route::post('alipay_return/order', 'Web\AlipayController@alipayReturn');
