@@ -100,39 +100,65 @@ class AlipayController extends Controller
         return redirect('detail/'.$projectOrder->project_id);
     }
 
+
+//    public function alipayRefund($orderNum)
+//    {
+//        $alipay = Pay::alipay(config('pay.alipay'));
+//        $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
+//        $order = ProjectOrder::whereOrderNo($orderNum)->first();
+//
+//        $orders = [
+//            'out_trade_no' => $orderDep->relate_order,
+//            'refund_amount' => exchangeToYuan($orderDep->deposit),
+//        ];
+//
+//        $result = $alipay->refund($orders);
+//        if ($result['code'] === 10000) {
+//            if ($result['msg'] === 'Success') {
+//                $order->refund_trade_no = $result['trade_no'];
+//                $order->update();
+//                $orderDep->deposit_type = 2;//将项目修改为已退款
+//                $orderDep->update();
+//
+//            } elseif ($result['code'] === 20000) {
+//                $this->alipayRefund($order->order_no);//
+//            }
+//            \Log::debug('Alipay refund', $result->all());
+//
+//        }
+//        return true;
+//    }
+
+    // 支付宝退款
     /**
      * @param $orderNum
      * @return bool
-     * @throws \Yansongda\Pay\Exceptions\GatewayException
-     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
-     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
-    public function alipayRefund($orderNum)
+    public function aliPayRefund($orderNum)
     {
-        $alipay = Pay::alipay(config('pay.alipay'));
         $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
         $order = ProjectOrder::whereOrderNo($orderNum)->first();
+        try {
+            $payOrder = [
+                'out_trade_no' => $orderDep->relate_order, // 商家订单号
+                'refund_amount' => exchangeToYuan($orderDep->deposit), // 退款金额  不得超过该订单总金额
+                //'out_request_no' => Common::getUuid() // 同一笔交易多次退款标识（部分退款标识）
+            ];
 
-        $orders = [
-            'out_trade_no' => $orderDep->relate_order,
-            'refund_amount' => exchangeToYuan($orderDep->deposit),
-        ];
-
-        $result = $alipay->refund($orders);
-        if ($result['code'] === 10000) {
-            if ($result['msg'] === 'Success') {
-                $order->refund_trade_no = $result['trade_no'];
-                $order->update();
-                $orderDep->deposit_type = 2;//将项目修改为已退款
-                $orderDep->update();
-                // 用户支付失败
-            } elseif ($result['code'] === 20000) {
-                $this->alipayRefund($order->order_no);//
-            }
-            \Log::debug('Alipay refund', $result->all());
-
+            // 返回状态码 code 10000 成功
+            $result = Pay::alipay(config('pay.alipay'))->refund($payOrder);
+            if (empty($result->code) || $result->code !== '10000') throw new \Exception('请求支付宝退款接口失败');
+            // 订单改为 已退款状态
+            $order->refund_trade_no = $result['trade_no'];
+            $order->update();
+            $orderDep->deposit_type = 2;//将项目修改为已退款
+            $orderDep->update();
+            return true;
+            // ~~自己商城的订单状态修改逻辑
+        } catch (\Exception $exception) {
+            \Log::error('Alipay refund',$exception->getMessage());
+            return false;
         }
-        return true;
     }
 
 }
