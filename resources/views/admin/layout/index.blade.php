@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="严度是专业的空气治理、空气检测、除醛净化综合服务平台，通过“互联网+空气治理”掀起一场健康居家、现代装修新革命，覆盖整个居所装修后空气质量产业链条，产品包括空气治理、空气净化、空气权威检测、空气净化设备、空气治理药剂等">
     <meta name="keywords" content="空气治理,空气净化,空气检测,空气检测网站,除醛净化,除甲醛,空气净化设备,空气治理药剂," >
-    <meta name="author" content="Creative Tim">
+    <meta name="renderer" content="webkit">
     <meta name="_token" content="{{ csrf_token() }}" />
     <title>严度商户后台</title>
     <!-- Favicon -->
