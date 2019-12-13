@@ -101,34 +101,6 @@ class AlipayController extends Controller
     }
 
 
-//    public function alipayRefund($orderNum)
-//    {
-//        $alipay = Pay::alipay(config('pay.alipay'));
-//        $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
-//        $order = ProjectOrder::whereOrderNo($orderNum)->first();
-//
-//        $orders = [
-//            'out_trade_no' => $orderDep->relate_order,
-//            'refund_amount' => exchangeToYuan($orderDep->deposit),
-//        ];
-//
-//        $result = $alipay->refund($orders);
-//        if ($result['code'] === 10000) {
-//            if ($result['msg'] === 'Success') {
-//                $order->refund_trade_no = $result['trade_no'];
-//                $order->update();
-//                $orderDep->deposit_type = 2;//将项目修改为已退款
-//                $orderDep->update();
-//
-//            } elseif ($result['code'] === 20000) {
-//                $this->alipayRefund($order->order_no);//
-//            }
-//            \Log::debug('Alipay refund', $result->all());
-//
-//        }
-//        return true;
-//    }
-
     // 支付宝退款
     /**
      * @param $orderNum
@@ -159,6 +131,37 @@ class AlipayController extends Controller
             \Log::error('Alipay refund',$exception->getMessage());
             return false;
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Yansongda\Supports\Collection
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
+     */
+    public function queryRefund(Request $request)
+    {
+        $order = $request->input('order');
+        $orders = [
+            'out_trade_no' => $order,
+            'out_request_no' => $order
+        ];
+        $projectOrder = ProjectOrder::whereOrderNo($order)->first();
+//        dd($projectOrder);
+        $result = Pay::alipay(config('pay.alipay'))->find($orders, 'refund');
+        if ($result['code'] === "10000"){
+            $data['refund_type'] = "支付宝退款";
+            $data['refund_amount'] = $result['refund_amount']."元";
+            $data['refund_status'] = '退款成功';
+            $data['refund_success_time'] = date("Y-m-d H:i:s",strtotime($projectOrder->updated_at)); ;
+            return $data;
+        }else{
+            $data['refund_status'] = '退款异常';
+            return $data;
+        }
+//        return $result;
+
     }
 
 }

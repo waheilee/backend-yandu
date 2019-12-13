@@ -23,6 +23,7 @@ Route::post('web/pay_notify','Web\DetailController@notify')->name('notify');
 Route::get('alipay/{id}','Web\AlipayController@Alipay')->name('alipay');
 Route::get('wechat/refund/{orderNum}','Web\WeChatPayController@refund')->name('wechat.refund');
 Route::post('wechat/refund/query_order','Web\WeChatPayController@queryRefund')->name('wechat.queryRefund');
+Route::post('ailipay/refund/query_order','Web\AlipayController@queryRefund')->name('alipay.queryRefund');
 
 Auth::routes();
 

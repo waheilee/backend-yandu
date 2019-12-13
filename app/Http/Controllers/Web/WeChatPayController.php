@@ -202,8 +202,8 @@ class WeChatPayController extends Controller
         $app = $this->weChatPay();
         $result = $app->refund->queryByOutTradeNumber($order);
         if ($result['return_code'] === 'SUCCESS'){
+            $data['refund_type'] = "微信退款" ;
             $data['refund_fee'] = exchangeToYuan($result['refund_fee']).'元' ;
-            //$data['result_code'] = $result['result_code'];//处理结果
             $data['refund_status'] = $this->refundStatus($result['refund_status_0']) ;//退款转态
             $data['refund_success_time'] = $result['refund_success_time_0'];
             return $data;

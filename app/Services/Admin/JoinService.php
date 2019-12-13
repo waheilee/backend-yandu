@@ -28,7 +28,7 @@ class JoinService
 
             $item['project_name'] = "<a href='".url('detail/'.$item['project_id'])."' target='_blank'>".getProjectName($item['project_id'])."</a>";
             $item['deposit']      = exchangeToYuan( $item['deposit']);
-            $item['deposit_type'] = $this->depositType($item['deposit_type'],$item['relate_order']);
+            $item['deposit_type'] = $this->depositType($item['deposit_type'],$item['relate_order'],$item['remark']);
             $item['check']       =   $this->getButton($item['check_status'],$item['project_id'],$item['pr_mer_id']);
         }
         $array['page'] = $project->currentPage();
@@ -106,18 +106,29 @@ class JoinService
         return response()->json(['message'=>'确认成功']);
     }
 
-    public function depositType($type,$order)
+    public function depositType($type,$order,$remark)
     {
         switch ($type){
             case 1:
                 $type = '已付款';
                 break;
             case 2:
-                $srt = json_encode($order);
-                $type = "<span class='badge badge-default'>已退款</span>"."<button class=\"btn btn-outline-info btn-sm m-r-5\" onclick='refund($srt)' >查询退款详情</button>";
+                $type = "<span class='badge badge-default'>已退款</span>".$this->query($remark,$order);
+
                 break;
         }
         return $type;
+    }
+
+    public function query($remark,$order)
+    {
+        $srt = json_encode($order);
+
+        if ($remark === 'wechat'){
+            return "<button class=\"btn btn-outline-info btn-sm m-r-5\" onclick='wechat_refund($srt)' >查询退款详情</button>";
+        }else{
+            return "<button class=\"btn btn-outline-info btn-sm m-r-5\" onclick='alipay_refund($srt)' >查询退款详情</button>";
+        }
     }
 
     public function getButton($status,$pId,$prMerId)

@@ -132,6 +132,13 @@
                                     <div class="">
 
                                         <label class="label" >
+                                            <span class="text-muted">退款途径:</span><span class="text-muted" id="refund_type"></span>
+                                        </label>
+
+                                    </div>
+                                    <div class="">
+
+                                        <label class="label" >
                                             <span class="text-muted">退款金额:</span><span class="text-muted" id="refund_fee"></span>
                                         </label>
 
@@ -327,7 +334,7 @@
         }
     </script>
     <script>
-        function refund(order) {
+        function wechat_refund(order) {
             var url="{{route('wechat.queryRefund')}}";
             $.post(url,{
                 'order': order,
@@ -337,7 +344,26 @@
             })
         };
         function showQuery(data) {
+            $("#refund_type").html(data.refund_type);
             $("#refund_fee").html(data.refund_fee);
+            $("#refund_status").html(data.refund_status);
+            $("#refund_success_time").html(data.refund_success_time);
+            // 显示模态框
+            $('#modal-refund').modal('show');
+        }
+
+        function alipay_refund(order) {
+            var url="{{route('alipay.queryRefund')}}";
+            $.post(url,{
+                'order': order,
+                '_token':'{{csrf_token()}}'
+            }, function (data) {
+                showQuery(data);
+            })
+        };
+        function showQuery(data) {
+            $("#refund_type").html(data.refund_type);
+            $("#refund_fee").html(data.refund_amount);
             $("#refund_status").html(data.refund_status);
             $("#refund_success_time").html(data.refund_success_time);
             // 显示模态框
