@@ -44,7 +44,7 @@ class PolicyService
         $model->qrcode      = $qrCodePath;
         $model->save();
         // 生成可访问的二维码
-        QrCode::format('png')->size(300)->margin(0)->generate('https://yd-hb.com/policy?id=' . $model->id, public_path($qrCodePath));
+        QrCode::format('png')->size(300)->margin(0)->generate('http://mer.yd-hb.com/policy/' . $model->id, public_path($qrCodePath));
         return response()->json(['message'=>'保单项目添加成功']);
     }
 
