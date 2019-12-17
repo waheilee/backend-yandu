@@ -25,5 +25,9 @@ Route::get('wechat/refund/{orderNum}','Web\WeChatPayController@refund')->name('w
 Route::post('wechat/refund/query_order','Web\WeChatPayController@queryRefund')->name('wechat.queryRefund');
 Route::post('ailipay/refund/query_order','Web\AlipayController@queryRefund')->name('alipay.queryRefund');
 
+//填写保单页面
+Route::get('policy/{id}','Web\PolicyController@index')->name('policy');
+Route::post('policy/store','Web\PolicyController@store')->name('policy.store');
+
 Auth::routes();
 

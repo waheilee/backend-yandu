@@ -43,6 +43,9 @@ class JoinController extends Controller
      * 确认验收报告
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function confirm(Request $request)
     {

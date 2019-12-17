@@ -226,6 +226,7 @@
                         {title:'创建时间', field:'created_at',},
                         {title:'分配保单数', field:'policy_total',},
                         {title:'已填写保单数', field:'policy_used',},
+                        {title:'邀请识别码', field:'code',},
                         {title:'操作', field:'button',},
                     ]
                 });

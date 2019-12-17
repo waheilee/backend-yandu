@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereUsername($value)
+ * @property int $merchant_id 保单所属商户id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereMerchantId($value)
  */
 class MemberPolicy extends Model
 {

@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Policy whereQrcode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Policy whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $code 保单邀请码
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Policy whereCode($value)
  */
 class Policy extends Model
 {
@@ -47,5 +49,41 @@ class Policy extends Model
     public function getCreatedAtAttribute($value)
     {
         return date('Y-m-d H:i', strtotime($value));
+    }
+
+    /**
+     * 模型内生成邀请码 并返回控制器
+     * @return string
+     */
+    public function CreateCode() {
+        $code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $rand = $code[rand(0,25)]
+            .strtoupper(dechex(date('m')))
+            .date('d').substr(time(),-5)
+            .substr(microtime(),2,5)
+            .sprintf('%02d',rand(0,99));
+        for(
+            $a = md5( $rand, true ),
+            $s = '0123456789ABCDEFGHIJKLMNOPQRSTUV',
+            $d = '',
+            $f = 0;
+            $f < 6;
+            $g = ord( $a[ $f ] ),
+            $d .= $s[ ( $g ^ ord( $a[ $f + 8 ] ) ) - $g & 0x1F ],
+            $f++
+        );
+        return $d;
+    }
+
+    /**
+     * 判断验证码是否存在数据库中
+     * @param $code
+     * @return bool
+     */
+    public function recode($code) {
+        if ($this->where('code','=',$code)->first()) {
+            return false;
+        }
+        return true;
     }
 }
