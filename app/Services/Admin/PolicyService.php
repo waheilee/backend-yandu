@@ -2,7 +2,6 @@
 
 namespace App\Services\Admin;
 
-use App\Models\MemberPolicy;
 use App\Models\Policy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -85,7 +84,8 @@ class PolicyService
     public function getButton($qrcode,$id)
     {
         $url = json_encode($qrcode);
-        $button = "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick='show_qrcode($url)'>二维码</button>".
+        $button = "<a type=\"button\" class=\"btn btn-warning btn-sm\" href='http://mer.yd-hb.com/policy/".$id."' target='_blank'>在线添加保单</a>".
+                  "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick='show_qrcode($url)'>二维码</button>".
                   "<button type=\"button\" class=\"btn btn-success btn-sm\" onclick='edit($id)'>编辑</button>".
                   "<button type=\"button\" class=\"btn btn-danger btn-sm \" onclick='del($id)'>删除</button>".
                   "<a class='btn btn-primary btn-sm' href='".url('admin/policy_show/'.$id)."' target=\"_blank\">查看详情</a>";

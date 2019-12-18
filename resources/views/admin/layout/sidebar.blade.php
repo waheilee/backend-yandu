@@ -86,7 +86,7 @@
                         <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) show @endif"  id="navbar-policy">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/index') !== false) active @endif">
-                                    <a href="{{ url('admin/policies/index') }}" class="nav-link">XX保单列表</a>
+                                    <a href="{{ url('admin/policies/index') }}" class="nav-link">空气治理质量责任险</a>
                                 </li>
                                 {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">--}}
                                     {{--<a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>--}}
