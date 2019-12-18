@@ -116,4 +116,5 @@ class PolicyController extends Controller
             return response()->json(['message'=>'无法处理此请求'],400);
         }
     }
+
 }

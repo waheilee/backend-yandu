@@ -78,11 +78,24 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item  @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) active @endif">
-                        <a  class="nav-link " href="{{ url('admin/policies') }}"  role="button"  aria-controls="navbar-dashboards">
-                            <i class="ni ni-archive-2 text-danger"></i>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#navbar-policy" data-toggle="collapse" role="button"  aria-controls="navbar-policy">
+                            <i class="ni ni-folder-17 text-info"></i>
                             <span class="nav-link-text">保单管理</span>
                         </a>
+                        <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) show @endif"  id="navbar-policy">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/index') !== false) active @endif">
+                                    <a href="{{ url('admin/policies/index') }}" class="nav-link">XX保单列表</a>
+                                </li>
+                                {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">--}}
+                                    {{--<a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">--}}
+                                    {{--<a href="{{ url('admin/worker/index') }}" class="nav-link">施工人员管理</a>--}}
+                                {{--</li>--}}
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item  @if(strpos(Route::getCurrentRoute()->uri, 'admin/merchant') !== false) active @endif">
                         <a  class="nav-link " href="{{ url('admin/merchant') }}"  role="button"  aria-controls="navbar-dashboards">

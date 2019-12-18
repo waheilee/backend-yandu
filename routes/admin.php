@@ -48,12 +48,16 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('evaluate/merchant/project_side','EvaluateController@evaluateProjectSide');
     Route::post('evaluate/project_side/merchant','EvaluateController@evaluateMerchant');
 
-    Route::get('policies', 'PolicyController@index')->name('policy.index');
+    //保单
+    Route::get('policies/index', 'PolicyController@index')->name('policy.index');
     Route::get('policies/list', 'PolicyController@indexRequest')->name('policy.indexRequest');
     Route::post('policies/create', 'PolicyController@store')->name('policy.create');
     Route::post('policies/edit', 'PolicyController@edit')->name('policy.edit');
     Route::post('policies/update', 'PolicyController@update')->name('policy.update');
     Route::post('policies/delete', 'PolicyController@delete')->name('policy.delete');
+
+    Route::get('policy_show/{id}', 'PolicyShowController@index')->name('policy.show');
+    Route::get('policy_show/show/list', 'PolicyShowController@showRequest')->name('policy.showList');
 
 
     Route::get('merchant', 'MerchantController@index')->name('merchant.index');

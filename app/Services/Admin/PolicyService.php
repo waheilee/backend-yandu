@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Models\MemberPolicy;
 use App\Models\Policy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class PolicyService
         $rows = Policy::whereMerchantId( Auth::user()->id)->orderBy('created_at', 'desc')
             ->paginate($limit);
         foreach ($rows as $item){
-            $item['button'] = $this->getButton($item['qrcode'],$item['id'],$item['qrcode']);
+            $item['company'] = "<a href='".url('admin/policy_show/'.$item['id'])."' target=\"_blank\">".$item['company']."</a>";
+            $item['button'] = $this->getButton($item['qrcode'],$item['id']);
         }
         $array['page']  = $rows->currentPage();
         $array['rows']  = $rows->items();
@@ -24,6 +26,11 @@ class PolicyService
         return $array;
     }
 
+    /**
+     * 生成保单项目
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function setStore(Request $request)
     {
         $company  = $request->input('company');
@@ -39,7 +46,7 @@ class PolicyService
         $model->company     = $company;
         $model->address     = $address;
         $model->policy_total= $total;
-        $model->code        = $this->getCode($model);
+        $model->code        = str_pad(mt_rand(10, 999999),6, "0", STR_PAD_BOTH);
         $qrCodePath         = 'uploads/qrcode/policy/' . date('YmdHis') . rand(1000, 9999) . '.png';
         $model->qrcode      = $qrCodePath;
         $model->save();
@@ -48,6 +55,11 @@ class PolicyService
         return response()->json(['message'=>'保单项目添加成功']);
     }
 
+    /**
+     * 更新保单项目
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function setUpdate(Request $request)
     {
         $company = $request->input('company');
@@ -70,11 +82,13 @@ class PolicyService
         }
     }
 
-    public function getButton($qrcode,$id,$url)
+    public function getButton($qrcode,$id)
     {
-        $button = "<a href='".$url."' class=\"btn btn-info btn-sm\" download='qrcode'>下载二维码</a>".
+        $url = json_encode($qrcode);
+        $button = "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick='show_qrcode($url)'>二维码</button>".
                   "<button type=\"button\" class=\"btn btn-success btn-sm\" onclick='edit($id)'>编辑</button>".
-                  "<button type=\"button\" class=\"btn btn-danger btn-sm\" onclick='del($id)'>删除</button>";
+                  "<button type=\"button\" class=\"btn btn-danger btn-sm \" onclick='del($id)'>删除</button>".
+                  "<a class='btn btn-primary btn-sm' href='".url('admin/policy_show/'.$id)."' target=\"_blank\">查看详情</a>";
         return $button;
     }
 
@@ -83,17 +97,19 @@ class PolicyService
      * @param $model
      * @return mixed
      */
-    private function getCode($model) {
-        $code = $model->CreateCode();
-        //把接收的邀请码再次返回给模型
-        if ($model->recode($code)) {
-            //不重复 返回验证码
-            return $code;
-        } else {
-            //重复 再次生成
-            while(true) {
-                $this->getCode($model);
-            }
-        }
-    }
+//    private function getCode($model) {
+//        $code = $model->CreateCode();
+//        //把接收的邀请码再次返回给模型
+//        if ($model->recode($code)) {
+//            //不重复 返回验证码
+//            return $code;
+//        } else {
+//            //重复 再次生成
+//            while(true) {
+//                $this->getCode($model);
+//            }
+//        }
+//    }
+
+
 }
