@@ -148,7 +148,7 @@
                 <!-- Card header -->
                 <div class="card-header">
                     <!-- Title -->
-                    <h5 class="h3 mb-0">行业咨询</h5>
+                    <h5 class="h3 mb-0">行业资讯</h5>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
