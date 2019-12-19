@@ -59,6 +59,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('policy_show/{id}', 'PolicyShowController@index')->name('policy.show');
     Route::get('policy_show/show/list', 'PolicyShowController@showRequest')->name('policy.showList');
 
+    //雇主责任险
+    Route::get('policies/employer/index', 'PolicyEmployerController@index')->name('employer.index');
+
 
     Route::get('merchant', 'MerchantController@index')->name('merchant.index');
     Route::post('merchant/edit_intro', 'MerchantController@updateIntro')->name('merchant.edit_intro');

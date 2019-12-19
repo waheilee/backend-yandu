@@ -88,9 +88,9 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/index') !== false) active @endif">
                                     <a href="{{ url('admin/policies/index') }}" class="nav-link">空气治理质量责任险</a>
                                 </li>
-                                {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">--}}
-                                    {{--<a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>--}}
-                                {{--</li>--}}
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/employer/index') !== false) active @endif">
+                                    <a href="{{ url('admin/policies/employer/index') }}" class="nav-link">雇主责任险</a>
+                                </li>
                                 {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">--}}
                                     {{--<a href="{{ url('admin/worker/index') }}" class="nav-link">施工人员管理</a>--}}
                                 {{--</li>--}}
