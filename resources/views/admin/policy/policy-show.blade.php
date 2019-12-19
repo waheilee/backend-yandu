@@ -151,8 +151,9 @@
         function show_policy_img(img) {
             Swal.fire({
                 imageUrl: img,
-                imageHeight: 700,
-                imageWidth:600,
+                imageHeight: 1100,
+                imageWidth:800,
+                width:800,
 
                 imageAlt: '保单二维码',
                 confirmButtonText:'确定'
