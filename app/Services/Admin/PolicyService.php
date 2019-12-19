@@ -84,7 +84,7 @@ class PolicyService
     public function getButton($qrcode,$id)
     {
         $url = json_encode($qrcode);
-        $button = "<a type=\"button\" class=\"btn btn-warning btn-sm\" href='http://mer.yd-hb.com/policy/".$id."' target='_blank'>在线添加保单</a>".
+        $button = "<a class=\"btn btn-warning btn-sm\" href='".env('APP_URL')."/policy/".$id."' target='_blank'>在线添加保单</a>".
                   "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick='show_qrcode($url)'>二维码</button>".
                   "<button type=\"button\" class=\"btn btn-success btn-sm\" onclick='edit($id)'>编辑</button>".
                   "<button type=\"button\" class=\"btn btn-danger btn-sm \" onclick='del($id)'>删除</button>".

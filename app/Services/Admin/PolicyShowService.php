@@ -19,7 +19,7 @@ class PolicyShowService
         $policyId = $request->input('id');
         $rows = MemberPolicy::wherePolicyId( $policyId)->orderBy('created_at', 'desc')->paginate($limit);
         foreach ($rows as $item){
-            $url = json_encode(asset($item['policy_img']));
+            $url = json_encode("https://backend.yd-hb.com/".($item['policy_img']));
             $item['button'] = "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick='show_policy_img($url)'>查看保单</button>";
         }
         $array['page']  = $rows->currentPage();
