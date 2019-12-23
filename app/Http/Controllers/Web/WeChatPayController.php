@@ -124,7 +124,7 @@ class WeChatPayController extends Controller
                     'pay_time'=>date('Y-m-d h:i:s',time())
             ]);
             if ($order->type == 1){
-                $projectModel = ProjectOrder::whereOrderNo($order)->first();
+                $projectModel = ProjectOrder::whereOrderNo($order->order_num)->first();
                 $projectModel->status = 1;
                 $projectModel->update();
             }
