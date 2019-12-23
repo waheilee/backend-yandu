@@ -46,7 +46,7 @@ class IntentionService
 
         $proModel = ProjectOrder::whereProjectId($pId)->get();
         foreach ($proModel as $item){
-            $item->partA_status       = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
+            $item->partA_status = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
             $item->partB_status = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
             $item->update();
         }
@@ -170,7 +170,7 @@ class IntentionService
      */
     public function refund($id)
     {
-        $refund = ProjectOrder::whereProjectId($id)->wherePartBStatus(BaseConstants::ORDER_STATUS_CLOSE)->get();
+        $refund = ProjectOrder::whereProjectId($id)->where('partB_status',BaseConstants::ORDER_STATUS_CLOSE)->get();
         //给未选择为合作的商户退款
         foreach ($refund as $temp){
             if ($temp->remark == 'wechat'){
