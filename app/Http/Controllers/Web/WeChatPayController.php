@@ -196,7 +196,7 @@ class WeChatPayController extends Controller
     }
     public function notifyOrder($type,$order)
     {
-        if ($type == BaseConstants::PRODUCT_TYPE_PROJECT){
+        if ($type === BaseConstants::PRODUCT_TYPE_PROJECT){
             $projectModel = ProjectOrder::whereOrderNo($order)->first();
             $projectModel->update(['status'=>1]);
         }
