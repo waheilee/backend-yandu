@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\AlipayController;
 use App\Models\ProjectCheck;
 use App\Models\Project;
 use App\Models\ProjectDeposit;
+use App\Models\ProjectOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Web\WeChatPayController;
@@ -36,9 +37,6 @@ class IntentionService
      * 选择合作商户
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Yansongda\Pay\Exceptions\GatewayException
-     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
-     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function getPartner(Request $request)
     {
@@ -46,19 +44,19 @@ class IntentionService
         $mId      = $request->input('merchant_id');
         $orderNum = $request->input('order_num');
 
-        $proModel = ProjectDeposit::whereProjectId($pId)->get();
+        $proModel = ProjectOrder::whereProjectId($pId)->get();
         foreach ($proModel as $item){
-            $item->status       = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
-            $item->check_status = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
+            $item->partA_status       = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
+            $item->partB_status = BaseConstants::ORDER_STATUS_CLOSE;//把所有商户状态调整为未合作状态
             $item->update();
         }
 
-        $model = ProjectDeposit::whereProjectId($pId)
+        $model = ProjectOrder::whereProjectId($pId)
                 ->whereMerchantId($mId)
-                ->whereRelateOrder($orderNum)
+                ->whereOrderNo($orderNum)
                 ->first();
-        $model->status       = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
-        $model->check_status = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
+        $model->partA_status = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
+        $model->partB_status = BaseConstants::ORDER_STATUS_COOPERATION;//调整此商户为合作商户
         $model->update();
         $this->refund($pId);
 
@@ -85,15 +83,15 @@ class IntentionService
             $model->merchant_id = \Auth::user()->id;
             $model->content     = $filePath;
             $model->save();
-            $proModel = ProjectDeposit::whereProjectId($projectId)
+            $proModel = ProjectOrder::whereProjectId($projectId)
                 ->wherePrMerId(\Auth::user()->id)
-                ->whereStatus(BaseConstants::ORDER_STATUS_COOPERATION)
+                ->wherePartAStatus(BaseConstants::ORDER_STATUS_COOPERATION)
                 ->first();
             if (!$proModel){
                 return response()->json(['message'=>"未找到该笔订单"],422);
             }
-            $proModel->status       = BaseConstants::ORDER_STATUS_CHECK;//修改为已提交验收报告
-            $proModel->check_status = BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK;//修改为确认验收报告转态
+            $proModel->partA_status = BaseConstants::ORDER_STATUS_CHECK;//修改为已提交验收报告
+            $proModel->partB_status = BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK;//修改为确认验收报告转态
             $proModel->update();
             \DB::commit();
 
@@ -106,22 +104,18 @@ class IntentionService
 
     }
 
-    /**
-     * 甲方确认验收报告
+    /**甲方确认验收报告
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Yansongda\Pay\Exceptions\GatewayException
-     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
-     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function confirmCheck(Request $request)
     {
-        $proModel = ProjectDeposit::whereProjectId($request->input('id'))
+        $proModel = ProjectOrder::whereProjectId($request->input('id'))
             ->wherePrMerId(\Auth::user()->id)
-            ->whereStatus(BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK)
+            ->wherePartAStatus(BaseConstants::ORDER_STATUS_WAIT_FOR_CHECK)
             ->first();
-        $proModel->status       = BaseConstants::ORDER_STATUS_EVALUATE;//修改为确认验收报告
-        $proModel->check_status = BaseConstants::ORDER_STATUS_EVALUATE;//修改为已提交验收报告
+        $proModel->partA_status = BaseConstants::ORDER_STATUS_EVALUATE;//修改为确认验收报告
+        $proModel->partB_status = BaseConstants::ORDER_STATUS_EVALUATE;//修改为已提交验收报告
         $proModel->update();
         $projectModel = Project::whereId($proModel->project_id)->first();//完成该项目并改变项目转态为关闭
         $projectModel->status = 1;
@@ -173,21 +167,18 @@ class IntentionService
 
     /**
      * @param $id
-     * @throws \Yansongda\Pay\Exceptions\GatewayException
-     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
-     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function refund($id)
     {
-        $refund = ProjectDeposit::whereProjectId($id)->whereCheckStatus(BaseConstants::ORDER_STATUS_CLOSE)->get();
+        $refund = ProjectOrder::whereProjectId($id)->wherePartBStatus(BaseConstants::ORDER_STATUS_CLOSE)->get();
         //给未选择为合作的商户退款
         foreach ($refund as $temp){
             if ($temp->remark == 'wechat'){
                 $wechat = new WeChatPayController();
-                $wechat->refund($temp->relate_order);
+                $wechat->refund($temp->order_no);
             }else{
                 $alipay =new AlipayController();
-                $alipay->alipayRefund($temp->relate_order);
+                $alipay->alipayRefund($temp->order_no);
             }
         }
     }
