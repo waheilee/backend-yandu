@@ -29,8 +29,9 @@ class DetailController extends Controller
         $merInfo = $this->detailService->getIntentionMerchant($id);
         if ($user){
             $userId = $user->id;
-            $deposit = ProjectDeposit::whereProjectId($id)->whereMerchantId($userId)->first();
-            $project = Project::whereId($id)->whereMerchantId($userId)->first();
+            $projectOrder = ProjectOrder::whereProjectId($id)->whereMerchantId($userId)->first();
+            $deposit      = OrderMerchant::whereOrderNum($projectOrder->order_no)->wherePayStatus(1)->first();
+            $project      = Project::whereId($id)->whereMerchantId($userId)->first();
 //            dd( $project);
             return view('web.detail.index',compact('userId','article','merInfo','deposit','project'));
         }else{

@@ -54,6 +54,6 @@ class ProjectOrder extends Model
 
     public function orderMerchant()
     {
-        return $this->belongsTo('App\Models\OrderMerchant','order_on','order_num');
+        return $this->belongsTo('App\Models\OrderMerchant','order_num');
     }
 }
