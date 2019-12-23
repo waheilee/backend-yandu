@@ -123,6 +123,7 @@ class WeChatPayController extends Controller
                     'pay_status' => $pay_status,
                     'pay_time'=>date('Y-m-d h:i:s',time())
             ]);
+            $this->notifyOrder($order->type,$order->order_num);
             if ($order->type == 1){
                 $projectModel = ProjectOrder::whereOrderNo($order->order_num)->first();
                 $projectModel->status = 1;
@@ -200,9 +201,10 @@ class WeChatPayController extends Controller
     }
     public function notifyOrder($type,$order)
     {
-        if ($type === 1){
+        if ($type == 1){
             $projectModel = ProjectOrder::whereOrderNo($order)->first();
-            $projectModel->update(['status'=>1]);
+            $projectModel->status = 1;
+            $projectModel->update();
         }
         return true;
     }
