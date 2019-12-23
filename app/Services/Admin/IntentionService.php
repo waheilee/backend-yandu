@@ -19,7 +19,7 @@ class IntentionService
     public function indexAjax(Request $request)
     {
         $limit   = $request->input('limit');
-        $project = ProjectDeposit::wherePrMerId(\Auth::user()->id)->orderBy('project_id')->paginate($limit);
+        $project = ProjectOrder::wherePrMerId(\Auth::user()->id)->whereStatus(1)->orderBy('project_id')->paginate($limit);
         foreach ($project as $item) {
             $item['deposit']      = exchangeToYuan( $item['deposit']);
             $item['merchant_name']  = getMerchantName($item['merchant_id']);
