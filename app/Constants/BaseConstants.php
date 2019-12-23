@@ -12,10 +12,6 @@ class BaseConstants
     const ORDER_STATUS_WAIT_FOR_CHECK   = 4;
     const ORDER_STATUS_EVALUATE         = 5;
     const ORDER_STATUS_DONE             = 6;
-//    const ORDER_STATUS_REFUND_DONE = 7;
-//    const ORDER_STATUS_RETURN_GOODS = 8;
-//    const ORDER_STATUS_RETURN_GOODS_DONE = 9;
-
 
     const ORDER_STATUS_MAP = [
         self::ORDER_STATUS_INIT              => "待合作",
@@ -25,10 +21,25 @@ class BaseConstants
         self::ORDER_STATUS_WAIT_FOR_CHECK    => "确认验收报告",
         self::ORDER_STATUS_EVALUATE          => "评价",
         self::ORDER_STATUS_DONE              => "完成项目",
-//        self::ORDER_STATUS_REFUND_DONE       => "完成项目",
-//        self::ORDER_STATUS_RETURN_GOODS      => "换货中",
-//        self::ORDER_STATUS_RETURN_GOODS_DONE => "已完成换货",
     ];
 
+    /**
+     * 商品类型
+     */
+    const PRODUCT_TYPE_PROJECT =1;
+    const PRODUCT_TYPE_POLICY =2;
+    const PRODUCT_TYPE_MAP = [
+        self::PRODUCT_TYPE_PROJECT              => "项目押金",
+        self::PRODUCT_TYPE_POLICY               => "购买保单",
+    ];
 
+    /**
+     * 付款渠道
+     */
+    const PAY_CHANNEL_WECHART =1;
+    const PAY_CHANNEL_ALIPAY =2;
+    const PAY_CHANNEL_MAP = [
+        self::PAY_CHANNEL_WECHART              => "wechat",
+        self::PAY_CHANNEL_ALIPAY               => "alipay",
+    ];
 }

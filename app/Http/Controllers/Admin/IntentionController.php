@@ -33,7 +33,9 @@ class IntentionController extends Controller
      * 选择合作意向商户
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\GatewayException
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function partner(Request $request)
     {

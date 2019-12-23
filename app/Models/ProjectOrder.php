@@ -35,12 +35,25 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property string $worker_id 工人id
- * @property int $status 状态:0未合作，1合作
+ * @property int $status 状态:0未付款，1已付款
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereWorkerId($value)
+ * @property int $pr_mer_id 项目所属用户id
+ * @property int $partA_status 甲方项目状态
+ * @property int $partB_status 乙方项目状态
+ * @property string|null $remark 备注
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder wherePartAStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder wherePartBStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder wherePrMerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectOrder whereRemark($value)
  */
 class ProjectOrder extends Model
 {
 
     protected $table = 'project_order';
+
+    public function orderMerchant()
+    {
+        return $this->belongsTo('App\Models\OrderMerchant','order_on','order_num');
+    }
 }

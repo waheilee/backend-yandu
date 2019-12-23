@@ -45,13 +45,13 @@
                         <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/project') !== false) show @endif" id="navbar-examples">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/index') !== false) active @endif">
-                                    <a href="{{ url('admin/project/index') }}" class="nav-link">我发布的需求</a>
+                                    <a href="{{ url('admin/project/index') }}" class="nav-link " @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/index') !== false) style="color: red" @endif >我发布的需求</a>
                                 </li>
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/create') !== false) active @endif">
-                                    <a href="{{ url('admin/project/create') }}" class="nav-link">发布需求</a>
+                                    <a href="{{ url('admin/project/create') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/create') !== false) style="color: red" @endif >发布需求</a>
                                 </li>
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/intention') !== false) active @endif">
-                                    <a href="{{ url('admin/project/intention') }}" class="nav-link">意向商户列表</a>
+                                    <a href="{{ url('admin/project/intention') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/project/intention') !== false) style="color: red" @endif>意向商户列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -61,19 +61,19 @@
                             <i class="ni ni-ui-04 text-info"></i>
                             <span class="nav-link-text">我要接单</span>
                         </a>
-                        <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand') !== false) show @endif"  id="navbar-components">
+                        <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand') or strpos(Route::getCurrentRoute()->uri, 'admin/worker') !== false) show @endif"  id="navbar-components">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/index') !== false) active @endif">
-                                    <a href="{{ url('admin/demand/index') }}" class="nav-link">项目需求列表</a>
+                                    <a href="{{ url('admin/demand/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/index') !== false) style="color: red" @endif>项目需求列表</a>
                                 </li>
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) active @endif">
-                                    <a href="{{ url('admin/demand/join/index') }}" class="nav-link">我参与的项目</a>
+                                    <a href="{{ url('admin/demand/join/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/join/index') !== false) style="color: red" @endif>我参与的项目</a>
                                 </li>
                                 {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/demand/partner/index') !== false) active @endif">--}}
                                     {{--<a href="{{ url('admin/demand/partner/index') }}" class="nav-link">我合作的项目</a>--}}
                                 {{--</li>--}}
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">
-                                    <a href="{{ url('admin/worker/index') }}" class="nav-link">施工人员管理</a>
+                                    <a href="{{ url('admin/worker/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) style="color: red" @endif>施工人员管理</a>
                                 </li>
                             </ul>
                         </div>
@@ -86,10 +86,10 @@
                         <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) show @endif"  id="navbar-policy">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/index') !== false) active @endif">
-                                    <a href="{{ url('admin/policies/index') }}" class="nav-link">空气治理质量责任险</a>
+                                    <a href="{{ url('admin/policies/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/index') !== false) style="color: red" @endif>空气治理质量责任险</a>
                                 </li>
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/employer/index') !== false) active @endif">
-                                    <a href="{{ url('admin/policies/employer/index') }}" class="nav-link">雇主责任险</a>
+                                    <a href="{{ url('admin/policies/employer/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies/employer/index') !== false) style="color: red" @endif>雇主责任险</a>
                                 </li>
                                 {{--<li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">--}}
                                     {{--<a href="{{ url('admin/worker/index') }}" class="nav-link">施工人员管理</a>--}}
