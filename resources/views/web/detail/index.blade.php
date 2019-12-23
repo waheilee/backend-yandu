@@ -316,7 +316,7 @@
                     Swal.fire({
                         title: '微信支付!',
                         text: '请使用微信扫一扫\n' + '扫描二维码支付',
-                        imageUrl: data.qrcode,
+                        imageUrl: data.scan.qrcode,
                         imageWidth: 300,
                         imageHeight: 300,
                         showConfirmButton:false,
@@ -325,12 +325,14 @@
                     window.setInterval(function(){$.ajax({
                         type: 'post',
                         url:"{{route('notify')}}",
-                        data: form,
+                        data: {'order':data.order.order_num},
                         cache: false,
                         processData: false,
                         contentType: false,
                         dataType:'json',
-
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                        },
                         success:function(data) {
                             Swal.fire({
                                 title: '提示',

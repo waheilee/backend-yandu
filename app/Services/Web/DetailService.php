@@ -177,23 +177,24 @@ class DetailService
             ->first();
         if ($checkOrder){
             $qrCodePath     = 'uploads/image/qrcode/order/'. 'wechat'. $checkOrder->id . '.png';
-            $data['qrcode'] = url($qrCodePath);
+            $data['scan']['qrcode'] = url($qrCodePath);
             return $data;
         }
-        $orderId  = $this->newOrderStore($projectId,$cashDeposit,$worker,$channel);
-        $orderCode= new WeChatPayController();
-        $scan     = $orderCode->wechatScan($orderId);
-        return $scan;
+        $orderId       = $this->newOrderStore($projectId,$cashDeposit,$worker,$channel);
+        $orderCode     = new WeChatPayController();
+        $scan          = $orderCode->wechatScan($orderId['order_id']);
+        $data['scan']  = $scan;
+        $data['order'] = $orderId['order_num'];
+        return $data;
     }
 
 
     /**
-     * 创建订单
      * @param $projectId
      * @param $cashDeposit
      * @param $worker
      * @param $channel
-     * @return int
+     * @return mixed
      */
     public function newOrderStore($projectId,$cashDeposit,$worker,$channel)
     {
@@ -215,8 +216,10 @@ class DetailService
         $projectOrder->worker_id   = json_encode($worker);
         $projectOrder->pr_mer_id   = $project->merchant_id;
         $projectOrder->save();
+        $data['order_id'] = $model->id;
+        $data['order_num'] = $model->order_num;
 
-        return $model->id;
+        return $data;
     }
 
     //商户头像

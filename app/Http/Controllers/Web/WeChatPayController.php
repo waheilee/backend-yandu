@@ -120,12 +120,13 @@ class WeChatPayController extends Controller
                 return $fail('通信失败，请稍后再通知我');
             }
                 OrderMerchant::whereId($order->id)->update([
-                'pay_status' => $pay_status
+                    'pay_status' => $pay_status,
+                    'pay_time'=>date('Y-m-d h:i:s',time())
             ]);
             $this->notifyOrder($order->type,$order->order_num);
             # 财务记录
 //            event(new FundCreated($order->member_id, Fund::DEPOSIT,'-', '+1000'));
-
+            \Log::debug('WeChat notify success', $message);
             return true; // 返回处理完成
         });
 
