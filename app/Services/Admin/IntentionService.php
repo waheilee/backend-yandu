@@ -24,7 +24,7 @@ class IntentionService
             $item['deposit']      = exchangeToYuan( $item['deposit']);
             $item['merchant_name']  = getMerchantName($item['merchant_id']);
             $item['project_name']   = getProjectName($item['project_id']);
-            $item['button']   = $this->getButton($item['status'],$item['project_id'],$item['merchant_id'],$item['relate_order']);
+            $item['button']   = $this->getButton($item['partA_status'],$item['project_id'],$item['merchant_id'],$item['relate_order']);
         }
         $array['page'] = $project->currentPage();
         $array['rows'] = $project->items();
