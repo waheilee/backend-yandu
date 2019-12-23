@@ -123,7 +123,10 @@ class WeChatPayController extends Controller
                     'pay_status' => $pay_status,
                     'pay_time'=>date('Y-m-d h:i:s',time())
             ]);
-            $this->notifyOrder($order->type,$order->order_num);
+            if ($order->type === BaseConstants::PRODUCT_TYPE_PROJECT){
+                $projectModel = ProjectOrder::whereOrderNo($order)->first();
+                $projectModel->update(['status'=>1]);
+            }
             # 财务记录
 //            event(new FundCreated($order->member_id, Fund::DEPOSIT,'-', '+1000'));
             \Log::debug('WeChat notify success', $message);
