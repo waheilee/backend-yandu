@@ -21,7 +21,7 @@ class CreateOrderMerchantTable extends Migration
             $table->integer('user_id')->comment('下单用户id');
             $table->string('address')->nullable()->comment('地址');
             $table->integer('type')->nullable()->comment('商品类型（例如：项目保证金、购买保单）');
-            $table->decimal('total_amount', 10, 2)->comment('订单总金额');
+            $table->bigInteger('total_amount')->comment('订单总金额');
             $table->dateTime('pay_time')->nullable()->comment('支付时间');
             $table->dateTime('refund_time')->nullable()->comment('退款时间');
             $table->integer('pay_status')->default(0)->comment('支付状态，0未支付，1已支付，2已退款，3已过期');
