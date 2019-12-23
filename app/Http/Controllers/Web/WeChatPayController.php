@@ -75,7 +75,7 @@ class WeChatPayController extends Controller
         $order = OrderMerchant::find($id);
 
         $result = $app->weChatPay()->order->unify([
-            'body' => $order->type,
+            'body' => BaseConstants::PRODUCT_TYPE_MAP[$order->type],
             'out_trade_no' => $order->order_num,
             'total_fee' =>  $order->total_amount,
             'notify_url' => url('api/notify/order/2'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
