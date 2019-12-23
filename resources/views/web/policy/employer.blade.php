@@ -1,23 +1,8 @@
 @extends('web.layout.app')
 @section('web_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/build/toastr.css') }}">
-
 @endsection
 @section('detail')
-        {{--<div class="card-body container mt-4 " style="background-image: url(../../assets/img/bg_policy.png);">--}}
-            {{--<h3>{{$row->company}}</h3>--}}
-            {{--<p class="text-default text-sm">除醛服务送保单服务</p>--}}
-            {{--<div id="badges-component" class="tab-pane tab-example-result fade active show" role="tabpanel" aria-labelledby="badges-component-tab">--}}
-                {{--<span class="badge badge-info float-md-right">{{$row->policy_used}}/{{$row->policy_total}}</span><br>--}}
-                {{--<span class="badge badge-secondary float-md-right">已填写人数</span><br>--}}
-            {{--</div>--}}
-            {{--<div  style="position: relative;width: 100%;-webkit-box-sizing: border-box;box-sizing: border-box;padding: 10px 0;line-height: 26px;font-size: 14px;color: #999;text-align: right;margin-top: 10px;">--}}
-                {{--<span >除醛商：{{$row->merchant}}</span>--}}
-            {{--</div>--}}
-            {{--<div class="row">--}}
-                {{--<div class="col-md-10 col-md-offset-3"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
         <div class="container ptb50">
 
         <div class="context mt-4">
@@ -67,41 +52,48 @@
                         <form role="form" id="policy">
                             {{--<input type="hidden" name="policy_id" value="{{$row->id}}">--}}
                             {{--<input type="hidden" name="merchant_id" value="{{$row->merchant_id}}">--}}
-                            <div class="form-group">
-                                <label class="form-control-label" for="">邀请识别码<span class="text-danger">*</span></label>
-                                <input class="form-control " placeholder="邀请识别码" name="code" type="text">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="">邀请识别码<span class="text-danger">*</span></label>
+                                        <input class="form-control " placeholder="邀请识别码" name="code" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="">姓名<span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="姓名" name="username" type="text">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="">职员姓名<span class="text-danger">*</span></label>
-                                <input class="form-control" placeholder="职员姓名" name="username" type="text">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="">身份证号<span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="身份证号" name="idcard" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="">手机号码<span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="手机号码" name="phone" type="text">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="">身份证号<span class="text-danger">*</span></label>
-                                <input class="form-control" placeholder="身份证号" name="idcard" type="text">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="">邮箱<span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="邮箱" name="email" type="email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="">施工技能<span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="例：除甲醛、保洁..." name="position" type="text">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="">手机号码<span class="text-danger">*</span></label>
-                                <input class="form-control" placeholder="手机号码" name="phone" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="">邮箱<span class="text-danger">*</span></label>
-                                <input class="form-control" placeholder="邮箱" name="email" type="email">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="">职位<span class="text-danger">*</span></label>
-                                <input class="form-control" placeholder="职位" name="position" type="text">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-control-label" for="">薪资范围<span class="text-danger">*</span></label>
-                                <select class="form-control" name="payroll" id="">
-                                    <option>低于7k</option>
-                                    <option>7k-10k</option>
-                                    <option>10k-20k</option>
-                                    <option>20k以上</option>
-                                </select>
-                            </div>
-
                         </form>
                     </div>
                     <div class="modal-footer">
