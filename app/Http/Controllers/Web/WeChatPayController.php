@@ -123,9 +123,10 @@ class WeChatPayController extends Controller
                     'pay_status' => $pay_status,
                     'pay_time'=>date('Y-m-d h:i:s',time())
             ]);
-            if ($order->type === BaseConstants::PRODUCT_TYPE_PROJECT){
+            if ($order->type == 1){
                 $projectModel = ProjectOrder::whereOrderNo($order)->first();
-                $projectModel->update(['status'=>1]);
+                $projectModel->status = 1;
+                $projectModel->update();
             }
             # 财务记录
 //            event(new FundCreated($order->member_id, Fund::DEPOSIT,'-', '+1000'));
