@@ -67,6 +67,7 @@ class DetailController extends Controller
 
     public function notify(Request $request)
     {
+
         $model = OrderMerchant::whereOrderNum($request->input('order'))->wherePayStatus(1)->first();
         if ($model){
             return response()->json(['message'=>'支付成功']);

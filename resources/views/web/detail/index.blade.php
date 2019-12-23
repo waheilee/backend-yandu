@@ -322,32 +322,34 @@
                         showConfirmButton:false,
                         // imageAlt: 'Custom image',
                     });
-                    window.setInterval(function(){$.ajax({
+                     orders = data
+                    function cprint() {
+                        return orders;
+                    }
+                    window.setInterval(function(){
+                        // console.log(cprint())
+                        var data = cprint()
+                        $.ajax({
                         type: 'post',
                         url:"{{route('notify')}}",
-                        data: {'order':data.order.order_num},
-                        cache: false,
-                        processData: false,
-                        contentType: false,
+                        data: {'order':data.order},
                         dataType:'json',
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                        },
-                        success:function(data) {
-                            Swal.fire({
-                                title: '提示',
-                                text:''+data.message+'',
-                                type: 'success',
-                                focusConfirm: false, //聚焦到确定按钮
-                                showCloseButton: true,//右上角关闭
-                                showConfirmButton:false,
-                                timer:2000
-                            });
-                            setTimeout(function() {
-                                window.location.reload()
-                            },2000);
-                        }
-                    })},3000);
+                        headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
+                            success:function(data) {
+                                Swal.fire({
+                                    title: '提示',
+                                    text:''+data.message+'',
+                                    type: 'success',
+                                    focusConfirm: false, //聚焦到确定按钮
+                                    showCloseButton: true,//右上角关闭
+                                    showConfirmButton:false,
+                                    timer:2000
+                                });
+                                setTimeout(function() {
+                                    window.location.reload()
+                                },2000);
+                            }
+                        })},3000);
                 },
                 error:function (data) {
                     var json = JSON.parse(data.responseText);
