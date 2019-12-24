@@ -43,13 +43,13 @@ class AlipayController extends Controller
     {
         $alipay = Pay::alipay(config('pay.alipay'));
         try{
-            $data = $alipay->verify(); // 是的，验签就这么简单！
+            $data = $alipay->verify();
             $order = OrderMerchant::whereOrderNum($data->out_trade_no)->first();
             $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
                 $order->update([
                     'pay_status' => 1
                 ]);
-                $this->notifyOrder($order->type,$order->order_num);
+//                $this->notifyOrder($order->type,$order->order_num);
                 \Log::debug('Alipay notify success', $data->all());
         } catch (\Exception $e) {
             throw new $e;
