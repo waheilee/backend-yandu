@@ -173,7 +173,7 @@ class IntentionService
         $refund = ProjectOrder::whereProjectId($id)->where('partB_status',BaseConstants::ORDER_STATUS_CLOSE)->get();
         //给未选择为合作的商户退款
         foreach ($refund as $temp){
-            if ($temp->remark == 'wechat'){
+            if ($temp->channel == BaseConstants::PAY_CHANNEL_WECHART){
                 $wechat = new WeChatPayController();
                 $wechat->refund($temp->order_no);
             }else{
