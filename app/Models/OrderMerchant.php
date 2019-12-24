@@ -53,6 +53,6 @@ class OrderMerchant extends Model
 
     public function project()
     {
-        return $this->hasOne('App\Models\ProjectOrder','order_no','order_num');
+        return $this->belongsTo('App\Models\ProjectOrder','order_no','order_no');
     }
 }

@@ -26,8 +26,8 @@ class IntentionService
             $item['project_name']   = getProjectName($item['project_id']);
             $item['button']   = $this->getButton($item['partA_status'],$item['project_id'],$item['merchant_id'],$item['order_no']);
         }
-        $array['page'] = $project->currentPage();
-        $array['rows'] = $project->items();
+        $array['page']  = $project->currentPage();
+        $array['rows']  = $project->items();
         $array['total'] = $project->total();
         return $array;
     }
@@ -73,9 +73,9 @@ class IntentionService
     public function checkStore(Request $request)
     {
         $projectId = $request->input('project_id');
-        $file   = $request->file('project');
-        $files = $file->store('checks');
-        $filePath = Storage::url($files);
+        $file      = $request->file('project');
+        $files     = $file->store('checks');
+        $filePath  = Storage::url($files);
         try{
             \DB::beginTransaction();
             $model   = new ProjectCheck();
@@ -173,7 +173,9 @@ class IntentionService
         $refund = ProjectOrder::whereProjectId($id)->where('partB_status',BaseConstants::ORDER_STATUS_CLOSE)->get();
         //给未选择为合作的商户退款
         foreach ($refund as $temp){
-            if ($temp->channel == BaseConstants::PAY_CHANNEL_WECHART){
+
+            if ($temp->orderMerchant->channel == 'wechat'){
+
                 $wechat = new WeChatPayController();
                 $wechat->refund($temp->order_no);
             }else{

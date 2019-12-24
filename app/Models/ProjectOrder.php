@@ -52,8 +52,9 @@ class ProjectOrder extends Model
 
     protected $table = 'project_order';
 
+
     public function orderMerchant()
     {
-        return $this->belongsTo('App\Models\OrderMerchant','order_num');
+        return $this->hasOne('App\Models\OrderMerchant','order_num','order_no');
     }
 }
