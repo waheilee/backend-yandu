@@ -37,24 +37,22 @@ class AlipayController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Yansongda\Pay\Exceptions\InvalidConfigException
+     * @throws \Yansongda\Pay\Exceptions\InvalidSignException
      */
     public function alipayNotify(Request $request)
     {
         $alipay = Pay::alipay(config('pay.alipay'));
-        try{
-            $data = $alipay->verify();
-            $order = OrderMerchant::whereOrderNum($data->out_trade_no)->first();
-            $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
-                $order->update([
-                    'pay_status' => 1
-                ]);
+        $data = $alipay->verify();
+        $order = OrderMerchant::whereOrderNum($data->out_trade_no)->first();
+        $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+            $order->update([
+                'pay_status' => 1
+            ]);
 //                $this->notifyOrder($order->type,$order->order_num);
-                \Log::debug('Alipay notify success', $data->all());
-        } catch (\Exception $e) {
-            throw new $e;
-            // $e->getMessage();
-        }
+            \Log::debug('Alipay notify success', $data->all());
+
         $alipay->success();
         return redirect('detail/'.$projectOrder->project_id);// laravel 框架中请直接 `return $alipay->success()`
     }
