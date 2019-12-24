@@ -85,9 +85,11 @@ class AlipayController extends Controller
      */
     public function alipayReturn(Request $request)
     {
-        $alipay = Pay::alipay(config('pay.alipay'))->verify();
-        $projectOrder = OrderMerchant::whereOrderNum($alipay->out_trade_no)->first();
-        return redirect('detail/'.$projectOrder->project->project_id);
+        $alipay       = Pay::alipay(config('pay.alipay'))->verify();
+        $order        = OrderMerchant::whereOrderNum($alipay->out_trade_no)->first();
+        $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+
+        return redirect('detail/'.$projectOrder->project_id);
     }
 
 
@@ -98,7 +100,7 @@ class AlipayController extends Controller
      */
     public function aliPayRefund($orderNum)
     {
-        $order = OrderMerchant::whereOrderNum($orderNum)->first();
+        $order   = OrderMerchant::whereOrderNum($orderNum)->first();
         $project = ProjectOrder::whereOrderNo($orderNum)->first();
         try {
             $payOrder = [
