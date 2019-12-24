@@ -87,8 +87,8 @@ class AlipayController extends Controller
     public function alipayReturn(Request $request)
     {
         $alipay = Pay::alipay(config('pay.alipay'))->verify();
-        $projectOrder = ProjectDeposit::whereRelateOrder($alipay->out_trade_no)->first();
-        return redirect('detail/'.$projectOrder->project_id);
+        $projectOrder = OrderMerchant::whereOrderNum($alipay->out_trade_no)->first();
+        return redirect('detail/'.$projectOrder->project->project_id);
     }
 
 
@@ -99,12 +99,12 @@ class AlipayController extends Controller
      */
     public function aliPayRefund($orderNum)
     {
-        $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
-        $order = ProjectOrder::whereOrderNo($orderNum)->first();
+        $order = OrderMerchant::whereOrderNum($orderNum)->first();
+        $project = ProjectOrder::whereOrderNo($orderNum)->first();
         try {
             $payOrder = [
-                'out_trade_no' => $orderDep->relate_order, // 商家订单号
-                'refund_amount' => exchangeToYuan($orderDep->deposit), // 退款金额  不得超过该订单总金额
+                'out_trade_no' => $order->order_num, // 商家订单号
+                'refund_amount' => exchangeToYuan($order->total_amount), // 退款金额  不得超过该订单总金额
                 //'out_request_no' => Common::getUuid() // 同一笔交易多次退款标识（部分退款标识）
             ];
 
@@ -113,9 +113,14 @@ class AlipayController extends Controller
             if (empty($result->code) || $result->code !== '10000') throw new \Exception('请求支付宝退款接口失败');
             // 订单改为 已退款状态
             $order->refund_trade_no = $result['trade_no'];
+            $order->refund_time     = date('Y-m-d h:i:s',time());
+            $order->refund_status   = 1;
+            if ($order->type == BaseConstants::PRODUCT_TYPE_PROJECT){
+                $project->remark = '已退款';
+                $project->update();
+            }
             $order->update();
-            $orderDep->deposit_type = 2;//将项目修改为已退款
-            $orderDep->update();
+
             return true;
             // ~~自己商城的订单状态修改逻辑
         } catch (\Exception $exception) {
@@ -157,9 +162,10 @@ class AlipayController extends Controller
 
     public function notifyOrder($type,$order)
     {
-        if ($type == BaseConstants::PRODUCT_TYPE_PROJECT){
+        if ($type == 1){
             $projectModel = ProjectOrder::whereOrderNo($order)->first();
-            $projectModel->update(['status'=>1]);
+            $projectModel->status = 1;
+            $projectModel->update();
         }
         return true;
     }
