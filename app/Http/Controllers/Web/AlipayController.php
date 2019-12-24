@@ -42,10 +42,11 @@ class AlipayController extends Controller
     public function alipayNotify(Request $request)
     {
         $alipay = Pay::alipay(config('pay.alipay'));
-
         try{
             $data = $alipay->verify(); // 是的，验签就这么简单！
-            $order = OrderMerchant::whereOrderNum( $data->out_trade_no)->first();
+            $order = OrderMerchant::whereOrderNum($data->out_trade_no)->first();
+            $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+
             if (!$order) { // 如果订单不存在 或者 订单已经支付过了
                 return true; // 告诉支付宝，我已经处理完了，订单没找到，别再通知我了
             }
@@ -73,8 +74,8 @@ class AlipayController extends Controller
             throw new $e;
             // $e->getMessage();
         }
-
-        return $alipay->success();// laravel 框架中请直接 `return $alipay->success()`
+        $alipay->success();
+        return redirect('detail/'.$projectOrder->project_id);// laravel 框架中请直接 `return $alipay->success()`
     }
 
     /**
