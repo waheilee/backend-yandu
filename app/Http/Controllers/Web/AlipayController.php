@@ -19,7 +19,6 @@ class AlipayController extends Controller
     // 支付宝网页支付
     public function aliPay($id)
     {
-
         $order = OrderMerchant::find($id);
         $project = Project::whereId($order->project->project_id)->first();
 //        dd($project);

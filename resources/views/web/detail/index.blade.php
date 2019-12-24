@@ -395,7 +395,7 @@
                     //     showConfirmButton:false,
                     //     // imageAlt: 'Custom image',
                     // });
-                    window.open("/alipay/"+data);
+                    window.open("/alipay/"+data.order_id);
                     {{--window.setInterval(function(){$.ajax({--}}
                     {{--type: 'post',--}}
                     {{--url:"{{route('notify')}}",--}}
