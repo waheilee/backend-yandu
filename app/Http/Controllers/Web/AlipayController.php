@@ -50,8 +50,9 @@ class AlipayController extends Controller
         $order->pay_time      = date('Y-m-d h:i:s',time());
         $order->pay_status    = 1;
         $order->update();
-//                $this->notifyOrder($order->type,$order->order_num);
-            \Log::debug('Alipay notify success', $data->all());
+
+        $this->notifyOrder($order->type,$order->order_num);
+        \Log::debug('Alipay notify success', $data->all());
         return $alipay->success();// laravel 框架中请直接 `return $alipay->success()`
     }
 
