@@ -46,30 +46,11 @@ class AlipayController extends Controller
             $data = $alipay->verify(); // 是的，验签就这么简单！
             $order = OrderMerchant::whereOrderNum($data->out_trade_no)->first();
             $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
-
-            if (!$order) { // 如果订单不存在 或者 订单已经支付过了
-                return true; // 告诉支付宝，我已经处理完了，订单没找到，别再通知我了
-            }
-            if ($order->pay_status === 1){
-                return true;
-            }
-            if ($data->trade_status === 'TRADE_SUCCESS'){
-                $order_status = 1;
-                if ($data->app_id != env('ALI_APP_ID')){
-                    return false;
-                }
-                if (exchangeToFen($data->total_amount) != $order->total_amount ){
-                    return false;
-                }
                 $order->update([
-                    'pay_status' => $order_status
+                    'pay_status' => 1
                 ]);
                 $this->notifyOrder($order->type,$order->order_num);
                 \Log::debug('Alipay notify success', $data->all());
-            }else{
-                return false;
-            }
-
         } catch (\Exception $e) {
             throw new $e;
             // $e->getMessage();
