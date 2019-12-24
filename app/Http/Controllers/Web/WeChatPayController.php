@@ -146,23 +146,27 @@ class WeChatPayController extends Controller
     {
         $refundOrder = date('YmdHis') . rand(10000, 99999);
         try{
-            $order = ProjectOrder::whereOrderNo($orderNum)->first();
-            $orderDep = ProjectDeposit::whereRelateOrder($orderNum)->first();
+            $project = ProjectOrder::whereOrderNo($orderNum)->first();
+            $order = OrderMerchant::whereOrderNum($orderNum)->first();
             if (!$order) {
                 throw new ServiceException(ErrorMsgConstants::DEFAULT_ERROR, "查无此订单");
             }
             $app = $this->weChatPay();
-            $result = $app->refund->byOutTradeNumber($order->order_no, $refundOrder, $order->money, $order->money, [
+            $result = $app->refund->byOutTradeNumber($order->order_num, $refundOrder, $order->total_amount, $order->total_amount, [
                 // 可在此处传入其他参数，详细参数见微信支付文档
-                'refund_desc' => '项目押金退回',
+                'refund_desc' => $this->refundTypeInfo($order->type),
             ]);
             if ($result['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
                 // 用户是否支付成功
                 if (array_get($result, 'result_code') === 'SUCCESS') {
                     $order->refund_trade_no = $refundOrder;
+                    $order->refund_time     = date('Y-m-d h:i:s',time());
+                    $order->refund_status   = 1;
                     $order->update();
-                    $orderDep->deposit_type = 2;//将项目修改为已退款
-                    $orderDep->update();
+                    if ($order->type == BaseConstants::PRODUCT_TYPE_PROJECT){
+                        $project->remark = '已退款';
+                        $project->update();
+                    }
                     // 用户支付失败
                 } elseif (array_get($result, 'result_code') === 'FAIL') {
                     $this->refund($order->order_no);//
@@ -226,6 +230,16 @@ class WeChatPayController extends Controller
                 break;
         }
         return $status;
+    }
+
+    public function refundTypeInfo($type)
+    {
+        switch ($type){
+            case BaseConstants::PRODUCT_TYPE_PROJECT:
+                $type = '项目押金退款';
+                break;
+        }
+        return $type;
     }
 
 }
