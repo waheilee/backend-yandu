@@ -20,8 +20,8 @@ class AlipayController extends Controller
     public function aliPay($id)
     {
         $order = OrderMerchant::find($id);
-        $project = Project::whereId($order->project->project_id)->first();
-//        dd($project);
+        $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+        $project = Project::whereId($projectOrder->project_id)->first();
 
         $aliPayOrder = [
             'out_trade_no' => $order->order_num,
