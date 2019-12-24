@@ -174,7 +174,7 @@ class IntentionService
         //给未选择为合作的商户退款
         foreach ($refund as $temp){
 
-            if ($temp->orderMerchant->channel == 'wechat'){
+            if ($temp->orderMerchant->channel == BaseConstants::PAY_CHANNEL_WECHART){
 
                 $wechat = new WeChatPayController();
                 $wechat->refund($temp->order_no);
