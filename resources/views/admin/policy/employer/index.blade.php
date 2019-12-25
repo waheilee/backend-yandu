@@ -89,9 +89,8 @@
                                 <th>投保人姓名</th>
                                 <th>身份证号</th>
                                 <th>手机</th>
-                                <th>邮箱</th>
+                                <th>保单状态</th>
                                 <th>职位</th>
-                                <th>薪资范围</th>
                                 <th>提交时间</th>
                                 <th>操作</th>
                             </tr>
@@ -125,7 +124,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table_id_example').bootstrapTable({
-                    url: '{{route('policy.showList')}}',
+                    url: '{{route('employer.list')}}',
                     cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
                     pagination: true,                   //是否显示分页（*）
                     queryParams: oTableInit.queryParams,//传递参数（*）
@@ -143,10 +142,10 @@
                         {title:'投保人姓名', field:'username',},
                         {title:'身份证号', field:'idcard',},
                         {title:'手机', field:'phone',},
-                        {title:'邮箱', field:'email',},
-                        {title:'职位', field:'position',},
-                        {title:'薪资范围', field:'payroll',},
-                        {title:'提交时间', field:'created_at',},
+                        {title:'保单状态', field:'pay_status',},
+                        {title:'技能', field:'position',},
+                        {title:'生效时间', field:'effective_date',},
+                        {title:'过期时间', field:'out_time',},
                         {title:'操作操作', field:'button',},
                     ]
                 });
@@ -176,6 +175,29 @@
                 confirmButtonText:'确定'
             })
 
+        }
+
+        function pay(order) {
+            $.ajax({
+                type: 'POST',
+                url: '{{route('employer.renewPay')}}',
+                data: {'order':order},
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                success : function (data) {
+                    window.open("{{url('policy/employer/pay/')}}"+"/"+data)
+                },
+                error : function (data) {
+                    var json = JSON.parse(data.responseText);
+
+                    $.each(json.errors, function(idx, obj) {
+                        toastr.warning(obj[0]);
+                        return false;
+                    });
+                }
+            })
         }
     </script>
 @endsection

@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     //雇主责任险
     Route::get('policies/employer/index', 'PolicyEmployerController@index')->name('employer.index');
+    Route::get('policies/employer/list', 'PolicyEmployerController@indexRequest')->name('employer.list');
+    Route::post('policies/employer/renew_pay', 'PolicyEmployerController@renewPay')->name('employer.renewPay');
 
 
     Route::get('merchant', 'MerchantController@index')->name('merchant.index');

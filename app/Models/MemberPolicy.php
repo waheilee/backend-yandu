@@ -57,4 +57,9 @@ class MemberPolicy extends Model
     {
         return date('Y-m-d', strtotime($value));
     }
+
+    public function orderMerchant()
+    {
+        return $this->hasOne('App\Models\OrderMerchant','order_num','order_no');
+    }
 }

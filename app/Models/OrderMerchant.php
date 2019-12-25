@@ -56,4 +56,9 @@ class OrderMerchant extends Model
     {
         return $this->belongsTo('App\Models\ProjectOrder','order_no','order_no');
     }
+
+    public function policy()
+    {
+        return $this->belongsTo('App\Models\MemberPolicy','order_no','order_no');
+    }
 }

@@ -25,6 +25,10 @@ class PolicyEmployerController extends Controller
 
     public function store(PolicyEmployerRequest $request)
     {
+        $order = MemberPolicy::whereIdcard($request->input('idcard'))->first();
+        if ($order){
+            return response()->json(['error'=>['message'=>'此用户已购买够此保单']]);
+        }
         //创建新订单
         $orderModel = new OrderMerchant();
         $orderModel->type            = BaseConstants::PRODUCT_TYPE_POLICY_EMPLOYER;//购买的商品类型为保险

@@ -7,6 +7,7 @@ use App\Constants\BaseConstants;
 use App\Constants\ErrorMsgConstants;
 use App\Exceptions\ServiceException;
 use App\Http\Controllers\Controller;
+use App\Models\MemberPolicy;
 use App\Models\OrderMerchant;
 use App\Models\ProjectOrder;
 use EasyWeChat\Factory;
@@ -210,6 +211,12 @@ class WeChatPayController extends Controller
             $projectModel = ProjectOrder::whereOrderNo($order)->first();
             $projectModel->status = 1;
             $projectModel->update();
+        }
+        if ($type == 2){
+            $policyModel = MemberPolicy::whereOrderNo($order)->first();
+            $policyModel->effective_date = null;
+            $policyModel->out_time       = null;
+            $policyModel->update();
         }
         return true;
     }
