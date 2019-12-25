@@ -199,7 +199,7 @@
                     'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                 },
                 success : function (data) {
-                    window.open("{{url('policy/employer/pay/')}}"+data)
+                    window.open("{{url('policy/employer/pay/')}}"+"/"+data)
                 },
                 error : function (data) {
                     var json = JSON.parse(data.responseText);
