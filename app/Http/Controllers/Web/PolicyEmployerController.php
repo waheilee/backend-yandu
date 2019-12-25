@@ -27,7 +27,7 @@ class PolicyEmployerController extends Controller
     {
         //创建新订单
         $orderModel = new OrderMerchant();
-        $orderModel->type            = BaseConstants::PRODUCT_TYPE_POLICY;//购买的商品类型为保险
+        $orderModel->type            = BaseConstants::PRODUCT_TYPE_POLICY_EMPLOYER;//购买的商品类型为保险
         $orderModel->user_id         = \Auth::guard('admin')->user()->id;//付款用户id
         $orderModel->total_amount    = exchangeToFen(20) ;//订单金额
         $orderModel->order_num       = date('YmdHis') . rand(10000, 99999);//订单流水号
