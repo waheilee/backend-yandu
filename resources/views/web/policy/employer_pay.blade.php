@@ -16,7 +16,7 @@
                 </div>
                 <button type="button" class="btn btn-success mb-3" onclick="wechat()">微信购买</button>
 
-                <button type="button" class="btn btn-primary mb-3">支付宝购买</button>
+                <a href="{{url('/alipay/'.$orderModel->id)}}" type="button" class="btn btn-primary mb-3">支付宝购买</a>
             </div>
             <div class="card-footer">
 

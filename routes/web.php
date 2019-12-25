@@ -34,6 +34,7 @@ Route::get('policy/employer/detail','Web\PolicyEmployerController@index')->name(
 Route::post('policy/employer/create','Web\PolicyEmployerController@store')->name('employer.store');
 Route::get('policy/employer/pay/{id}','Web\PolicyEmployerController@pay')->name('employer.pay');
 Route::post('policy/employer/wechat_pay','Web\PolicyEmployerController@wechatPay')->name('employer.wechatPay');
+//Route::post('policy/employer/ali_pay','Web\PolicyEmployerController@aliPay')->name('employer.aliPay');
 
 Auth::routes();
 

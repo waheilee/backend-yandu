@@ -74,7 +74,6 @@ class PolicyEmployerController extends Controller
         $wechat = new WeChatPayController();
         $data = $wechat->wechatScan($request->input('order_id'));
         return $data;
-
     }
 
 
