@@ -67,9 +67,13 @@ class AlipayController extends Controller
     {
         $alipay       = Pay::alipay(config('pay.alipay'))->verify();
         $order        = OrderMerchant::whereOrderNum($alipay->out_trade_no)->first();
-        $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+        if ($order->type == 1){
+            $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+            return redirect('detail/'.$projectOrder->project_id);
+        }else{
+            return redirect('admin/policies/employer/index');
+        }
 
-        return redirect('detail/'.$projectOrder->project_id);
     }
 
 
