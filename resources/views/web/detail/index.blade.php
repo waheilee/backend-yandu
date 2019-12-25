@@ -314,14 +314,15 @@
                 dataType: 'json',
                 success: function(data){
                     Swal.fire({
-                        title: '微信支付!',
-                        text: '请使用微信扫一扫\n' + '扫描二维码支付',
-                        imageUrl: data.scan.qrcode,
-                        imageWidth: 300,
-                        imageHeight: 300,
+                        title: '<strong>微信扫码支付</strong>',
+                        icon: 'info',
+                        html:
+                        '<img src="data:image/png;base64,'+data.scan.qrcode+'"> ' ,
+                        showCloseButton: false,
+                        showCancelButton: false,
                         showConfirmButton:false,
-                        // imageAlt: 'Custom image',
-                    });
+                        focusConfirm: false,
+                    })
                      orders = data
                     function cprint() {
                         return orders;

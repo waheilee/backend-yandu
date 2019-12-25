@@ -31,6 +31,9 @@ Route::post('policy/store','Web\PolicyController@store')->name('policy.store');
 
 //雇主责任险保单填写
 Route::get('policy/employer/detail','Web\PolicyEmployerController@index')->name('employer');
+Route::post('policy/employer/create','Web\PolicyEmployerController@store')->name('employer.store');
+Route::get('policy/employer/pay/{id}','Web\PolicyEmployerController@pay')->name('employer.pay');
+Route::post('policy/employer/wechat_pay','Web\PolicyEmployerController@wechatPay')->name('employer.wechatPay');
 
 Auth::routes();
 

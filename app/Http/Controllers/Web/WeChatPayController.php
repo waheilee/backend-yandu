@@ -8,7 +8,6 @@ use App\Constants\ErrorMsgConstants;
 use App\Exceptions\ServiceException;
 use App\Http\Controllers\Controller;
 use App\Models\OrderMerchant;
-use App\Models\ProjectDeposit;
 use App\Models\ProjectOrder;
 use EasyWeChat\Factory;
 use Illuminate\Http\Request;
@@ -81,9 +80,9 @@ class WeChatPayController extends Controller
             'notify_url' => url('api/notify/order/2'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'trade_type' => 'NATIVE', // 请对应换成你的支付方式对应的值类型
         ]);
-        $qrCodePath = 'uploads/image/qrcode/order/'.'wechat'. $id . '.png';
-        QrCode::format('png')->size(300)->generate($result['code_url'], public_path($qrCodePath));
-        $data['qrcode'] = url($qrCodePath);
+//        $qrCodePath = 'uploads/image/qrcode/order/'.'wechat'. $id . '.png';
+        $qrcode = base64_encode(QrCode::format('png')->size(300)->generate($result['code_url'])) ;
+        $data['qrcode'] = $qrcode;
         $data['out_trade_no'] = $order->order_num;
         return $data;
     }
@@ -121,14 +120,16 @@ class WeChatPayController extends Controller
             }
                 OrderMerchant::whereId($order->id)->update([
                     'pay_status' => $pay_status,
-                    'pay_time'=>date('Y-m-d h:i:s',time())
+                    'pay_time'   =>date('Y-m-d h:i:s',time()),
+                    'channel'    => BaseConstants::PAY_CHANNEL_WECHART
+
             ]);
             $this->notifyOrder($order->type,$order->order_num);
-            if ($order->type == 1){
-                $projectModel = ProjectOrder::whereOrderNo($order->order_num)->first();
-                $projectModel->status = 1;
-                $projectModel->update();
-            }
+//            if ($order->type == 1){
+//                $projectModel = ProjectOrder::whereOrderNo($order->order_num)->first();
+//                $projectModel->status = 1;
+//                $projectModel->update();
+//            }
             # 财务记录
 //            event(new FundCreated($order->member_id, Fund::DEPOSIT,'-', '+1000'));
             \Log::debug('WeChat notify success', $message);

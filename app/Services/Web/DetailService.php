@@ -170,16 +170,16 @@ class DetailService
 
     public function wechatQrCode($projectId,$cashDeposit,$worker,$channel)
     {
-        $checkOrder = OrderMerchant::whereUserId( \Auth::guard('admin')->user()->id)
-            ->wherePayStatus(0)
-            ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
-            ->first();
-        if ($checkOrder){
-            $qrCodePath     = 'uploads/image/qrcode/order/'. 'wechat'. $checkOrder->id . '.png';
-            $data['scan']['qrcode'] = url($qrCodePath);
-            $data['order'] = $checkOrder->order_num;
-            return $data;
-        }
+//        $checkOrder = OrderMerchant::whereUserId( \Auth::guard('admin')->user()->id)
+//            ->wherePayStatus(0)
+//            ->where('created_at','>',date('Y-m-d H:i:s',time()-60*60) )
+//            ->first();
+//        if ($checkOrder){
+//            $qrCodePath     = 'uploads/image/qrcode/order/'. 'wechat'. $checkOrder->id . '.png';
+//            $data['scan']['qrcode'] = url($qrCodePath);
+//            $data['order'] = $checkOrder->order_num;
+//            return $data;
+//        }
         $orderId       = $this->newOrderStore($projectId,$cashDeposit,$worker,$channel);
         $orderCode     = new WeChatPayController();
         $scan          = $orderCode->wechatScan($orderId['order_id']);

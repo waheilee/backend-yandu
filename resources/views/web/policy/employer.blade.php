@@ -50,19 +50,17 @@
                     </div>
                     <div class="modal-body">
                         <form role="form" id="policy">
-                            {{--<input type="hidden" name="policy_id" value="{{$row->id}}">--}}
-                            {{--<input type="hidden" name="merchant_id" value="{{$row->merchant_id}}">--}}
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="">邀请识别码<span class="text-danger">*</span></label>
+                                        <label class="form-control-label" for="">邀请识别码</label>
                                         <input class="form-control " placeholder="邀请识别码" name="code" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="">姓名<span class="text-danger">*</span></label>
-                                        <input class="form-control" placeholder="姓名" name="username" type="text">
+                                        <input class="form-control" placeholder="姓名" name="name" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +81,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="">邮箱<span class="text-danger">*</span></label>
+                                        <label class="form-control-label" for="">邮箱</label>
                                         <input class="form-control" placeholder="邮箱" name="email" type="email">
                                     </div>
                                 </div>
@@ -98,27 +96,100 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-danger" onclick="submit()">提交</button>
+                        <button type="button" class="btn btn-danger" onclick="submit()">购买雇主责任险</button>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="hidden" class="btn btn-block btn-default" id="login" data-toggle="modal" data-target="#modal-form">
+                <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                    <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <div class="card bg-secondary shadow border-0">
+                                    <div class="card-header bg-transparent pb-5">
+                                        <div class="text-muted text-center mt-2 mb-3"><small>登录</small></div>
+                                        <div class="btn-wrapper text-center">
+                                            <img src="{{asset('assets/img/brand/logo.png')}}" alt="" style="width: 50%;">
+                                        </div>
+                                    </div>
+                                    <div class="card-body px-lg-5 py-lg-5">
 
+                                        <form role="form">
+                                            <div class="form-group mb-3">
+                                                <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                                    </div>
+                                                    <input class="form-control" placeholder="用户名/手机号" name="username" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                    </div>
+                                                    <input class="form-control" placeholder="密码" name="password" type="password">
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                        <div class="text-center">
+                                            <button type="button" id="login_submit" class="btn btn-primary my-4">登录</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="user_id" id="user_id" value="@if(!empty($userId)){{$userId}}@endif" >
 @endsection
 
 @section('web_js')
     <script src="{{asset('assets/vendor/toastr/build/toastr.min.js') }}"></script>
 
     <script>
+        var id = $('#user_id').val();
         function info() {
             if(!$("input[type='checkbox']").prop('checked')){toastr.warning('请阅读《投保须知及声明》后勾选声明');return false;}
-            $('#modal-policy').modal('show');
+            if(!id){
+                Swal.fire({
+                    title: '您还未登录',
+                    type: 'info',
+                    focusConfirm: false, //聚焦到确定按钮
+                    showCloseButton: true,//右上角关闭
+                    confirmButtonText:'确认',
+                    timer:1000
+                });
+                setTimeout(function() {
+                    // IE
+                    if(document.all) {
+                        document.getElementById("login").click();
+                    }
+                    // 其它浏览器
+                    else {
+                        var e = document.createEvent("MouseEvents");
+                        e.initEvent("click", true, true);
+                        document.getElementById("login").dispatchEvent(e);
+                    }
+                },1000);
+
+            }else{
+                $('#modal-policy').modal('show');
+            }
+
         }
         function submit() {
             var formData = new FormData($('#policy')[0]);
             $.ajax({
                 type: 'POST',
-                url: '{{route('policy.store')}}',
+                url: '{{route('employer.store')}}',
                 data: formData,
                 cache: false,
                 processData: false,
@@ -128,17 +199,7 @@
                     'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                 },
                 success : function (data) {
-                    Swal.fire({
-                        title: data.message,
-                        type: 'success',
-                        focusConfirm: false, //聚焦到确定按钮
-                        showCloseButton: true,//右上角关闭
-                        confirmButtonText:'确定'
-                        // timer: 2000
-                    })
-                    setTimeout(function(){
-                        location.reload()
-                    },2000);
+                    window.open("/pay/"+data)
                 },
                 error : function (data) {
                     var json = JSON.parse(data.responseText);
@@ -147,11 +208,24 @@
                         toastr.warning(obj[0]);
                         return false;
                     });
-                    // var json = JSON.parse(data.responseText);
-                    // toastr.warning(json.message);
-                    // return false;
                 }
             })
         }
+
+        $("#login_submit").click(function () {
+
+            var url = "{{ route('login') }}";
+            $.post(url, {
+                'username' : $('input[name=username]').val(),
+                'password' : $('input[name=password]').val(),
+                '_token' : '{{csrf_token()}}'
+            }, function (data) {
+                if (200 === data.code) {
+                    window.location.reload();
+                } else {
+                    alert(data.msg);
+                }
+            })
+        });
     </script>
 @endsection

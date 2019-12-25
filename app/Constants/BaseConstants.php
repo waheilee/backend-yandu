@@ -27,10 +27,10 @@ class BaseConstants
      * 商品类型
      */
     const PRODUCT_TYPE_PROJECT =1;
-    const PRODUCT_TYPE_POLICY =2;
+    const PRODUCT_TYPE_POLICY_EMPLOYER =2;
     const PRODUCT_TYPE_MAP = [
         self::PRODUCT_TYPE_PROJECT              => "项目押金",
-        self::PRODUCT_TYPE_POLICY               => "购买保单",
+        self::PRODUCT_TYPE_POLICY_EMPLOYER      => "购买雇主责任险保单",
     ];
 
     /**
@@ -41,5 +41,12 @@ class BaseConstants
     const PAY_CHANNEL_MAP = [
         self::PAY_CHANNEL_WECHART              => "wechat",
         self::PAY_CHANNEL_ALIPAY               => "alipay",
+    ];
+
+    const POLICY_TYPE_AIR      =1;
+    const POLICY_TYPE_EMPLOYER =2;
+    const POLICY_TYPE_MAP = [
+        self::POLICY_TYPE_AIR                    => "空气治理责任险",
+        self::POLICY_TYPE_EMPLOYER               => "雇主责任险",
     ];
 }
