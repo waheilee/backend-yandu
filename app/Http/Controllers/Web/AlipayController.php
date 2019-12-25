@@ -21,13 +21,20 @@ class AlipayController extends Controller
     public function aliPay($id)
     {
         $order = OrderMerchant::find($id);
-//        $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
-//        $project = Project::whereId($projectOrder->project_id)->first();
+        $subject = null;
+        if ($order->type ==1){
+            $projectOrder = ProjectOrder::whereOrderNo($order->order_num)->first();
+            $project = Project::whereId($projectOrder->project_id)->first();
+            $subject = '《'.substr($project->project_name,0,30).'...》的意向商户押金';
+        }
+        if ($order->type ==2){
+            $subject = '购买雇主责任险';
+        }
 
         $aliPayOrder = [
             'out_trade_no' => $order->order_num,
             'total_amount' => exchangeToYuan($order->total_amount), // 支付金额
-            //'subject'      =>  '《'.substr($project->project_name,0,30).'...》的意向商户押金', // 备注
+            'subject'      =>  $subject, // 备注
             'http_method'  => 'GET'
         ];
 
