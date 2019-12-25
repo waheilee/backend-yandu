@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Constants\BaseConstants;
 use App\Http\Controllers\Controller;
+use App\Models\MemberPolicy;
 use App\Models\OrderMerchant;
 use App\Models\Project;
 use App\Models\ProjectDeposit;
@@ -146,6 +147,12 @@ class AlipayController extends Controller
             $projectModel = ProjectOrder::whereOrderNo($order)->first();
             $projectModel->status = 1;
             $projectModel->update();
+        }
+        if ($type == 2){
+            $policyModel = MemberPolicy::whereOrderNo($order)->first();
+            $policyModel->effective_date = null;
+            $policyModel->out_time       = null;
+            $policyModel->update();
         }
         return true;
     }
