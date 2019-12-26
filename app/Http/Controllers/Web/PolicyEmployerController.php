@@ -46,7 +46,7 @@ class PolicyEmployerController extends Controller
         $model->idcard      = $request->input('idcard');
         $model->email       = $request->input('email');
         $model->position    = $request->input('position');
-        $model->policy_type = BaseConstants::POLICY_TYPE_AIR;//空气治理责任险
+        $model->policy_type = BaseConstants::POLICY_TYPE_EMPLOYER;//空气治理责任险
         $model->policy_id   = 0;
         $model->save();
         return $orderModel->id;

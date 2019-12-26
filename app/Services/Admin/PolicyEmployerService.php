@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 
+use App\Constants\BaseConstants;
 use App\Models\MemberPolicy;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class PolicyEmployerService
     public function indexAjax(Request $request)
     {
         $limit   = $request->input('limit');
-        $project = MemberPolicy::wherePolicyType(1)->whereMerchantId(\Auth::guard('admin')->user()->id)->paginate($limit);
+        $project = MemberPolicy::wherePolicyType(BaseConstants::POLICY_TYPE_EMPLOYER)->whereMerchantId(\Auth::guard('admin')->user()->id)->paginate($limit);
         foreach ($project as $item) {
             $status = $this->status($item->orderMerchant->pay_status,$item->effective_date,$item->out_time,json_encode($item->order_no)) ;
             $item['pay_status'] = $status['status'];
