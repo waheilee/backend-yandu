@@ -4,70 +4,14 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
 @endsection
 @section('contend_head')
-    {{--<div class="header bg-yandu pb-6">--}}
-        {{--<div class="container-fluid">--}}
-            {{--<div class="header-body">--}}
-                {{--<div class="row align-items-center py-4">--}}
-                    {{--<div class="col-lg-6 col-7">--}}
-                        {{--<h6 class="h2 text-white d-inline-block mb-0">雇主责任险</h6>--}}
-                        {{--<nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">--}}
-                            {{--<ol class="breadcrumb breadcrumb-links breadcrumb-dark">--}}
-                                {{--<li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                {{--<li class="breadcrumb-item"><a href="{{route('home')}}">首页</a></li>--}}
-                            {{--</ol>--}}
-                        {{--</nav>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-lg-6 col-5 text-right">--}}
 
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<!-- Card stats -->--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(../../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <a href="{{route('employer')}}"  target="_blank">
+    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(/../../assets/img/employer.jpeg); background-size: cover; background-position: center top;">
         <!-- Mask -->
-        <span class="mask bg-yandu "></span>
+        <span class="mask  "></span>
         <!-- Header container -->
-        <div class="container-fluid d-flex align-items-center">
-            <div class="row">
-                <div class="col-lg-7 col-md-10">
-                    <h1 class="display-2 text-white">雇主责任险</h1>
-                    <p class="text-white  text-sm">老板事业护身符 减负首选</p>
-                    <p class="text-white  text-sm">员工有保险 工作有保障 干活更安心</p>
-
-                    <p class="text-white mb-0 text-sm">保险介绍：</p>
-                    <p class="text-white text-sm">在保险期间内，被保险人在其雇佣期间因从事保险单所载明的被保险人的工作而遭受意外事故或患与工作有关的国家规定的职业性疾病所致伤、残或死亡，符合国务院颁布的《工伤保险条例》第十四条、第十五条规定可认定为工伤的，依照中华人民共和国法律（不包括港澳台地区法律）应由被保险人承担的经济赔偿责任，保险人按照本保险合同约定进行死亡赔偿、伤残赔偿、医疗费用、误工费用等进行赔偿。</p>
-                    <div class="row">
-                        <div class="col">
-                            <p class="text-white mb-0 text-sm">保险亮点：</p>
-                            <p class="text-white mb-0 text-sm">1、	保障员工工作期间意外</p>
-                            <p class="text-white text-sm">意外事故10万保额，职业病10万保额</p>
-                        </div>
-                        <div class="col">
-                            <p class="text-white mb-0 text-sm">2、	医疗费用 赔付门槛低</p>
-                            <p class="text-white text-sm">工作期间意外产生的医疗费用，保额1万</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="text-white mb-0 text-sm">3、	误工津贴保障</p>
-                            <p class="text-white text-sm">误工费180天</p>
-                        </div>
-                        <div class="col">
-                            <p class="text-white mb-0 text-sm">4、	贴心的售后服务</p>
-                            <p class="text-white text-sm">电子保单，保险自动到期提醒</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mt-6">
-                    <a href="{{route('employer')}}" class="btn btn-neutral " target="_blank">购买雇员责任险</a>
-
-                </div>
-
-            </div>
-        </div>
     </div>
+    </a>
     <!-- Page content -->
 @endsection
 @section('contend')
