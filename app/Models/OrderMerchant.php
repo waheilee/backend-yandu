@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderMerchant whereUserId($value)
  * @mixin \Eloquent
  * @property-read \App\Models\ProjectOrder $project
+ * @property-read \App\Models\MemberPolicy $policy
  */
 class OrderMerchant extends Model
 {

@@ -6,14 +6,14 @@
 @section('contend_head')
     <div class="header  d-flex align-items-center mb-0" style="min-height: 500px; background-image: url(/../../assets/img/policy.jpeg); background-size: cover; background-position: center top;">
         <!-- Mask -->
-        <span class="mask  "></span>
+        <span class="mask bg-gradient opacity-8"></span>
         <!-- Header container -->
         <div class="container-fluid">
             <div class="header-body">
                 <!-- Card stats -->
                     <div class="row " style="margin-top: 346px;">
                         <div class="col-xl-3 col-md-6">
-                            <div class="card card-stats mb-0">
+                            <div class="card card-stats mb-1">
                                 <!-- Card body -->
                                 <div class="card-body">
                                     <div class="row">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card card-stats mb-0">
+                            <div class="card card-stats mb-1">
                                 <!-- Card body -->
                                 <div class="card-body">
                                     <div class="row">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card card-stats mb-0">
+                            <div class="card card-stats mb-1">
                                 <!-- Card body -->
                                 <div class="card-body">
                                     <div class="row">

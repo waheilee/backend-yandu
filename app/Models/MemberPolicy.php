@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $out_time 保单过期时间
  * @property string $order_no 关联订单号
  * @property string|null $policy_type 保单类型
+ * @property int|null $status 保单状态0:未付款。1:已付款，但暂未生效。2:已付款，已生效。3:已过期
+ * @property int|null $renewal_times 计入续费次数
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy query()
@@ -49,7 +51,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereRenewalTimes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereStatus($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\OrderMerchant $orderMerchant
+
  */
 class MemberPolicy extends Model
 {

@@ -216,6 +216,8 @@ class WeChatPayController extends Controller
             $policyModel = MemberPolicy::whereOrderNo($order)->first();
             $policyModel->effective_date = null;
             $policyModel->out_time       = null;
+            $policyModel->status         = BaseConstants::EMPLOYER_POLICY_PAY;
+            $policyModel->increment('renewal_times');
             $policyModel->update();
         }
         return true;
