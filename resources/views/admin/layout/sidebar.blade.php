@@ -81,7 +81,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#navbar-policy" data-toggle="collapse" role="button"  aria-controls="navbar-policy">
                             <i class="ni ni-folder-17 text-info"></i>
-                            <span class="nav-link-text">保单管理</span>
+                            <span class="nav-link-text">康保宝</span>
                         </a>
                         <div class="collapse @if(strpos(Route::getCurrentRoute()->uri, 'admin/policies') !== false) show @endif"  id="navbar-policy">
                             <ul class="nav nav-sm flex-column">
