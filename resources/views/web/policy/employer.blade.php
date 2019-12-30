@@ -48,7 +48,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body mb-0">
                         <form role="form" id="policy">
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
@@ -91,10 +91,25 @@
                                         <input class="form-control" placeholder="例：除甲醛、保洁..." name="position" type="text">
                                     </div>
                                 </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <label class="form-control-label" for="">数量<span class="text-danger">*</span></label>
+                                    <input class="form-control" id=txtAmount name="number" value="0" type="number"  min="1"
+                                           onkeyup="checkInt(this);" onpaste="checkInt(this);" oncut="checkInt(this);"
+                                           ondrop="checkInt(this);" onchange="checkInt(this);" placeholder="购买保单数量">
+
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <h2 class="text-lg text-danger" style="margin-top: 37px;margin-bottom: 0px;" id="num"></h2>
+                                    </div>
+                                </div>
                             </div>
+
                         </form>
                     </div>
-                    <div class="modal-footer">
+
+                    <div class="modal-footer mt-1">
+
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
                         <button type="button" class="btn btn-danger" onclick="submit()">购买雇主责任险</button>
                     </div>
@@ -152,6 +167,25 @@
 @endsection
 
 @section('web_js')
+    <script>
+        document.getElementById("txtAmount").addEventListener("input",function(event){
+            event.target.value = event.target.value.replace(/\-/g,"");
+        });
+        function checkInt(o){
+            theV=isNaN(parseInt(o.value))?0:parseInt(o.value);
+            let food = '';
+            if(theV!=o.value){o.value=theV;}
+            if (txtAmount.value >= 6 && txtAmount.value < 12) {
+                food = txtAmount.value*20*0.85
+            } else if (txtAmount.value >= 12) {
+                food = txtAmount.value*20*0.75
+            } else {
+                food = txtAmount.value*20;
+            }
+            $('#num').html('￥'+food)
+
+        }
+    </script>
     <script src="{{asset('assets/vendor/toastr/build/toastr.min.js') }}"></script>
 
     <script>
@@ -205,7 +239,7 @@
                     var json = JSON.parse(data.responseText);
 
                     $.each(json.errors, function(idx, obj) {
-                        toastr.warning(obj[0]);
+                        toastr.warning(obj);
                         return false;
                     });
                 }

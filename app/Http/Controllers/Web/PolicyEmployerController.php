@@ -25,15 +25,15 @@ class PolicyEmployerController extends Controller
 
     public function store(PolicyEmployerRequest $request)
     {
-        $order = MemberPolicy::whereIdcard($request->input('idcard'))->first();
+        $order = MemberPolicy::whereIdcard($request->input('idcard'))->whereStatus(1)->first();
         if ($order){
-            return response()->json(['error'=>['message'=>'此用户已购买够此保单']]);
+            return response()->json(['errors'=>['message'=>'该证件号码已购买过此保单']],422);
         }
         //创建新订单
         $orderModel = new OrderMerchant();
         $orderModel->type            = BaseConstants::PRODUCT_TYPE_POLICY_EMPLOYER;//购买的商品类型为保险
         $orderModel->user_id         = \Auth::guard('admin')->user()->id;//付款用户id
-        $orderModel->total_amount    = exchangeToFen(0.01) ;//订单金额
+        $orderModel->total_amount    = exchangeToFen($this->totalAmount($request->input('number'))); //订单金额
         $orderModel->order_num       = date('YmdHis') . rand(10000, 99999);//订单流水号
         $orderModel->channel         = 0;//支付渠道
         $orderModel->save();
@@ -52,6 +52,16 @@ class PolicyEmployerController extends Controller
         return $orderModel->id;
     }
 
+    public function totalAmount($amount)
+    {
+            if ($amount >= 6 && $amount < 12) {
+                return $food = $amount*20*0.85;
+            } else if ($amount >= 12) {
+                return $food = $amount*20*0.75;
+            } else {
+                return $food = $amount*20;
+            }
+    }
     public function pay($id)
     {
         $orderModel = OrderMerchant::whereId($id)->first();

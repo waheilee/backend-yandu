@@ -29,6 +29,7 @@ class PolicyEmployerRequest extends FormRequest
             'phone' => 'required|regex:/^1[3456789]\d{9}$/',
 //            'email' => 'required|email',
             'position' => 'required|max:10',
+            'number'   => 'required:min:1'
         ];
     }
 
@@ -45,6 +46,8 @@ class PolicyEmployerRequest extends FormRequest
 //            'email.email' => '请填写正确的邮箱',
             'position.required' => '请填写职位',
             'position.max' => '职位10个字符以内',
+            'number.required'=>'购买数量不能为空',
+            'number.min'=>'购买数量最小为一份',
         ];
     }
 }
