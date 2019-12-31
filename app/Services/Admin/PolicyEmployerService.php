@@ -27,25 +27,31 @@ class PolicyEmployerService
 
     public function status($payStatus,$order)
     {
+        $data = [];
+        if ($payStatus === null){
+            $data['status'] = "-";
+            $data['button'] = "-";
+            return $data;
+        }
         switch ($payStatus){
             case 0:
-                $payStatus['status'] = "<span class='tag badge badge-danger'>未付款</span>";
-                $payStatus['button'] = "<button class='btn btn-primary btn-sm' onclick='pay($order)'>去支付</button>";
+                $data['status'] = "<span class='tag badge badge-danger'>未付款</span>";
+                $data['button'] = "<button class='btn btn-primary btn-sm' onclick='pay($order)'>去支付</button>";
                 break;
             case 1:
-                $payStatus['status'] = "<span class='tag badge badge-info'>暂未生效</span>";
-                $payStatus['button'] = "";
+                $data['status'] = "<span class='tag badge badge-info'>暂未生效</span>";
+                $data['button'] = "<button class='btn btn-primary btn-sm'></button>";
                 break;
             case 2:
-                $payStatus['status'] = "<span class='tag badge badge-success'>有效保单</span>";
-                $payStatus['button'] = "";
+                $data['status'] = "<span class='tag badge badge-success'>有效保单</span>";
+                $data['button'] = "<button class='btn btn-primary btn-sm'></button>";
                 break;
             case 3:
-                $payStatus['status'] = "<span class='tag badge badge-warning'>已过期，请续费</span>";
-                $payStatus['button'] = "<button class='btn btn-warning btn-sm' onclick='pay($order)'>续费</button>";
+                $data['status'] = "<span class='tag badge badge-warning'>已过期，请续费</span>";
+                $data['button'] = "<button class='btn btn-warning btn-sm' onclick='pay($order)'>续费</button>";
                 break;
 
         }
-        return $payStatus;
+        return $data;
     }
 }
