@@ -35,8 +35,8 @@ class PolicyEmployerService
         }
         switch ($payStatus){
             case 0:
-                $data['status'] = "<span class='tag badge badge-danger'>未付款</span>";
-                $data['button'] = "<button class='btn btn-primary btn-sm' onclick='pay($order)'>去支付</button>";
+                $data['status'] = "<span class='tag badge badge-secondary'>未付款</span>";
+                $data['button'] = "<button class='btn btn-primary btn-sm' onclick='gopay($order)'>去支付</button>";
                 break;
             case 1:
                 $data['status'] = "<span class='tag badge badge-info'>暂未生效</span>";
@@ -48,7 +48,11 @@ class PolicyEmployerService
                 break;
             case 3:
                 $data['status'] = "<span class='tag badge badge-warning'>已过期，请续费</span>";
-                $data['button'] = "<button class='btn btn-warning btn-sm' onclick='pay($order)'>续费</button>";
+                $data['button'] = "<button class='btn btn-warning btn-sm' onclick='repay($order)'>续费</button>";
+                break;
+            case 4:
+                $data['status'] = "<span class='tag badge badge-danger'>失效保单</span>";
+                $data['button'] = "-";
                 break;
 
         }

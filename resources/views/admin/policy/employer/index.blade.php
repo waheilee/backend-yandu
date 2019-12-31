@@ -48,7 +48,87 @@
         </div>
 
     </div>
+    <div class="modal fade" id="modal-policy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">除醛送保单服务个人信息填写</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mb-0">
+                    <form role="form" id="policy">
+                        <div id="order">
 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="">邀请识别码</label>
+                                    <input class="form-control " placeholder="邀请识别码" name="code" type="text" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="">姓名<span class="text-danger">*</span></label>
+                                    <input class="form-control" placeholder="姓名" name="name" type="text" id="name" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="">身份证号<span class="text-danger">*</span></label>
+                                    <input class="form-control" placeholder="身份证号" name="idcard" type="text" id="idcard" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="">手机号码<span class="text-danger">*</span></label>
+                                    <input class="form-control" placeholder="手机号码" name="phone" type="text" id="phone" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="">邮箱</label>
+                                    <input class="form-control" placeholder="邮箱" name="email" type="email" id="email" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="">施工技能<span class="text-danger">*</span></label>
+                                    <input class="form-control" placeholder="例：除甲醛、保洁..." name="position" type="text" id="position" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <label class="form-control-label" for="">数量<span class="text-danger">*</span></label>
+                                <input class="form-control" id=txtAmount name="number" value="0" type="number"  min="1"
+                                       onkeyup="checkInt(this);" onpaste="checkInt(this);" oncut="checkInt(this);"
+                                       ondrop="checkInt(this);" onchange="checkInt(this);" placeholder="购买保单数量">
+
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <h2 class="text-lg text-danger" style="margin-top: 37px;margin-bottom: 0px;" id="num"></h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer mt-1">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger" onclick="submit()">购买雇主责任险</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -121,10 +201,10 @@
 
         }
 
-        function pay(order) {
+        function gopay(order) {
             $.ajax({
                 type: 'POST',
-                url: '{{route('employer.renewPay')}}',
+                url: '{{route('employer.goPay')}}',
                 data: {'order':order},
                 dataType: 'json',
                 headers: {
@@ -138,6 +218,82 @@
 
                     $.each(json.errors, function(idx, obj) {
                         toastr.warning(obj[0]);
+                        return false;
+                    });
+                }
+            })
+        }
+
+        function repay(order) {
+            $.ajax({
+                type: 'POST',
+                url: '{{route('employer.rePay')}}',
+                data: {'order':order},
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                success : function (data) {
+                    showQuery(data);
+                    {{--window.open("{{url('policy/employer/pay/')}}"+"/"+data)--}}
+                },
+                error : function (data) {
+                    var json = JSON.parse(data.responseText);
+
+                    $.each(json.errors, function(idx, obj) {
+                        toastr.warning(obj[0]);
+                        return false;
+                    });
+                }
+            })
+        }
+
+        function showQuery(data) {
+            $("#name").val(data.username);
+            $("#idcard").val(data.idcard);
+            $("#phone").val(data.phone);
+            $("#email").val(data.email);
+            $("#position").val(data.position);
+            $("#order").html("<input type=\"hidden\" name=\"order\" id=\"order\" value='"+data.order_no+"'>",);
+            // 显示模态框
+            $('#modal-policy').modal('show');
+        }
+        document.getElementById("txtAmount").addEventListener("input",function(event){
+            event.target.value = event.target.value.replace(/\-/g,"");
+        });
+        function checkInt(o){
+            theV=isNaN(parseInt(o.value))?0:parseInt(o.value);
+            let food = '';
+            if(theV!=o.value){o.value=theV;}
+            if (txtAmount.value >= 6 && txtAmount.value < 12) {
+                food = txtAmount.value*20*0.85
+            } else if (txtAmount.value >= 12) {
+                food = txtAmount.value*20*0.75
+            } else {
+                food = txtAmount.value*20;
+            }
+            $('#num').html('￥'+food)
+
+        }
+
+        function submit() {
+            var formData = new FormData($('#policy')[0]);
+            $.ajax({
+                type: 'POST',
+                url: '{{route('employer.store')}}',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
+                success : function (data) {
+                    window.open("{{url('policy/employer/pay/')}}"+"/"+data)
+                },
+                error : function (data) {
+                    var json = JSON.parse(data.responseText);
+                    $.each(json.errors, function(idx, obj) {
+                        toastr.warning(obj);
                         return false;
                     });
                 }

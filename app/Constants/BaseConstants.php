@@ -60,11 +60,13 @@ class BaseConstants
     const EMPLOYER_POLICY_PAY =1;
     const EMPLOYER_POLICY_EFFECTIVE =2;
     const EMPLOYER_POLICY_EXPIRE =3;
+    const EMPLOYER_POLICY_INVALID =4;
     const EMPLOYER_POLICY_MAP = [
         self::EMPLOYER_POLICY_INIT              => "未付款",
         self::EMPLOYER_POLICY_PAY               => "暂未生效",
         self::EMPLOYER_POLICY_EFFECTIVE         => "有效保单",
         self::EMPLOYER_POLICY_EXPIRE            => "已过期",
+        self::EMPLOYER_POLICY_INVALID           => "失效保单",
     ];
 
 

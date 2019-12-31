@@ -32,21 +32,17 @@ class PolicyEmployerController extends Controller
         return $data;
     }
 
-    public function renewPay(Request $request)
+    public function goPay(Request $request)
     {
         $order = $request->input('order');
-        $orderModel = new OrderMerchant();
-        $orderModel->type            = BaseConstants::PRODUCT_TYPE_POLICY_EMPLOYER;//购买的商品类型为保险
-        $orderModel->user_id         = \Auth::guard('admin')->user()->id;//付款用户id
-        $orderModel->total_amount    = exchangeToFen(0.01) ;//订单金额
-        $orderModel->order_num       = date('YmdHis') . rand(10000, 99999);//订单流水号
-        $orderModel->channel         = 0;//支付渠道
-        $orderModel->save();
-
-        $model =  MemberPolicy::whereOrderNo($order)->first();
-        $model->order_no       = $orderModel->order_num;//订单流水号
-        $model->merchant_id    = \Auth::guard('admin')->user()->id;
-        $model->update();
+        $orderModel = OrderMerchant::whereOrderNum($order)->first();
         return $orderModel->id;
+    }
+
+    public function rePay(Request $request)
+    {
+        $order = $request->input('order');
+        $orderModel =  MemberPolicy::whereOrderNo($order)->first();
+        return $orderModel;
     }
 }

@@ -25,9 +25,10 @@ class PolicyEmployerController extends Controller
 
     public function store(PolicyEmployerRequest $request)
     {
-        $order = MemberPolicy::whereIdcard($request->input('idcard'))->whereStatus(1)->first();
-        if ($order){
-            return response()->json(['errors'=>['message'=>'该证件号码已购买过此保单']],422);
+        if (!empty($request->input('order'))){
+            $order = MemberPolicy::whereOrderNo($request->input('order'))->first();
+            $order->status = BaseConstants::EMPLOYER_POLICY_INVALID;
+            $order->update();
         }
         //创建新订单
         $orderModel = new OrderMerchant();
