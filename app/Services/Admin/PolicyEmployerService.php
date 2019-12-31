@@ -40,11 +40,11 @@ class PolicyEmployerService
                 break;
             case 1:
                 $data['status'] = "<span class='tag badge badge-info'>暂未生效</span>";
-                $data['button'] = "<button class='btn btn-primary btn-sm'></button>";
+                $data['button'] = "-";
                 break;
             case 2:
                 $data['status'] = "<span class='tag badge badge-success'>有效保单</span>";
-                $data['button'] = "<button class='btn btn-primary btn-sm'></button>";
+                $data['button'] = "-";
                 break;
             case 3:
                 $data['status'] = "<span class='tag badge badge-warning'>已过期，请续费</span>";
