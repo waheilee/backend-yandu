@@ -4,24 +4,20 @@ namespace App\Http\Controllers\Wap;
 
 
 use App\Http\Controllers\Controller;
-
+use EasyWeChat\Factory;
 class WeChatController extends Controller
 {
 
 
     public function serve()
     {
-        $wechat = app('wechat');
+        $config = config('wechat.official_account');
 
-        $server = $wechat->server;
-        $user = $wechat->user;
+        $app = Factory::officialAccount($config);
 
-        $server->push(function($message) use ($user) {
-            $fromUser = $user->get($message['FromUserName']);
+        $response = $app->server->serve();
 
-            return "{$fromUser->nickname} 您好！这里是严度服务平台!";
-        });
-
-        $server->serve()->send();
+// 将响应输出
+        $response->send();exit; // Laravel 里请使用：return $response;
     }
 }
