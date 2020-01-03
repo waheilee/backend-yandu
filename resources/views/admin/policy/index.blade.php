@@ -119,12 +119,16 @@
             <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                 <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
+
                         <div class="modal-body p-0">
                             <div class="card bg-secondary shadow border-0">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <div class="card-header bg-transparent">
                                     <div class="text-muted text-center mt-2 mb-3"><label>项目添加</label></div>
-                                    <div class="btn-wrapper text-center">
-                                    </div>
                                 </div>
                                 <div class="card-body px-lg-5 py-lg-5">
                                     <div class="text-center text-muted mb-4">

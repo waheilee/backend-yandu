@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapAdminRoutes();
+
+        $this->mapWapRoutes();
         //
     }
 
@@ -84,6 +86,20 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => 'App\Http\Controllers\Admin',
         ], function ($router) {
             require base_path('routes/admin.php');
+        });
+    }
+
+    /**
+     * 手机端
+     */
+    protected function mapWapRoutes()
+    {
+        Route::group([
+            'prefix'=>'m',
+//            'middleware' => 'wechat.oauth',
+            'namespace' => 'App\Http\Controllers\Wap',
+        ], function ($router) {
+            require base_path('routes/wap.php');
         });
     }
 }
