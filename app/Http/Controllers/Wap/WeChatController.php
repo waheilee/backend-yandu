@@ -8,7 +8,11 @@ use EasyWeChat\Factory;
 class WeChatController extends Controller
 {
 
-
+    /**
+     * @throws \EasyWeChat\Kernel\Exceptions\BadRequestException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
     public function serve()
     {
         $config = config('wechat.official_account');
