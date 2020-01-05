@@ -7,3 +7,4 @@ Route::group(['middleware' => ['wap']],function (){
     Route::get('worker/info/index','WorkerInfoController@index')->middleware(['wechat.oauth']);
 });
 
+Route::get('worker/info/index/test','WorkerInfoController@index');
