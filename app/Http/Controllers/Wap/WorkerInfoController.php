@@ -32,7 +32,7 @@ class WorkerInfoController extends Controller
         $member = Member::where('openid', $this->weChatUser()->getId())->first();
         $worker = Worker::whereId($request->input('worker_id'))->first();
         $evaluate = WorkerEvaluate::where('evaluate_id_b',$worker->id)->paginate();
-        dd($evaluate);
+//        dd($evaluate);
         //校验用户是否存在，不存在则把信息保存在数据库
         if (!$member) {
             $member = Member::create([
