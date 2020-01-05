@@ -29,7 +29,8 @@ class WorkerInfoController extends Controller
                 'api_token' => hash('sha256', Str::random(60)),
                 'deposit' => 0,
                 'rent' => 0,
-                'policy' => 0
+                'policy' => 0,
+                'mini_openid' => '-'
             ]);
             dd($userModel);
             return $userModel;
