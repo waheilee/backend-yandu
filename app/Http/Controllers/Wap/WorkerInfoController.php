@@ -13,13 +13,12 @@ use Illuminate\Support\Str;
 class WorkerInfoController extends Controller
 {
 
-    protected $user;
 
-    public function __construct()
+    public function weChatUser()
     {
-        $this->user = session('wechat.oauth_user.default');//一句话， 拿到授权用户资料
+        $user = session('wechat.oauth_user.default');//一句话， 拿到授权用户资料
+        return $user;
     }
-
     /**
      * @param Request $request
      * @return Member|\Illuminate\Contracts\View\Factory|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|\Illuminate\View\View|null|object
@@ -27,15 +26,15 @@ class WorkerInfoController extends Controller
     public function index(Request $request)
     {
 
-        $openid = $this->user->getOriginal()['openid'];
-        $web_openid = $this->user->getId();
-        $member = Member::where('openid', $this->user->getId())->first();
+        $openid = $this->weChatUser()->getOriginal()['openid'];
+        $web_openid = $this->weChatUser()->getId();
+        $member = Member::where('openid', $this->weChatUser()->getId())->first();
         $worker = Worker::whereId($request->input('worker_id'))->first();
         //校验用户是否存在，不存在则把信息保存在数据库
         if (!$member) {
             $member = Member::create([
-                'nickname' => $this->user->getNickname(),
-                'avatar' => $this->user->getAvatar(),
+                'nickname' => $this->weChatUser()->getNickname(),
+                'avatar' => $this->weChatUser()->getAvatar(),
                 'openid' => $openid,
                 'web_openid' => $web_openid,
                 'api_token' => hash('sha256', Str::random(60)),
