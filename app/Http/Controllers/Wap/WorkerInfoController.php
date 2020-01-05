@@ -20,7 +20,7 @@ class WorkerInfoController extends Controller
         $web_openid = $user->getId();
         $member = Member::where('openid', $user->getId())->first();
         //校验用户是否存在，不存在则把信息保存在数据库
-        if (!$user) {
+        if (!$member) {
             $userModel = Member::create([
                 'nickname' => $user->getNickname(),
                 'avatar' => $user->getAvatar(),
