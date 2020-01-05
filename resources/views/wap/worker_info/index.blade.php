@@ -71,9 +71,10 @@
                     <span>会员名字</span>
 
                     <div class="goods-comment-level">
-                        {{--@for($i = 1 ; $i <= $eva ;$i++ )--}}
-                        {{--<i class="active" id="{{$eva[$i]}}"></i>--}}
-                        {{--@endfor--}}
+                        {{--{{$eva->start}}--}}
+                        @for($i = 1 ; $i <= $eva->start ;$i++ )
+                        <i class="active" id="{{$eva[$i]}}"></i>
+                        @endfor
                         {{--<i class="active"></i>--}}
                         {{--<i class="active"></i>--}}
                         {{--<i class="active"></i>--}}
