@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Wap;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Worker;
+use App\Models\WorkerEvaluate;
 use EasyWeChat\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -30,6 +31,7 @@ class WorkerInfoController extends Controller
         $web_openid = $this->weChatUser()->getId();
         $member = Member::where('openid', $this->weChatUser()->getId())->first();
         $worker = Worker::whereId($request->input('worker_id'))->first();
+        $evaluate = WorkerEvaluate::whereEvaluateIdB($worker->id)->paginate();
         //校验用户是否存在，不存在则把信息保存在数据库
         if (!$member) {
             $member = Member::create([
@@ -48,6 +50,6 @@ class WorkerInfoController extends Controller
         }
 
 //        dd($member);
-        return view('wap.worker_info.index',compact('worker','member'));
+        return view('wap.worker_info.index',compact('worker','member','evaluate'));
     }
 }

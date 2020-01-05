@@ -32,10 +32,10 @@
                     <img src="{{asset('wap/images/member.png')}}" >
                 </div>
                 <div class="">
-                    <div class="text-white text-xs ">姓名:张三</div>
-                    <div class="text-white text-xs ">年龄：26</div>
-                    <div class="text-white text-xs ">电话：18846463339</div>
-                    <div class="text-white text-xs ">职业：保洁、除醛</div>
+                    <div class="text-white text-xs ">姓名: {{$worker->name}}</div>
+                    <div class="text-white text-xs ">年龄：{{$worker->age}}</div>
+                    <div class="text-white text-xs ">电话：{{$worker->phone}}</div>
+                    <div class="text-white text-xs ">职业：{{$worker->tec}}</div>
                 </div>
             </div>
 
@@ -64,73 +64,76 @@
 <div class="user-container">
     <div class="index-panel">
         <div class="goods-comment comment-list">
+            @foreach($evaluate as $eva)
             <div class="goods-comment-list">
                 <div class="goods-comment-author">
                     <img src="../../../wap/images/member.png">
                     <span>会员名字</span>
 
                     <div class="goods-comment-level">
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
+                        @for($i = 1 ; $i <= $eva ;$i++ )
+                        <i class="active" id="{{$eva[$i]}}"></i>
+                        @endfor
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
                     </div>
 
-                    <span class="fr">2018-3-21</span>
+                    <span class="fr">{{$eva->created_at}}</span>
                 </div>
 
                 <div class="goods-comment-content">
-                    <p>已经是第二次买了，收到包包了，真的不错，包包软软的，皮质也好，很亮不是劣质品，上次我买了一个这个是给我婆婆买的，婆婆也非常喜欢，这两天下雪了，物流还很快，很好的卖家，看好了下手吧！！</p>
+                    <p>{{$eva->content}}</p>
                 </div>
 
             </div>
             <div class="clr"></div>
+            @endforeach
+            {{--<div class="goods-comment-list">--}}
+                {{--<div class="goods-comment-author">--}}
+                    {{--<img src="../../../wap/images/member.png">--}}
+                    {{--<span>会员名字</span>--}}
 
-            <div class="goods-comment-list">
-                <div class="goods-comment-author">
-                    <img src="../../../wap/images/member.png">
-                    <span>会员名字</span>
+                    {{--<div class="goods-comment-level">--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                    {{--</div>--}}
 
-                    <div class="goods-comment-level">
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                    </div>
+                    {{--<span class="fr">2018-3-21</span>--}}
+                {{--</div>--}}
 
-                    <span class="fr">2018-3-21</span>
-                </div>
+                {{--<div class="goods-comment-content">--}}
+                    {{--<p>已经是第二次买了，收到包包了，真的不错。老婆非常喜欢，一直夸我！开心</p>--}}
+                {{--</div>--}}
 
-                <div class="goods-comment-content">
-                    <p>已经是第二次买了，收到包包了，真的不错。老婆非常喜欢，一直夸我！开心</p>
-                </div>
+            {{--</div>--}}
+            {{--<div class="clr"></div>--}}
 
-            </div>
-            <div class="clr"></div>
+            {{--<div class="goods-comment-list">--}}
+                {{--<div class="goods-comment-author">--}}
+                    {{--<img src="../../../wap/images/member.png">--}}
+                    {{--<span>会员名字</span>--}}
 
-            <div class="goods-comment-list">
-                <div class="goods-comment-author">
-                    <img src="../../../wap/images/member.png">
-                    <span>会员名字</span>
+                    {{--<div class="goods-comment-level">--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                        {{--<i class="active"></i>--}}
+                    {{--</div>--}}
 
-                    <div class="goods-comment-level">
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                        <i class="active"></i>
-                    </div>
+                    {{--<span class="fr">2018-3-21</span>--}}
+                {{--</div>--}}
 
-                    <span class="fr">2018-3-21</span>
-                </div>
+                {{--<div class="goods-comment-content">--}}
+                    {{--<p>已经是第二次买了，收到包包了，真的不错。老婆非常喜欢，一直夸我！开心</p>--}}
+                {{--</div>--}}
 
-                <div class="goods-comment-content">
-                    <p>已经是第二次买了，收到包包了，真的不错。老婆非常喜欢，一直夸我！开心</p>
-                </div>
-
-            </div>
-            <div class="clr"></div>
+            {{--</div>--}}
+            {{--<div class="clr"></div>--}}
         </div>
     </div>
 
