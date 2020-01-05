@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Wap;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use EasyWeChat\Factory;
 class WorkerInfoController extends Controller
 {
-
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-//        $user = session('wechat.oauth_user.default'); //一句话， 拿到授权用户资料
-        $user = $_SESSION['wechat.oauth_user.default'];
-        dd($user);
+        $user = session('wechat.oauth_user.default'); //一句话， 拿到授权用户资料
+        $member = Member::where('openid', $user['id'])->first();
+        dd($member);
         return view('wap.worker_info.index');
     }
 }
