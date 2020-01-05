@@ -31,8 +31,10 @@ class WorkerInfoController extends Controller
                 'rent' => 0,
                 'policy' => 0
             ]);
+            dd($userModel);
             return $userModel;
         }else{
+            dd($member);
             return $member;
         }
 
