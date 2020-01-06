@@ -75,7 +75,7 @@
         </form>
 
             <div class="form-submit">
-                <button type="submit" class="form-submit-btn">确定</button>
+                <button type="button" class="form-submit-btn" onclick="submit()">确定</button>
             </div>
 
 <script src="{{asset('wap/js/jquery-1.11.2.min.js')}}"></script>
