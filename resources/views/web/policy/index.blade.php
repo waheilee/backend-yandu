@@ -120,46 +120,9 @@
     <script>
         function info() {
             if(!$("input[type='checkbox']").prop('checked')){toastr.warning('请阅读《投保须知及声明》后勾选声明');return false;}
-            $('#modal-policy').modal('show');
+            location.href='{{url('policy/store/create').'/'.$row->id}}';
+            // $('#modal-policy').modal('show');
         }
-        function submit() {
-            var formData = new FormData($('#policy')[0]);
-            $.ajax({
-                type: 'POST',
-                url: '{{route('policy.store')}}',
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },
-                success : function (data) {
-                    Swal.fire({
-                        title: data.message,
-                        type: 'success',
-                        focusConfirm: false, //聚焦到确定按钮
-                        showCloseButton: true,//右上角关闭
-                        confirmButtonText:'确定'
-                        // timer: 2000
-                    })
-                    setTimeout(function(){
-                        location.reload()
-                    },2000);
-                },
-                error : function (data) {
-                    var json = JSON.parse(data.responseText);
 
-                    $.each(json.errors, function(idx, obj) {
-                        toastr.warning(obj[0]);
-                        return false;
-                    });
-                    // var json = JSON.parse(data.responseText);
-                    // toastr.warning(json.message);
-                    // return false;
-                }
-            })
-        }
     </script>
 @endsection

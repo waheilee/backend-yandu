@@ -26,6 +26,14 @@ class PolicyController
         return view('web.policy.index',compact('row'));
     }
 
+    public function create($id)
+    {
+        $row = Policy::select('policies.id', \DB::raw('merchants.company as merchant'), 'policies.company', 'policy_total', 'policy_used','merchant_id')
+            ->join('merchants', 'merchants.id', '=', 'policies.merchant_id')
+            ->where('policies.id', $id)->first();
+        return view('web.policy.create',compact('row'));
+    }
+
     /**
      * 用户填写保单
      * @param PolicyStoreRequest $request

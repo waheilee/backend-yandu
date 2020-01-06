@@ -27,6 +27,7 @@ Route::post('ailipay/refund/query_order','Web\AlipayController@queryRefund')->na
 
 //填写保单页面
 Route::get('policy/{id}','Web\PolicyController@index')->name('policy');
+Route::get('policy/store/create/{id}','Web\PolicyController@create');
 Route::post('policy/store','Web\PolicyController@store')->name('policy.store');
 
 //雇主责任险保单填写
