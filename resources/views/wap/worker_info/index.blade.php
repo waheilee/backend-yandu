@@ -47,7 +47,7 @@
         <div class="user-wallet">
             <ul>
                 <li>
-                    <h3><span>好评率:</span>88%</h3>
+                    <h3><span>好评率:</span>{{$point}}%</h3>
                 </li>
 
                 <li>
