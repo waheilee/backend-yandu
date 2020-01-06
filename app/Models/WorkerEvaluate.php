@@ -30,6 +30,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate whereTag($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $point 好评百分比
+ * @property string|null $openid 微信openid
+ * @property string|null $wechat_avatar 微信头像
+ * @property string|null $wechat_nickname 微信名称
+ * @property string|null $evaluate_channel 评价渠道
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate whereEvaluateChannel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate whereOpenid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate wherePoint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate whereWechatAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WorkerEvaluate whereWechatNickname($value)
  */
 class WorkerEvaluate extends Model
 {

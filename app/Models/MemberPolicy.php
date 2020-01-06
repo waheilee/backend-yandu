@@ -55,7 +55,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereStatus($value)
  * @mixin \Eloquent
  * @property-read \App\Models\OrderMerchant $orderMerchant
-
  */
 class MemberPolicy extends Model
 {

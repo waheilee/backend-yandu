@@ -63,11 +63,76 @@ class WorkerInfoController extends Controller
         $data['openid'] = $this->weChatUser()->getOriginal()['openid'];
         $data['nickname'] = $this->weChatUser()->getNickname();
         $data['avatar'] = $this->weChatUser()->getAvatar();
+        $data['worker_id'] = $id;
         return view('wap.worker_info.evaluate',compact('data'));
     }
 
     public function storeEvaluate(Request $request)
     {
-        dd($request->all());
+        $content = $request->input('content');
+        $openid = $request->input('openid');
+        $nickname = $request->input('nickname');
+        $avatar = $request->input('avatar');
+        $start = $request->input('start');
+        $workerId = $request->input('worker_id');
+        $member = Member::whereOpenid($openid)->first()->id;
+        $point = $this->point($start);
+        $evaluateModel = new WorkerEvaluate();
+        $evaluateModel->project_id = 0;
+        $evaluateModel->evaluate_id_a = $member;
+        $evaluateModel->evaluate_id_b = $workerId;
+        $evaluateModel->start = $start;
+        $evaluateModel->tag = $this->workerTag($start);
+        $evaluateModel->content = $content;
+        $evaluateModel->point = $point;
+        $evaluateModel->openid = $openid;
+        $evaluateModel->wechat_avatar = $avatar;
+        $evaluateModel->wechat_nickname = $nickname;
+        return response()->json(['message'=>'评价成功']);
+//        dd($request->all());
+    }
+
+    public function point($start)
+    {
+        switch ($start){
+            case 1:
+                $start = 20;
+                break;
+            case 2:
+                $start = 40;
+                break;
+            case 3:
+                $start = 60;
+                break;
+            case 4:
+                $start = 80;
+                break;
+            case 5:
+                $start = 100;
+                break;
+        }
+        return $start;
+    }
+
+    public function workerTag($tag)
+    {
+        switch ($tag) {
+            case 1:
+                $tag="差评";
+                break;
+            case 2:
+                $tag="较差";
+                break;
+            case 3:
+                $tag="中等";
+                break;
+            case 4:
+                $tag="一般";
+                break;
+            case 5:
+                $tag="好评";
+                break;
+        }
+        return $tag;
     }
 }

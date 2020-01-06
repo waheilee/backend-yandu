@@ -68,6 +68,7 @@
                 <input type="hidden" name="openid" value="{{$data['openid']}}">
                 <input type="hidden" name="nickname" value="{{$data['nickname']}}">
                 <input type="hidden" name="avatar" value="{{$data['avatar']}}">
+                <input type="hidden" name="worker_id" value="{{$data['worker_id']}}">
                 <input type="hidden" name="start" id="start" value="">
                 <div class="textarea-group-tips">
                     <span class="fr">还可以输入<em id="textCount">140</em>个字</span>
@@ -189,7 +190,7 @@
                     timer: 2000
                 })
                 setTimeout(function(){
-                    location.href = '{{url('admin/demand/partner/index')}}';
+                    history.go(-1);
                 },2000);
 
             }
