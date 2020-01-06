@@ -56,4 +56,18 @@ class WorkerInfoController extends Controller
 //        dd($member);
         return view('wap.worker_info.index',compact('worker','member','evaluate','point'));
     }
+
+    public function evaluate($id)
+    {
+        $data['worker'] = Worker::whereId($id)->first()->name;
+        $data['openid'] = $this->weChatUser()->getOriginal()['openid'];
+        $data['nickname'] = $this->weChatUser()->getNickname();
+        $data['avatar'] = $this->weChatUser()->getAvatar();
+        return view('wap.worker_info.evaluate',compact('data'));
+    }
+
+    public function storeEvaluate(Request $request)
+    {
+        dd($request->all());
+    }
 }

@@ -17,7 +17,7 @@
 <div class="user-top">
     <div class="header user-header">
         <div class="header-msg">
-            <a href="../User/MyMessage.html"></a>
+            <a href="{{url('worker/info/evaluate/').$worker->id}}"></a>
         </div>
 
         <div class="header-setting">
