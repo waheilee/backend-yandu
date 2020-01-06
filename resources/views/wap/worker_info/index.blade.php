@@ -67,18 +67,14 @@
             @foreach($evaluate as $eva)
             <div class="goods-comment-list">
                 <div class="goods-comment-author">
-                    <img src="../../../wap/images/member.png">
-                    <span>会员名字</span>
+                    <img src="@if(!$eva->wechat_avatar)../../../wap/images/member.png@else{{$eva->wechat_avatar}}@endif">
+                    <span>@if(!$eva->wechat_nickname)匿名@else{{$eva->wechat_nickname}}@endif</span>
 
                     <div class="goods-comment-level">
                         {{--{{$eva->start}}--}}
                         @for($i = 1 ; $i <= $eva->start ;$i++ )
                         <i class="active" id="{{$eva[$i]}}"></i>
                         @endfor
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
                     </div>
 
                     <span class="fr">{{$eva->created_at}}</span>
@@ -91,50 +87,7 @@
             </div>
             <div class="clr"></div>
             @endforeach
-            {{--<div class="goods-comment-list">--}}
-                {{--<div class="goods-comment-author">--}}
-                    {{--<img src="../../../wap/images/member.png">--}}
-                    {{--<span>会员名字</span>--}}
 
-                    {{--<div class="goods-comment-level">--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                    {{--</div>--}}
-
-                    {{--<span class="fr">2018-3-21</span>--}}
-                {{--</div>--}}
-
-                {{--<div class="goods-comment-content">--}}
-                    {{--<p>已经是第二次买了，收到包包了，真的不错。老婆非常喜欢，一直夸我！开心</p>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-            {{--<div class="clr"></div>--}}
-
-            {{--<div class="goods-comment-list">--}}
-                {{--<div class="goods-comment-author">--}}
-                    {{--<img src="../../../wap/images/member.png">--}}
-                    {{--<span>会员名字</span>--}}
-
-                    {{--<div class="goods-comment-level">--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                        {{--<i class="active"></i>--}}
-                    {{--</div>--}}
-
-                    {{--<span class="fr">2018-3-21</span>--}}
-                {{--</div>--}}
-
-                {{--<div class="goods-comment-content">--}}
-                    {{--<p>已经是第二次买了，收到包包了，真的不错。老婆非常喜欢，一直夸我！开心</p>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-            {{--<div class="clr"></div>--}}
         </div>
     </div>
 
