@@ -67,7 +67,7 @@
             @foreach($evaluate as $eva)
             <div class="goods-comment-list">
                 <div class="goods-comment-author">
-                    <img src="@if(!$eva->wechat_avatar)../../../wap/images/member.png@else{{$eva->wechat_avatar}}@endif">
+                    <img src=" @if(!$eva->wechat_avatar) ../../../wap/images/member.png @else {{$eva->wechat_avatar}} @endif">
                     <span>@if(!$eva->wechat_nickname)匿名@else{{$eva->wechat_nickname}}@endif</span>
 
                     <div class="goods-comment-level">
