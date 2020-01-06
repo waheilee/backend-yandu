@@ -61,6 +61,7 @@ class PolicyController
         $model->position    = $request->input('position');
         $model->payroll     = $request->input('payroll');
         $model->age         = 1;
+        $model->order_no    = 0;
         $model->save();
         Policy::where('id', $request->get('policy_id'))->increment('policy_used');
         return response()->json(['message'=>'保单添加成功']);
