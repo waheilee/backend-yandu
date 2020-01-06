@@ -138,11 +138,11 @@
         li.attr("data-default-index", (parseInt(index1)+1));
         var index = $(".block li").attr("data-default-index");//点击后的索引
         index = parseInt(index);
-        console.log("index",index);
+        // console.log("index",index);
         $("#start").attr("value",index);
         $(".level").html(byIndexLeve(index-1));
         $("#tag").attr("value",byIndexLeve(index-1));
-        console.log(byIndexLeve(index-1));
+        // console.log(byIndexLeve(index-1));
         $(".order-evaluation ul li:eq(0)").find("img").attr("src","{{asset('assets/img/x1.png')}}");
         for (var i=0;i<index;i++){
             $(".order-evaluation ul li:eq(0)").find("img").eq(i).attr("src","{{asset('assets/img/x2.png')}}");
@@ -190,7 +190,7 @@
                     timer: 2000
                 })
                 setTimeout(function(){
-                    history.go(-1);
+                    location.href = '{{url('m/worker/info/index').'?worker_id='.$data['worker_id']}}';
                 },2000);
 
             }

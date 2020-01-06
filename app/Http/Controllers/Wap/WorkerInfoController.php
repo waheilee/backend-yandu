@@ -88,6 +88,7 @@ class WorkerInfoController extends Controller
         $evaluateModel->openid = $openid;
         $evaluateModel->wechat_avatar = $avatar;
         $evaluateModel->wechat_nickname = $nickname;
+        $evaluateModel->save();
         return response()->json(['message'=>'评价成功']);
 //        dd($request->all());
     }
