@@ -10,6 +10,7 @@
     <link href="{{asset('wap/css/user.css')}}" rel="stylesheet">
     <link href="{{asset('wap/css/shop.css')}}" rel="stylesheet">
     <link href="{{asset('web/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.1.0')}}" type="text/css">
 </head>
 
@@ -81,6 +82,7 @@
             </div>
 
 <script src="{{asset('wap/js/jquery-1.11.2.min.js')}}"></script>
+<script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
 <script type="text/javascript">
     /*
      * 根据index获取 str
