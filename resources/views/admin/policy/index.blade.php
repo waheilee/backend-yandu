@@ -254,6 +254,9 @@
                 processData: false,
                 contentType: false,
                 dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
                 success: function(data){
                     Swal.fire({
                         position: 'top-end',
@@ -309,6 +312,9 @@
                 processData: false,
                 contentType: false,
                 dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
                 success: function(data){
                     Swal.fire({
                         position: 'top-end',
@@ -363,6 +369,9 @@
                         url: url,
                         data: {'id':id},
                         dataType: 'json',
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                        },
                         success: function(data){
                             Swal.fire(
                                 ''+data.message+'',
