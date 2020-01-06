@@ -68,6 +68,7 @@
                 <input type="hidden" name="openid" value="{{$data['openid']}}">
                 <input type="hidden" name="nickname" value="{{$data['nickname']}}">
                 <input type="hidden" name="avatar" value="{{$data['avatar']}}">
+                <input type="hidden" name="start" id="start" value="">
                 <div class="textarea-group-tips">
                     <span class="fr">还可以输入<em id="textCount">140</em>个字</span>
                 </div>
