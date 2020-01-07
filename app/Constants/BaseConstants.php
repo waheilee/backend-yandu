@@ -69,5 +69,23 @@ class BaseConstants
         self::EMPLOYER_POLICY_INVALID           => "失效保单",
     ];
 
+    /**
+     *工人职业
+     */
+    const WORKER_OCCUPATION_TILE =1;
+    const WORKER_OCCUPATION_FORMALDEHYDE=2;
+    const WORKER_OCCUPATION_CLEANING =3;
+    const WORKER_OCCUPATION_BRICKLAYING=4;
+    const WORKER_OCCUPATION_OIL_WORKER =5;
+    const WORKER_OCCUPATION_PLUMBER =6;
+    const WORKER_OCCUPATION_MAP = [
+        self::WORKER_OCCUPATION_TILE           => "贴瓷砖",
+        self::WORKER_OCCUPATION_FORMALDEHYDE   => "除甲醛",
+        self::WORKER_OCCUPATION_CLEANING       => "保洁",
+        self::WORKER_OCCUPATION_BRICKLAYING    => "瓦工",
+        self::WORKER_OCCUPATION_OIL_WORKER     => "油工",
+        self::WORKER_OCCUPATION_PLUMBER        => "水暖工",
+    ];
+
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wap;
 
 
+use App\Constants\BaseConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Worker;
@@ -31,8 +32,8 @@ class WorkerInfoController extends Controller
         $web_openid = $this->weChatUser()->getId();
         $member = Member::where('openid', $this->weChatUser()->getId())->first();
         $worker = Worker::whereId($request->input('worker_id'))->first();
+        $worker->tec = BaseConstants::WORKER_OCCUPATION_MAP[$worker->tec];
         $evaluate = WorkerEvaluate::where('evaluate_id_b',$worker->id)->paginate(6);
-//        dd($evaluate);
         $points = WorkerEvaluate::where('evaluate_id_b',$worker->id)->sum('point');
         $count  = WorkerEvaluate::where('evaluate_id_b',$worker->id)->count();
         $point  = round($points/$count,2);
