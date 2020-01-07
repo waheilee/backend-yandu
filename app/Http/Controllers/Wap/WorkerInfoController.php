@@ -49,11 +49,7 @@ class WorkerInfoController extends Controller
                 'policy' => 0,
                 'mini_openid' => '-'
             ]);
-//            dd($userModel);
-            return $member;
         }
-
-//        dd($member);
         return view('wap.worker_info.index',compact('worker','member','evaluate','point','count'));
     }
 
