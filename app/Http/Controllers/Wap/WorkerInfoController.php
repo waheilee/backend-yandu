@@ -144,7 +144,7 @@ class WorkerInfoController extends Controller
      */
     public function dataAjax(Request $request)
     {
-        $evaluate = WorkerEvaluate::where('evaluate_id_b',1)->paginate(6);
+        $evaluate = WorkerEvaluate::where('evaluate_id_b',$request->input('worker_id'))->paginate(6);
         $view = view('wap.worker_info.data-ajax',compact('evaluate'))->render();
         return response()->json(['html'=>$view]);
     }
