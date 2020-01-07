@@ -71,8 +71,8 @@
 
 </div>
 
-<div class="ajax-load text-center" style="display:none">
-    <p>加载更多……</p>
+<div class="ajax-load load-more" style="display:none">
+    <a>加载更多……</a>
 </div>
 
 <script src="{{asset('wap/js/jquery-1.11.2.min.js')}}"></script>
