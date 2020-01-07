@@ -64,7 +64,7 @@
 
 <div class="user-container">
     <div class="index-panel">
-        <div class="goods-comment comment-list">
+        <div class="goods-comment comment-list" id="post-data">
             @include('wap.worker_info.data-ajax')
 
         </div>
