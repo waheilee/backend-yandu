@@ -179,7 +179,7 @@
             {
                 //console.log(data.html);
                 if(data.html == ""){
-                    $('.ajax-load').html("没有数据了……");
+                    $('.ajax-load').html("<a>没有数据了……</a>");
                     return;
                 }
                 $('.ajax-load').hide();
