@@ -42,7 +42,7 @@
         </div>
 
         <div   class="text text-sm  text-white ">
-        <p style="font-size: 1px">险种：雇主责任险  有效期：2019-12-21至2020-12-20</p>
+        <p >险种：雇主责任险  有效期：2019-12-21至2020-12-20</p>
         </div>
         <div class="user-wallet">
             <ul>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li>
-                    <h3><span>接单数:</span>566</h3>
+                    <h3><span>评价数:</span>{{$count}}</h3>
                 </li>
 
             </ul>
@@ -64,58 +64,16 @@
 <div class="user-container">
     <div class="index-panel">
         <div class="goods-comment comment-list">
-            @foreach($evaluate as $eva)
-            <div class="goods-comment-list">
-                <div class="goods-comment-author">
-                    <img src=" @if(!$eva->wechat_avatar) ../../../wap/images/member.png @else {{$eva->wechat_avatar}} @endif">
-                    <span>@if(!$eva->wechat_nickname)匿名@else{{$eva->wechat_nickname}}@endif</span>
-
-                    <div class="goods-comment-level">
-                        {{--{{$eva->start}}--}}
-                        @for($i = 1 ; $i <= $eva->start ;$i++ )
-                        <i class="active" id="{{$eva[$i]}}"></i>
-                        @endfor
-                    </div>
-
-                    <span class="fr">{{$eva->created_at}}</span>
-                </div>
-
-                <div class="goods-comment-content">
-                    <p>{{$eva->content}}</p>
-                </div>
-
-            </div>
-            <div class="clr"></div>
-            @endforeach
+            @include('wap.worker_info.data-ajax')
 
         </div>
     </div>
 
 </div>
 
-
-<div class="load-more">
-    <a href="">点击加载更多</a>
+<div class="ajax-load text-center" style="display:none">
+    <p>加载更多……</p>
 </div>
-
-
-
-<!--暂未开放弹窗-->
-<div class="popup">
-    <div class="popup-box coming-soon">
-        <div class="popup-box-content">
-            <div class="coming-soon-content">
-                <img src="../../../wap/images/coming_soon.png">
-                <p>此功能暂未开放，敬请期待</p>
-            </div>
-        </div>
-
-        <div class="popup-submit">
-            <button type="submit" class="confirm-btn">确认</button>
-        </div>
-    </div>
-</div>
-
 
 <script src="{{asset('wap/js/jquery-1.11.2.min.js')}}"></script>
 <script>
@@ -186,18 +144,52 @@
 
 
     //暂未开放
-    $(function(){
-        $('.no-open').click(function(){
-            $('.popup').fadeIn();
-
-            var h = ($(window).height() - $('.popup-box').height())/2;
-            $('.popup-box').css('margin-top',h);
-        });
-
-        $('.confirm-btn').click(function(){
-            $('.popup').fadeOut();
-        });
+    // $(function(){
+    //     $('.no-open').click(function(){
+    //         $('.popup').fadeIn();
+    //
+    //         var h = ($(window).height() - $('.popup-box').height())/2;
+    //         $('.popup-box').css('margin-top',h);
+    //     });
+    //
+    //     $('.confirm-btn').click(function(){
+    //         $('.popup').fadeOut();
+    //     });
+    // });
+</script>
+<script type="text/javascript">
+    var page = 1;
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() + 1>= $(document).height()) {
+            page++;
+            loadMoreData(page);
+        }
     });
+
+    function loadMoreData(page){
+        $.ajax({
+            url: '{{url('m/worker/info/evaluate/test/ajax')}}?page=' + page,
+            type: "get",
+            beforeSend: function()
+            {
+                $('.ajax-load').show();
+            }
+        })
+            .done(function(data)
+            {
+                //console.log(data.html);
+                if(data.html == ""){
+                    $('.ajax-load').html("没有数据了……");
+                    return;
+                }
+                $('.ajax-load').hide();
+                $("#post-data").append(data.html);
+            })
+            .fail(function(jqXHR, ajaxOptions, thrownError)
+            {
+                alert('服务未响应……');
+            });
+    }
 </script>
 </body>
 </html>

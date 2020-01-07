@@ -31,7 +31,7 @@ class WorkerInfoController extends Controller
         $web_openid = $this->weChatUser()->getId();
         $member = Member::where('openid', $this->weChatUser()->getId())->first();
         $worker = Worker::whereId($request->input('worker_id'))->first();
-        $evaluate = WorkerEvaluate::where('evaluate_id_b',$worker->id)->paginate();
+        $evaluate = WorkerEvaluate::where('evaluate_id_b',$worker->id)->paginate(6);
 //        dd($evaluate);
         $points = WorkerEvaluate::where('evaluate_id_b',$worker->id)->sum('point');
         $count  = WorkerEvaluate::where('evaluate_id_b',$worker->id)->count();
@@ -54,7 +54,7 @@ class WorkerInfoController extends Controller
         }
 
 //        dd($member);
-        return view('wap.worker_info.index',compact('worker','member','evaluate','point'));
+        return view('wap.worker_info.index',compact('worker','member','evaluate','point','count'));
     }
 
     public function evaluate($id)
@@ -136,4 +136,17 @@ class WorkerInfoController extends Controller
         }
         return $tag;
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function dataAjax(Request $request)
+    {
+        $evaluate = WorkerEvaluate::where('evaluate_id_b',1)->paginate(6);
+        $view = view('wap.worker_info.data-ajax',compact('evaluate'))->render();
+        return response()->json(['html'=>$view]);
+    }
+
 }
