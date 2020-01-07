@@ -42,7 +42,8 @@
         </div>
 
         <div   class="text text-sm  text-white ">
-        <p >险种：雇主责任险  有效期：2019-12-21至2020-12-20</p>
+            <p style="font-size: 15px">险种：雇主责任险  </p>
+            <p style="font-size: 15px">有效期：2019-12-21至2020-12-20</p>
         </div>
         <div class="user-wallet">
             <ul>
