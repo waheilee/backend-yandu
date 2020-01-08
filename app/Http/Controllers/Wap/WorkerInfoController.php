@@ -36,7 +36,12 @@ class WorkerInfoController extends Controller
         $evaluate = WorkerEvaluate::where('evaluate_id_b',$worker->id)->paginate(6);
         $points = WorkerEvaluate::where('evaluate_id_b',$worker->id)->sum('point');
         $count  = WorkerEvaluate::where('evaluate_id_b',$worker->id)->count();
-        $point  = round($points/$count,2);
+        if ($count != 0){
+            $point  = round($points/$count,2);
+        }else{
+            $point  = 0;
+        }
+
         //校验用户是否存在，不存在则把信息保存在数据库
         if (!$member) {
             $member = Member::create([
