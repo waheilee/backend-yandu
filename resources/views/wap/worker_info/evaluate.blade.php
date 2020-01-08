@@ -80,20 +80,7 @@
             <div class="form-submit">
                 <button type="button" class="form-submit-btn" onclick="submit()">确定</button>
             </div>
-<div class="popup">
-    <div class="popup-box coming-soon">
-        <div class="popup-box-content">
-            <div class="coming-soon-content">
-                <img src="{{asset('wap/img/right1.png')}}">
-                <p>评论成功</p>
-            </div>
-        </div>
 
-        <div class="popup-submit">
-            <button type="submit" class="confirm-btn">确认</button>
-        </div>
-    </div>
-</div>
 <script src="{{asset('wap/js/jquery-1.11.2.min.js')}}"></script>
 <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
 <script type="text/javascript">
@@ -197,19 +184,18 @@
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
             },
             success : function (data) {
-
-                $('.no-open').click(function(){
-                    $('.popup').fadeIn();
-
-                    var h = ($(window).height() - $('.popup-box').height())/2;
-                    $('.popup-box').css('margin-top',h);
-                });
+                // Swal.fire({
+                //     title: data.message,
+                //     type: 'success',
+                //     focusConfirm: false, //聚焦到确定按钮
+                //     showCloseButton: true,//右上角关闭
+                //     timer: 2000
+                // })
+                alert(data.message)
                 setTimeout(function(){
                     location.href = '{{url('m/worker/info/index').'?worker_id='.$data['worker_id']}}';
                 },2000);
-                $('.confirm-btn').click(function(){
-                    $('.popup').fadeOut();
-                });
+
             }
         })
 
