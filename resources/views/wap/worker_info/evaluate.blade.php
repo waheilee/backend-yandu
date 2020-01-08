@@ -203,7 +203,7 @@
                 // alert(data.message)
                 setTimeout(function(){
                     location.href = '{{url('m/worker/info/index').'?worker_id='.$data['worker_id']}}';
-                },2000);
+                },1500);
 
             }
         })
