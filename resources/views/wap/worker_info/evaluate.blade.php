@@ -12,6 +12,14 @@
     <link href="{{asset('web/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.1.0')}}" type="text/css">
+    <style>
+        .sweetAlert {
+            width: 22em;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -184,14 +192,15 @@
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
             },
             success : function (data) {
-                // Swal.fire({
-                //     title: data.message,
-                //     type: 'success',
-                //     focusConfirm: false, //聚焦到确定按钮
-                //     showCloseButton: true,//右上角关闭
-                //     timer: 2000
-                // })
-                alert(data.message)
+                Swal.fire({
+                    title: data.message,
+                    type: 'success',
+                    focusConfirm: false, //聚焦到确定按钮
+                    showCloseButton: true,//右上角关闭
+                    confirmButtonText:'确定',
+                    timer: 2000
+                })
+                // alert(data.message)
                 setTimeout(function(){
                     location.href = '{{url('m/worker/info/index').'?worker_id='.$data['worker_id']}}';
                 },2000);
