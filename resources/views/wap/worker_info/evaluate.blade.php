@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.1.0')}}" type="text/css">
     <style>
         .sweetAlert {
-            width: 22em;
+            width: 10em;
             margin: 0 auto;
             left: 0;
             right: 0;
@@ -201,9 +201,9 @@
                     timer: 2000
                 })
                 // alert(data.message)
-                setTimeout(function(){
-                    location.href = '{{url('m/worker/info/index').'?worker_id='.$data['worker_id']}}';
-                },2000);
+                {{--setTimeout(function(){--}}
+                    {{--location.href = '{{url('m/worker/info/index').'?worker_id='.$data['worker_id']}}';--}}
+                {{--},2000);--}}
 
             }
         })
