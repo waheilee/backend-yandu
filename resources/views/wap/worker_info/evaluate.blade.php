@@ -197,13 +197,7 @@
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
             },
             success : function (data) {
-                Swal.fire({
-                    title: data.message,
-                    type: 'success',
-                    focusConfirm: false, //聚焦到确定按钮
-                    showCloseButton: true,//右上角关闭
-                    timer: 2000
-                })
+
                 $('.no-open').click(function(){
                     $('.popup').fadeIn();
 
