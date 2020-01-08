@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('worker/create','WorkerController@create')->name('worker.create');
     Route::post('worker/store','WorkerController@store')->name('worker.store');
     Route::post('worker/image/upload','WorkerController@image');
+    Route::post('worker/image/qrcode','WorkerController@imgQrcode');
 
     //评价
     Route::get('evaluate','EvaluateController@index');

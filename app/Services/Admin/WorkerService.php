@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use OSS\OssClient;
 use Ofcold\IdentityCard\IdentityCard;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class WorkerService
 {
@@ -17,10 +18,11 @@ class WorkerService
         $limit   = $request->input('limit');
         $project = Worker::whereMerchantId(\Auth::user()->id)->paginate($limit);
         foreach ($project as $item) {
+            $qrcode = $this->workerQrcode($item['qrcode'],$item['id']);
             $item['address'] = $item['province'].'.'.$item['city'].'.'.$item['county'];
             $item['tec']     = $this->getTec($item['tec']);
             $item['sex']     = $this->getSex($item['sex']);
-
+            $item['qrcode']  = " <a onclick=\"image($item->id)\"><img src=\"".asset($qrcode)."\" style='width: 50px' ></a>";
         }
         $array['page'] = $project->currentPage();
         $array['rows'] = $project->items();
@@ -131,4 +133,20 @@ class WorkerService
         }
         return $sex;
     }
+
+    public function workerQrcode($qrcode,$id)
+    {
+        if (!$qrcode){
+            $url = env('APP_URL').'/m/worker/info/index?worker_id='.$id;
+            $qrCodePath = 'uploads/image/qrcode/worker/'.'worker'. $id . '.png';
+            QrCode::format('png')->size(500)->generate($url,$qrCodePath);
+            $workerModel = Worker::whereId($id)->first();
+            $workerModel->qrcode = $qrCodePath;
+            $workerModel->update();
+            return $workerModel->qrcode;
+        }
+        return $qrcode;
+    }
+
+
 }

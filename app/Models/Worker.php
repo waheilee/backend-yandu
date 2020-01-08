@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $merchant_id 所属商户id
+ * @property string|null $qrcode 工人信息二维码
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker query()
@@ -47,6 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereTecText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereWorkAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereQrcode($value)
  * @mixin \Eloquent
  */
 class Worker extends Model

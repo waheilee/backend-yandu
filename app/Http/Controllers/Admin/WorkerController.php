@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Worker;
 use App\Services\Admin\WorkerService;
 use Illuminate\Http\Request;
 use App\Requests\Admin\WorkerRequest;
@@ -47,5 +48,12 @@ class WorkerController extends Controller
     {
         $data = $this->workerService->handle($request);
         return $data;
+    }
+
+    public function imgQrcode(Request $request)
+    {
+        $id = $request->input('id');
+        $worker = Worker::whereId($id)->first();
+        return response()->json(['img'=>asset($worker->qrcode)]);
     }
 }

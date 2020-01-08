@@ -120,6 +120,7 @@
                         {title:'施工技能', field:'tec',},
                         {title:'工作年限', field:'work_age',},
                         {title:'添加时间', field:'created_at',},
+                        {title:'工人二维码', field:'qrcode',},
                     ]
                 });
             };
@@ -136,5 +137,37 @@
             };
             return oTableInit;
         };
+    </script>
+    <script>
+        function image(id) {
+            $.ajax({
+                type: 'post',
+                url: "{{ url('admin/worker/image/qrcode') }}",
+                data: {'id':id},
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                success: function(data){
+                    Swal.fire({
+                        title: '',
+                        text: '',
+                        imageUrl: data.img,
+                        imageWidth: 500,
+                        imageHeight: 500,
+                        imageAlt: '',
+                        showConfirmButton:false,
+                        showCancelButton:true,
+                        cancelButtonText:'关闭'
+                    })
+                },
+                error:function (data) {
+                    var json = JSON.parse(data.responseText);
+
+                }
+
+
+            });
+        }
     </script>
 @endsection
