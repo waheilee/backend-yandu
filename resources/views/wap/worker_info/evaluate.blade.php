@@ -198,7 +198,7 @@
                     focusConfirm: false, //聚焦到确定按钮
                     showCloseButton: true,//右上角关闭
                     confirmButtonText:'确定',
-                    timer: 2000
+                    // timer: 2000
                 })
                 // alert(data.message)
                 {{--setTimeout(function(){--}}
