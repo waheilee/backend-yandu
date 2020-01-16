@@ -20,9 +20,9 @@
         if(i < level){
           var sum=2;
           sum = sum+Number(level);
-          $(this).parents("[class^='score-']").find('.default-icon').eq(i).css("background-image","url('../../../wap/se_new/image/smile/icon_0"+sum+".png')");
+          $(this).parents("[class^='score-']").find('.default-icon').eq(i).css("background-image","url('../../wap/se_new/image/smile/icon_0"+sum+".png')");
         }else{
-          $(this).parents("[class^='score-']").find('.default-icon').eq(i).css("background-image","url('../../../wap/se_new/image/smile/icon_07.png')");
+          $(this).parents("[class^='score-']").find('.default-icon').eq(i).css("background-image","url('../../wap/se_new/image/smile/icon_07.png')");
         }
       }
     },
@@ -136,7 +136,7 @@
       var _this_ = this ; 
       var img = new Image();
       _this_.obj.prepend('<img class="scoreHiddenImage" style="display:none" src="" alt="">');
-      img.src = '../../../wap/se_new/image/icon.png';
+      img.src = '../../wap/se_new/image/icon.png';
       $(img).on('load error',function(){ 
         $('img.scoreHiddenImage').attr('src',img.src);
         each = $('img').width() / 2.8;
