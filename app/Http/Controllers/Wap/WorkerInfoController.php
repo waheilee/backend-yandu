@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Wap;
 use App\Constants\BaseConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\MemberPolicy;
 use App\Models\Worker;
 use App\Models\WorkerEvaluate;
 use EasyWeChat\Factory;
@@ -55,6 +56,16 @@ class WorkerInfoController extends Controller
                 'policy' => 0,
                 'mini_openid' => '-'
             ]);
+        }
+        $memberPolicy = MemberPolicy::whereOrderNo($worker->policy_order_num)->first();
+        if (empty($memberPolicy->effective_date)){
+            $policyTime = '暂无保险';
+        }else{
+            $outTime = empty($memberPolicy->out_time) ? '':date('Y-m-d',strtotime($memberPolicy->out_time));
+            $policyTime = $memberPolicy->effective_date.'至'.$outTime;
+        }
+        if ($worker->channel == 'senew'){
+            return view('wap.se_new.worker_center.index',compact('worker','member','evaluate','point','count','policyTime'));
         }
         return view('wap.worker_info.index',compact('worker','member','evaluate','point','count'));
     }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * App\Models\Worker
  *
@@ -50,8 +50,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereWorkAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereQrcode($value)
  * @mixin \Eloquent
+ * @property string|null $avatar 工人头像
+ * @property string|null $channel 工人所需渠道
+ * @property string|null $password 密码
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereChannel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker wherePassword($value)
+ * @property int|null $is_active 判断首次登录
+ * @property string|null $remember_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker whereRememberToken($value)
+ * @property string|null $policy_order_num 关联保单订单号
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Worker wherePolicyOrderNum($value)
  */
-class Worker extends Model
+class Worker extends Authenticatable
 {
     protected $table = 'worker';
+    protected $fillable = ['card_a','card_b','age','sex','tec','work_age','avatar','name','phone','card_num','province','city','county','password','channel',];
 }

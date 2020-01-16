@@ -55,6 +55,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereStatus($value)
  * @mixin \Eloquent
  * @property-read \App\Models\OrderMerchant $orderMerchant
+ * @property int $number 投保份数（每份保单为期一个月）
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereNumber($value)
+ * @property string|null $channel 保单所属渠道
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberPolicy whereChannel($value)
  */
 class MemberPolicy extends Model
 {

@@ -11,5 +11,19 @@ Route::group(['middleware' => ['wap']],function (){
 
 });
 
-Route::get('worker/info/index/test','WorkerInfoController@index');
-//Route::get('worker/info/evaluate/test/inn','WorkerInfoController@test');
+/**
+ * 西牛涂料工人管理
+ */
+Route::get('se_new/login','SeNewLoginController@showLogin');//登录
+Route::post('se_new/login','SeNewLoginController@login');//登录
+Route::get('se_new/register','SeNewRegisterController@showRegistrationForm');//注册页
+Route::post('se_new/register/create','SeNewRegisterController@register');//提交注册信息
+Route::group(['middleware' => ['se-new:work']],function () {
+    Route::get('se_new/worker_center','SeNewWorkerCenterController@index');//施工人员个人中心
+    Route::get('se_new/worker/edit/{id}','SeNewWorkerCenterController@edit');//施工人员信息编辑
+    Route::post('se_new/worker/update','SeNewWorkerCenterController@update');//施工人员信息更新
+    Route::post('se_new/worker/avatar/edit','SeNewWorkerCenterController@avatarEdit');//编辑头像
+    Route::get('se_new/worker/evaluate','SeNewEvaluateController@index');//施工人员评价
+    Route::post('se_new/worker/evaluate/create','SeNewEvaluateController@store');//施工人员评价
+
+});

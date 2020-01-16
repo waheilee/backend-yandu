@@ -108,6 +108,7 @@ class PolicyController extends Controller
     {
         $id = $request->input('id');
         $count = Policy::whereMerchantId(Auth::user()->id)->whereId($id)->count();
+
         if ($count > 0) {
             Policy::whereId( $id)->delete();
             MemberPolicy::wherePolicyId($id)->delete();

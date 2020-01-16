@@ -1,9 +1,10 @@
 <?php
 use App\Http\Controllers\Admin\PolicyController;
 //Route::get('logout','Auth\LoginController@');
+Route::get('se_new/login','SeNewAdmin\LoginController@showLoginForm');
+Route::post('se_new/login','SeNewAdmin\LoginController@login');
+Route::post('se_new/logout','SeNewAdmin\LoginController@logout');
 Route::group(['middleware' => ['auth:admin']], function () {
-
-
     Route::get('home', 'IndexController@index')->name('home');
     //我要派单，发布项目，项目需求
     Route::get('project/index', 'ProjectController@index')->name('project.index');
@@ -73,7 +74,14 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('news_detail','DetailController@newsDetail')->name('news_detail');
     Route::get('service_detail','DetailController@serviceDetail')->name('service_detail');
 
+    /**
+     * 西牛后台
+     */
+Route::get('se_new/home', 'SeNewAdmin\IndexController@index');
+Route::get('se_new/worker/list', 'SeNewAdmin\IndexController@indexRequest');
+Route::post('se_new/worker/policy','SeNewAdmin\IndexController@policy');
+
+
 });
 
 
-//Route::get('project/intention/refund/{id}', 'IntentionController@refund');
