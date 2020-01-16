@@ -14,7 +14,7 @@
                 </div>
             @else
                 <div class="header-evaluate">
-                    <a href="{{url('m/se_new/worker/evaluate')}}" class="btn btn-hollow">评论</a>
+                    <a href="{{url('m/se_new/worker/evaluate').'/'.$worker->id}}" class="btn btn-hollow">评论</a>
                 </div>
             @endif
         </div>

@@ -9,6 +9,9 @@ Route::group(['middleware' => ['wap']],function (){
     Route::post('worker/info/store/evaluate','WorkerInfoController@storeEvaluate')->name('storeEvaluate');
     Route::get('worker/info/evaluate/test/ajax','WorkerInfoController@dataAjax');
 
+    Route::get('se_new/worker/evaluate/{id}','SeNewEvaluateController@index');//施工人员评价
+    Route::post('se_new/worker/evaluate/create','SeNewEvaluateController@store');//施工人员评价
+
 });
 
 /**
@@ -23,7 +26,6 @@ Route::group(['middleware' => ['se-new:work']],function () {
     Route::get('se_new/worker/edit/{id}','SeNewWorkerCenterController@edit');//施工人员信息编辑
     Route::post('se_new/worker/update','SeNewWorkerCenterController@update');//施工人员信息更新
     Route::post('se_new/worker/avatar/edit','SeNewWorkerCenterController@avatarEdit');//编辑头像
-    Route::get('se_new/worker/evaluate','SeNewEvaluateController@index');//施工人员评价
-    Route::post('se_new/worker/evaluate/create','SeNewEvaluateController@store');//施工人员评价
+
 
 });
