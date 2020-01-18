@@ -166,6 +166,29 @@
     <script src="{{asset('wap/se_new/js/cropper/cropper.min.js')}}"></script>
     <script src="{{asset('wap/se_new/js/sitelogo/sitelogo.js')}}"></script>
     <script type="text/javascript">
+        $(function() {
+
+            //公告轮播
+            var adtimer;
+            var wrap = $(".announce-box ul");
+            var len = $(".announce-box ul li").length;
+            if(len>1){
+                $(".announce-box").hover(function(){
+                        clearInterval(adtimer);
+                    },
+                    function(){
+                        adtimer = setInterval(function(){
+                            var first = wrap.find("li:first");
+                            var HEIGHT = first.height();
+                            first.animate({
+                                marginTop:-HEIGHT+'px'
+                            },500,function(){
+                                first.css('marginTop',0).appendTo(wrap);
+                            })
+                        },2500)
+                    }).trigger('mouseleave');
+            }
+        });
         var page = 1;
         $(window).scroll(function() {
             if($(window).scrollTop() + $(window).height() + 1>= $(document).height()) {
