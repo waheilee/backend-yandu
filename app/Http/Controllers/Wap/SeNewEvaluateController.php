@@ -50,7 +50,7 @@ class SeNewEvaluateController
         $evaluateModel->wechat_avatar = $avatar;
         $evaluateModel->wechat_nickname = $nickname;
         $evaluateModel->save();
-        return response()->json(['评价成功']);
+        return response()->json(['评价成功！感谢您的评价！']);
 //        dd($request->all());
     }
 
