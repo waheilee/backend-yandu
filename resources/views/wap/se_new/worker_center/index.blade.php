@@ -85,11 +85,6 @@
                                     @for($i = 1 ; $i <= $eva->start ;$i++ )
                                         <i class="active" id="{{$eva[$i]}}"></i>
                                     @endfor
-                                    {{--<i class="active" id=""></i>--}}
-                                    {{--<i class="active" id=""></i>--}}
-                                    {{--<i class="active" id=""></i>--}}
-                                    {{--<i class="active" id=""></i>--}}
-                                    {{--<i class="active" id=""></i>--}}
                                 </div>
                             </div>
 
@@ -108,6 +103,7 @@
 
                     </div>
                 </div>
+                    <div class="clr"></div>
                 @endforeach
                 <!-- Progress track -->
             </div>
