@@ -133,7 +133,8 @@
         $('.score').score();
     </script>
     <script type="text/javascript">
-        $(function() {
+        !function (win, $) {
+            var dialog = win.YDUI.dialog;
             $("body").delegate("#test li","click", function(){
                 let text = $(this).text();
                 console.log(text)
@@ -177,7 +178,7 @@
                     }
                 })
             })
-        });
+        }(window, jQuery);
     </script>
     <script>
         $(".cell-textarea").focus(function(){
