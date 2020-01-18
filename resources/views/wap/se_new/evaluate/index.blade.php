@@ -99,9 +99,13 @@
                                 <div class="form-group">
                                     {{--<label class="" >评价详情</label>--}}
                                     {{--<textarea class="cell-textarea" placeholder="请对改施工人员进行评价" name="content" style="height: 3rem;"  ></textarea>--}}
-                                    <textarea class="cell-textarea" maxlength="200" placeholder="请对改施工人员进行评价" onchange="this.value=this.value.substring(0,200)"  onkeydown="this.value=this.value.substring(0,200)" onkeyup="this.value=this.value.substring(0,200)"></textarea>
+                                    <textarea class="cell-textarea" name="content" maxlength="200" placeholder="请对改施工人员进行评价" onchange="this.value=this.value.substring(0,200)"  onkeydown="this.value=this.value.substring(0,200)" onkeyup="this.value=this.value.substring(0,200)"></textarea>
                                     <span class="float-right t_h"><i>0</i>/200</span>
                                 </div>
+                                <input type="hidden" name="openid" value="{{$data['openid']}}">
+                                <input type="hidden" name="nickname" value="{{$data['nickname']}}">
+                                <input type="hidden" name="avatar" value="{{$data['avatar']}}">
+                                <input type="hidden" name="worker_id" value="{{$data['worker_id']}}">
                             </form>
                             <div class="mt-2">
                                 <button type="submit" class="btn-block btn-danger" id="sub"  style="border-radius: .5rem;">评价</button>
@@ -166,9 +170,10 @@
                         'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                     },
                     success : function (data) {
-
-
-
+                        dialog.toast(data, 'success', 1000);
+                        setTimeout(function(){
+                            window.location.href = "{{ url('m/se_new/worker/evaluate/').$data['worker_id'] }}";
+                        },1000);
                     }
                 })
             })
