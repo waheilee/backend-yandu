@@ -173,7 +173,7 @@
                     success : function (data) {
                         dialog.toast(data, 'success', 1000);
                         setTimeout(function(){
-                            window.location.href = "{{ url('m/se_new/worker/evaluate/').$data['worker_id'] }}";
+                            window.location.href = "{{ url('m/se_new/worker/evaluate/').'/'.$data['worker_id'] }}";
                         },1000);
                     }
                 })
