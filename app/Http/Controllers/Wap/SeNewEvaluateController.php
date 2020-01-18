@@ -43,7 +43,7 @@ class SeNewEvaluateController
         $evaluateModel->evaluate_id_a = $member;
         $evaluateModel->evaluate_id_b = $workerId;
         $evaluateModel->start = $start;
-        $evaluateModel->tag = $tag;
+        $evaluateModel->tag = json_encode($tag);
         $evaluateModel->content = $content;
         $evaluateModel->point = $point;
         $evaluateModel->openid = $openid;
