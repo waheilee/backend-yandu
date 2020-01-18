@@ -199,7 +199,7 @@
 
         function loadMoreData(page){
             $.ajax({
-                url: '',
+                url: '{{url('m/worker/info/evaluate/test/ajax')}}?page=' + page+'&worker_id={{$worker->id}}',
                 type: "get",
                 beforeSend: function()
                 {
