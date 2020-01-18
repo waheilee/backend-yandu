@@ -18,9 +18,14 @@ class CreateWorkerEvaluateTable extends Migration
             $table->integer('project_id')->comment('所属项目ID');
             $table->integer('evaluate_id_a')->comment('评价人');
             $table->integer('evaluate_id_b')->comment('被评价人');
-            $table->integer('start')->comment('评价星星数量');
-            $table->string('tag',30)->comment('评价标签');
-            $table->text('content')->comment('评价内容');
+            $table->integer('start')->nullable()->comment('评价星星数量');
+            $table->string('tag')->nullable()->comment('评价标签');
+            $table->text('content')->nullable()->comment('评价内容');
+            $table->integer('point')->nullable()->comment('好评百分比');
+            $table->string('openid')->nullable()->comment('微信openid');
+            $table->string('wechat_avatar')->nullable()->comment('微信头像');
+            $table->string('wechat_nickname')->nullable()->comment('微信名称');
+            $table->string('evaluate_channel',10)->nullable()->comment('评价渠道');
             $table->timestamps();
         });
     }
