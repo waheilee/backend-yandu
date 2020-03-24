@@ -10,7 +10,7 @@
   margin-bottom: .5rem;
   font-weight: normal;
   line-height: 0.42rem;
-  text-align: center;
+  /*text-align: center;*/
 }
 .demo-loading {
   margin-bottom: 20px;
@@ -372,6 +372,12 @@
   background-position: right bottom ;
 }
 
+.demo-spinner-page {
+  font-size: .26rem;
+  color: #FF5E53;
+  display: block;
+  margin-bottom: .1rem;
+}
 
 .score-description{
   /*width:249px;*/

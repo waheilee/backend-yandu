@@ -75,6 +75,9 @@
                                 <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) active @endif">
                                     <a href="{{ url('admin/worker/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/worker/index') !== false) style="color: red" @endif>施工人员管理</a>
                                 </li>
+                                <li class="nav-item @if(strpos(Route::getCurrentRoute()->uri, 'admin/air/index') !== false) active @endif">
+                                    <a href="{{ url('admin/air/index') }}" class="nav-link" @if(strpos(Route::getCurrentRoute()->uri, 'admin/air/index') !== false) style="color: red" @endif>室内空气治理订单</a>
+                                </li>
                             </ul>
                         </div>
                     </li>

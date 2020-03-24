@@ -44,6 +44,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('worker/image/upload','WorkerController@image');
     Route::post('worker/image/qrcode','WorkerController@imgQrcode');
 
+    Route::get('air/index','AirController@index');
+    Route::get('air/list','AirController@indexRequest');
+    Route::post('air/image/qrcode','AirController@qrcode');
+
     //评价
     Route::get('evaluate','EvaluateController@index');
     Route::get('evaluate/project_side','EvaluateController@ProjectSide');

@@ -41,24 +41,24 @@
          * lock：禁止页面滚动, unlock：释放页面滚动
          */
         pageScroll: function () {
-                var fn = function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                };
-                var islock = false;
+            var fn = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            };
+            var islock = false;
 
-                return {
-                    lock: function () {
-                        if (islock)return;
-                        islock = true;
-                        doc.addEventListener('touchmove', fn);
-                    },
-                    unlock: function () {
-                        islock = false;
-                        doc.removeEventListener('touchmove', fn);
-                    }
-                };
-            }(),
+            return {
+                lock: function () {
+                    if (islock)return;
+                    islock = true;
+                    doc.addEventListener('touchmove', fn);
+                },
+                unlock: function () {
+                    islock = false;
+                    doc.removeEventListener('touchmove', fn);
+                }
+            };
+        }(),
         /**
          * 本地存储
          */
@@ -376,12 +376,12 @@
 
     CitySelect.prototype.backOffView = function () {
         this.$cityElement.find('.cityselect-content').removeClass('cityselect-next')
-        .addClass('cityselect-move-animate cityselect-prev');
+            .addClass('cityselect-move-animate cityselect-prev');
     };
 
     CitySelect.prototype.ForwardView = function (animate) {
         this.$cityElement.find('.cityselect-content').removeClass('cityselect-move-animate cityselect-prev')
-        .addClass((animate ? 'cityselect-move-animate' : '') + ' cityselect-next');
+            .addClass((animate ? 'cityselect-move-animate' : '') + ' cityselect-next');
     };
 
     CitySelect.prototype.bindItemEvent = function () {
@@ -1004,10 +1004,10 @@
                 var adv = Node.prototype.addEventListener;
                 if (type === 'click') {
                     adv.call(layer, type, callback.hijacked || (callback.hijacked = function(event) {
-                            if (!event.propagationStopped) {
-                                callback(event);
-                            }
-                        }), capture);
+                        if (!event.propagationStopped) {
+                            callback(event);
+                        }
+                    }), capture);
                 } else {
                     adv.call(layer, type, callback, capture);
                 }
@@ -3053,9 +3053,9 @@
             touchEvents = _this.touchEvents();
 
         _this.$wrapper.find('.' + _this.options.slideClass)
-        .on(touchEvents.start, function (e) {
-            _this.onTouchStart(e);
-        }).on(touchEvents.move, function (e) {
+            .on(touchEvents.start, function (e) {
+                _this.onTouchStart(e);
+            }).on(touchEvents.move, function (e) {
             _this.onTouchMove(e);
         }).on(touchEvents.end, function (e) {
             _this.onTouchEnd(e);
@@ -3120,8 +3120,8 @@
             bulletActiveClass = _this.options.bulletActiveClass;
 
         !!_this.$pagination[0] && _this.$pagination.find('.' + _this.options.bulletClass)
-        .removeClass(bulletActiveClass)
-        .eq(index).addClass(bulletActiveClass);
+            .removeClass(bulletActiveClass)
+            .eq(index).addClass(bulletActiveClass);
     };
 
     /**
@@ -3322,8 +3322,8 @@
      */
     Slider.prototype.touchEvents = function () {
         var supportTouch = (window.Modernizr && !!window.Modernizr.touch) || (function () {
-                return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
-            })();
+            return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+        })();
 
         return {
             start: supportTouch ? 'touchstart.ydui.slider' : 'mousedown.ydui.slider',
@@ -3451,31 +3451,31 @@
             options = _this.options,
             value = _this.$input.val();
 
-        if (value) {
-            _this.setValue(value);
-        } else {
-            if (options.max < options.min && options.max != 0) {
-                options.max = options.min;
-            }
-
-            if (options.min < options.unit && options.min > 0) {
-                options.min = options.unit;
-            }
-            if (options.min % options.unit != 0 && options.min > 0) {
-                options.min = options.min - options.min % options.unit;
-            }
-
-            if (options.max < options.unit && options.max != 0) {
-                options.max = options.unit;
-            }
-            if (options.max % options.unit != 0) {
-                options.max = options.max - options.max % options.unit;
-            }
-            if (options.min < 0) {
-                options.min = options.unit;
-            }
-            _this.setValue(options.min);
-        }
+        // if (value) {
+        _this.setValue(value);
+        // } else {
+        //     if (options.max < options.min && options.max != 0) {
+        //         options.max = options.min;
+        //     }
+        //
+        //     if (options.min < options.unit && options.min > 0) {
+        //         options.min = options.unit;
+        //     }
+        //     if (options.min % options.unit != 0 && options.min > 0) {
+        //         options.min = options.min - options.min % options.unit;
+        //     }
+        //
+        //     if (options.max < options.unit && options.max != 0) {
+        //         options.max = options.unit;
+        //     }
+        //     if (options.max % options.unit != 0) {
+        //         options.max = options.max - options.max % options.unit;
+        //     }
+        //     if (options.min < 0) {
+        //         options.min = options.unit;
+        //     }
+        //     _this.setValue(options.min);
+        // }
     };
 
     Spinner.prototype.calculation = function (type) {
@@ -3486,16 +3486,22 @@
             min = options.min,
             $input = _this.$input,
             val = _this.FixNumber($input.val());
-
+        // console.log(min)
         if (!!$input.attr('readonly') || !!$input.attr('disabled'))return;
 
         var newval;
         if (type == 'add') {
-            newval = val + unit;
+            if (val == 0){
+                newval = min;
+            } else {
+                newval = val + unit;
+            }
             if (max != 0 && newval > max)return;
         } else {
             newval = val - unit;
-            if (newval < min)return;
+            if (newval <= min){
+                newval = newval -min
+            }
         }
 
         _this.setValue(newval);
@@ -3536,7 +3542,7 @@
             if (val > max && max != 0) val -= unit;
         }
 
-        if (val < min) val = min - min % unit;
+        // if (val < min) val = min - min % unit;
 
         _this.$input.val(val);
 

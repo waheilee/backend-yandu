@@ -37,5 +37,9 @@ Route::get('policy/employer/pay/{id}','Web\PolicyEmployerController@pay')->name(
 Route::post('policy/employer/wechat_pay','Web\PolicyEmployerController@wechatPay')->name('employer.wechatPay');
 //Route::post('policy/employer/ali_pay','Web\PolicyEmployerController@aliPay')->name('employer.aliPay');
 
+
+Route::get('air/form/{id}','Web\AirController@index');
+Route::post('air/form/created/order','Web\AirController@create');
+
 Auth::routes();
 
