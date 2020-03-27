@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Models\Air;
 use App\Services\Admin\AirService;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -19,6 +20,12 @@ class AirController
 
     public function index()
     {
+//        $model = Air::all();
+//        foreach ($model as $m){
+//                $m->status = 1;
+//                $m->update();
+//        }
+
         return view('admin.air.index');
     }
 

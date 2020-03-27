@@ -144,6 +144,8 @@
                         {title:'客户姓名', field:'consignee_name',},
                         {title:'联系电话', field:'consignee_phone',},
                         {title:'施工地址', field:'consignee_address',},
+                        {title:'服务累心', field:'type',},
+                        {title:'时间', field:'created',},
                         {title:'订单状态', field:'status',},
 
                     ]

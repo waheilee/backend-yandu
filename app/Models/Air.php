@@ -116,11 +116,11 @@ class Air extends Model
      */
     public static function findAvailableNo($userId = '000000000', $try = 5)
     {
-        $prefix = date('YmdHis');
+//        $prefix = date('YmdHis');
         $suffix = fixStrLength($userId, 9);
 
         for ($i = 0; $i < $try; ++ $i) {
-            $no = $prefix . fixStrLength(random_int(0, 9999), 5) . $suffix;
+            $no =  fixStrLength(random_int(0, 9999), 5) . $suffix;
 
             if (self::query()->where('no', $no)->doesntExist()) {
                 return $no;
