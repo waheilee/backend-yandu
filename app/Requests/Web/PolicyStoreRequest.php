@@ -30,7 +30,7 @@ class PolicyStoreRequest extends FormRequest
             'email' => 'required|email',
             'position' => 'required|max:10',
             'payroll' => 'required',
-            'code' => 'required',
+//            'code' => 'required',
         ];
     }
 
@@ -48,7 +48,7 @@ class PolicyStoreRequest extends FormRequest
             'position.required' => '请填写职位',
             'position.max' => '职位10个字符以内',
             'payroll.required' => '请选择收入',
-            'code.required' => '请输入邀请识别码',
+//            'code.required' => '请输入邀请识别码',
         ];
     }
 }
