@@ -43,22 +43,22 @@ class PolicyController
     {
         $cardNum = $request->input('idcard');
         $policyId = $request->input('policy_id');
-        $code = $request->input('code');
+//        $code = $request->input('code');
         $card = IdentityCard::make($cardNum);
         if ($card === false) {
             return response()->json(['errors' =>['idcard'=>[0=>'身份证证件号码不正确']]], 422);
         }
-        $policy = Policy::whereId($policyId)->first();
-        if ($code != $policy->code){
-            return response()->json(['errors' =>['code'=>[0=>'邀请识别码不正确']]], 422);
-        }
-        if ($policy->policy_used === $policy->policy_total){
-            return response()->json(['errors' =>['code'=>[0=>'保单数量已达上限']]], 422);
-        }
-        $polices = MemberPolicy::wherePolicyId($policyId)->whereIdcard($cardNum)->first();
-        if ($polices){
-            return response()->json(['errors' =>['code'=>[0=>'被投保人已投保过此项目，请勿重复添加']]], 422);
-        }
+//        $policy = Policy::whereId($policyId)->first();
+//        if ($code != $policy->code){
+//            return response()->json(['errors' =>['code'=>[0=>'邀请识别码不正确']]], 422);
+//        }
+//        if ($policy->policy_used === $policy->policy_total){
+//            return response()->json(['errors' =>['code'=>[0=>'保单数量已达上限']]], 422);
+//        }
+//        $polices = MemberPolicy::wherePolicyId($policyId)->whereIdcard($cardNum)->first();
+//        if ($polices){
+//            return response()->json(['errors' =>['code'=>[0=>'被投保人已投保过此项目，请勿重复添加']]], 422);
+//        }
         $model = new MemberPolicy();
         $model->policy_id   = $policyId;
         $model->merchant_id = $request->input('merchant_id');

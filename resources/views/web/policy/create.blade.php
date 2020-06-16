@@ -10,10 +10,10 @@
         <form role="form" id="policy">
             <input type="hidden" name="policy_id" value="{{$row->id}}">
             <input type="hidden" name="merchant_id" value="{{$row->merchant_id}}">
-            <div class="form-group">
-                <label class="form-control-label" for="">邀请识别码<span class="text-danger">*</span></label>
-                <input class="form-control " placeholder="邀请识别码" name="code" type="text">
-            </div>
+            {{--<div class="form-group">--}}
+                {{--<label class="form-control-label" for="">邀请识别码<span class="text-danger">*</span></label>--}}
+                {{--<input class="form-control " placeholder="邀请识别码" name="code" type="text">--}}
+            {{--</div>--}}
             <div class="form-group">
                 <label class="form-control-label" for="">职员姓名<span class="text-danger">*</span></label>
                 <input class="form-control" placeholder="职员姓名" name="username" type="text">
